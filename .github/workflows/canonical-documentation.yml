@@ -16,7 +16,9 @@ jobs:
     steps:
       - name: Check out proposed branch
         uses: actions/checkout@v4
+      - name: Validate pristine checkout before executing PR test code
+        run: python3 scripts/validate_canonical_bootstrap.py
       - name: Execute regression tests
         run: python3 -m unittest discover -s tests -p 'test_*.py' -v
-      - name: Validate canonical documents
+      - name: Revalidate after regression tests
         run: python3 scripts/validate_canonical_bootstrap.py
