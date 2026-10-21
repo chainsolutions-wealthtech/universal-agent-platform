@@ -48,7 +48,7 @@
     "original_complement_in_repo": true,
     "canonical_memory_service_operational": false
   },
-  "next_action": "REVIEW_AND_VALIDATE_CANONICAL_FOUNDATION_PR_1",
+  "next_action": "ACTIVATE_MAIN_REPOSITORY_RULESET_V1_AND_VERIFY",
   "caveat": "Snapshot not runtime authority; reconcile with GitHub and independent policy engines.",
   "documentary_import": {
     "plan": "docs/archive/PLAN_DIRECTEUR_UNIFIE_V5_20261021.md",
@@ -58,5 +58,14 @@
     "workflow": ".github/workflows/canonical-documentation.yml",
     "ci": "observed success 2026-10-22; reconfirm at final head",
     "operational_memory": "NOT_IMPLEMENTED"
+  },
+  "main_protection": {
+    "status": "PREPARED_NOT_APPLIED",
+    "policy_file": "docs/MAIN_PROTECTION_POLICY.md",
+    "required_check": "validate",
+    "enforcement_target": "active",
+    "no_bypass": true,
+    "location": "repository_ruleset_only",
+    "activation": "local GitHub App auth required; pending"
   }
 }
