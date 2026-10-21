@@ -49,7 +49,7 @@
     "original_complement_in_repo": true,
     "canonical_memory_service_operational": false
   },
-  "next_action": "INDEPENDENT_GOVERNANCE_REVIEW_PR_1_THEN_GOVERNED_MERGE",
+  "next_action": "OBTAIN_ATTESTED_INDEPENDENT_REVIEW_PR_1",
   "caveat": "Snapshot not runtime authority; reconcile with GitHub and independent policy engines.",
   "documentary_import": {
     "plan": "docs/archive/PLAN_DIRECTEUR_UNIFIE_V5_20261021.md",
@@ -84,12 +84,28 @@
   "pr1": {
     "number": 1,
     "state": "open",
-    "draft": true,
+    "draft": false,
     "mergeable": true,
     "review_count_observed": 0,
     "head_at_protection_verification": "c9c6a8d3d4e4def13cff09121281f9ae12290be3",
     "check_context": "validate",
     "check_result_at_verification": "success",
-    "merged": false
+    "merged": false,
+    "review_issue": "https://github.com/chainsolutions-wealthtech/universal-agent-platform/issues/2",
+    "review_gate": {
+      "status": "REVIEW_PENDING",
+      "independent_review_attested": false,
+      "gate_for_governed_merge": "BLOCKED_UNTIL_INDEPENDENT_REVIEW"
+    },
+    "current_branch_name": "bootstrap/canonical-v5-foundation"
+  },
+  "review_preparation": {
+    "date": "2026-10-22",
+    "issue_number": 2,
+    "evidence_file": "docs/reviews/PR_1_GOVERNANCE_PRE_REVIEW_20261022.md",
+    "issue_kind": "review_mandate_only_no_agent_created",
+    "catalogue": "docs/roadmap/CATALOGUE_30_DOMAINES_V5.json",
+    "mapping": "docs/roadmap/MAPPING_20_SECTIONS_V5.json",
+    "ci_context": "validate"
   }
 }
