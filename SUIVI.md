@@ -24,8 +24,17 @@
 - Maintenir l'exigence de confidentialité d'un dépôt public, ajouter à terme un scanner dédié et des approbations formelles configurées.
 - La mémoire canonique runtime, la capture automatique des conversations, les identités/mandats vérifiés et l'orchestrateur **ne sont pas encore développés**.
 
+
+## Revue complémentaire et CI — checkpoint du 22 octobre 2026
+- Une seconde revue automatique GitHub a ajouté **quatre observations** après les cinq remarques initiales : jetons `ghr_` et jetons avec `_`, chemin `sources/SOURCE_MANIFEST.json`, contrôle de sécurité avant les tests PR et fichiers placés sous `__pycache__`.
+- Ces quatre corrections ont été apportées **sur la même branche** ; 12 tests unitaires sont désormais présents (dont les tests des nouveaux formats et sous-répertoires). Le workflow contrôle le checkout avant et après l'exécution des tests.
+- Les neuf remarques ont reçu une réponse explicative ; leurs fils sont **laissés ouverts** en attente de contre-revue.
+- **Blocage restant :** GitHub Actions ne montre aucun `validate: success` sur le dernier HEAD corrigé. Ancien run attesté `39693813473`, commit `fbf4c81f50396f157d69c8d668b3c19262d8ad20` seulement. Aucune ancienne réussite n'est attribuée au dernier HEAD.
+- Diagnostic détaillé : `docs/reviews/CI_TRIGGER_DIAGNOSTIC_20261022.md`. Cause racine non attestée ; contrôle des paramètres GitHub Actions et des éventuelles demandes d'approbation requis. Le fichier workflow n'est pas encore sur `main`.
+- La revue distincte précédente est antérieure à ces correctifs ; pas de nouvelle approbation formelle, pas de permission runtime nouvelle, pas de fusion.
+
 ## NEXT_ACTION
-`VERIFY_REMEDIATION_CI_AND_REQUEST_INDEPENDENT_RE_REVIEW_PR_1`
+`RESTORE_REQUIRED_GITHUB_ACTIONS_VALIDATE_ON_PR_1_HEAD`
 
 Gates de fusion : règles GitHub actives ; `validate` sur HEAD courant ; cinq discussions résolues ; validation gouvernée admissible attestée ; aucun bypass. **Aucun merge automatique depuis ce checkpoint.**
 
