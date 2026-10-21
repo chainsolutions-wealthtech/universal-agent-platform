@@ -49,7 +49,7 @@
     "original_complement_in_repo": true,
     "canonical_memory_service_operational": false
   },
-  "next_action": "VERIFY_REMEDIATION_CI_AND_REQUEST_INDEPENDENT_RE_REVIEW_PR_1",
+  "next_action": "RESTORE_REQUIRED_GITHUB_ACTIONS_VALIDATE_ON_PR_1_HEAD",
   "caveat": "Snapshot not runtime authority; reconcile with GitHub and independent policy engines.",
   "documentary_import": {
     "plan": "docs/archive/PLAN_DIRECTEUR_UNIFIE_V5_20261021.md",
@@ -93,17 +93,18 @@
     "merged": false,
     "review_issue": "https://github.com/chainsolutions-wealthtech/universal-agent-platform/issues/2",
     "review_gate": {
-      "status": "RE_REVIEW_REQUIRED_AFTER_REMEDIATION",
+      "status": "RE_REVIEW_REQUIRED",
       "independent_technical_review_published": true,
       "formal_github_approval_attested": false,
-      "gate_for_governed_merge": "BLOCKED_PENDING_REVIEW_AND_THREAD_RESOLUTION"
+      "gate_for_governed_merge": "BLOCKED_REVIEW_THREADS_AND_NO_LAST_HEAD_CI"
     },
     "current_branch_name": "bootstrap/canonical-v5-foundation",
     "last_independent_technical_review_head": "5b624efe56a5c7f4722b5532bd6fd037d6522271",
     "technical_review_issue_comment": 6328770309,
     "technical_review_github_state": "COMMENTED",
     "review_threads_unresolved_at_intake": 5,
-    "newer_remediation_commits": true
+    "newer_remediation_commits": true,
+    "review_threads_unresolved_at_last_check": 9
   },
   "review_preparation": {
     "date": "2026-10-22",
@@ -128,6 +129,26 @@
     "status": "CHANGES_COMMITTED_AWAITING_LAST_HEAD_VALIDATION_AND_REVIEW",
     "original_master_and_complement_unchanged": true,
     "source_path_alias": "sources/TEXTE_COMPLEMENTAIRE_ORIGINAL_20261021.txt",
-    "ci_tests": "tests/test_canonical_bootstrap.py"
+    "ci_tests": "tests/test_canonical_bootstrap.py",
+    "initial_findings": 5,
+    "new_findings": 4,
+    "total_findings": 9,
+    "all_remediations_committed": true,
+    "all_review_threads_replied_to": true,
+    "review_threads_resolved": false,
+    "ci_last_head": "NO_SUCCESS_RECORDED",
+    "ci_diagnostic_file": "docs/reviews/CI_TRIGGER_DIAGNOSTIC_20261022.md",
+    "independent_rereview": "PENDING",
+    "legacy_manifest_file": "sources/SOURCE_MANIFEST.json"
+  },
+  "ci_trigger_diagnostic": {
+    "status": "ROOT_CAUSE_NOT_PROVEN",
+    "last_known_run_id": 39693813473,
+    "last_known_run_head": "fbf4c81f50396f157d69c8d668b3c19262d8ad20",
+    "check_context_required": "validate",
+    "action": "Inspect Actions approval/status/settings then obtain check on latest PR HEAD",
+    "workflow_on_default_branch": false,
+    "workflow_dispatch_prerequisite": "GitHub docs say manual dispatch requires workflow on default branch",
+    "direct_connector_dispatch_exposed": false
   }
 }
