@@ -1,0 +1,419 @@
+{
+  "status": "DOCUMENTARY_PLAN_NOT_RUNTIME",
+  "lots": [
+    {
+      "lot_id": "B00",
+      "objective": "Inventaire GitHub/MCP/GRT/projets, états, outils, archives disponibles",
+      "dependencies": "Autorisation lecture",
+      "acceptance": "Carte des autorités et preuves",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "B01",
+      "objective": "Exigences et architecture de référence",
+      "dependencies": "B00",
+      "acceptance": "Architecture + décisions + matrice de traçabilité",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "B02",
+      "objective": "Schémas canoniques",
+      "dependencies": "B01",
+      "acceptance": "JSON Schema/OpenAPI, validation",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "B03",
+      "objective": "Catalogue d'identités",
+      "dependencies": "B02",
+      "acceptance": "Resolver versionné + unicité",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "B04",
+      "objective": "Blueprints, compétences et affectations",
+      "dependencies": "B02–03",
+      "acceptance": "Contrat agent/projet/mission",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "B05",
+      "objective": "Event ledger immuable logique",
+      "dependencies": "B02",
+      "acceptance": "Inbox/outbox et traçabilité",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "B06",
+      "objective": "Mémoire, références et snapshots",
+      "dependencies": "B05",
+      "acceptance": "Projections et restauration",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "B07",
+      "objective": "Session rebinding / conversation binding",
+      "dependencies": "B03–06",
+      "acceptance": "Reprise nouvelle conversation",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "B08",
+      "objective": "Moteur de continuité et checkpoints",
+      "dependencies": "B05–07",
+      "acceptance": "Handoffs et NEXT_ACTION attestés",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "B09",
+      "objective": "Missions, tâches et workflows durables",
+      "dependencies": "B02,B05,B08",
+      "acceptance": "DAG + leases + retries",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "B10",
+      "objective": "Gouvernance et moteur d'autorisation",
+      "dependencies": "B02–05",
+      "acceptance": "Decision API + refus explicites",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "B11",
+      "objective": "Communication interagents",
+      "dependencies": "B05,B09–10",
+      "acceptance": "Messages, corrélation, DLQ",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "B12",
+      "objective": "Adaptateur MCP et outillage",
+      "dependencies": "B10–11",
+      "acceptance": "Tools bridge avec droits vérifiés",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "B13",
+      "objective": "Intégration GitHub",
+      "dependencies": "B10,D01–D03",
+      "acceptance": "App broker, API, webhooks",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "B14",
+      "objective": "Intégration serveurs",
+      "dependencies": "B10,B12–13",
+      "acceptance": "Accès serveur sans bypass",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "B15",
+      "objective": "Fédération agent-agent/A2A",
+      "dependencies": "B03,B11",
+      "acceptance": "Interop optionnelle testée",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "B16",
+      "objective": "Observabilité et audit",
+      "dependencies": "B05,B09",
+      "acceptance": "Traces et tableaux de bord",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "B17",
+      "objective": "Console de supervision",
+      "dependencies": "B03,B06,B09,B16",
+      "acceptance": "Cockpit gouverné",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "B18",
+      "objective": "Recovery et disaster recovery",
+      "dependencies": "B05–09",
+      "acceptance": "Scénarios de restauration",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "B19",
+      "objective": "Security hardening",
+      "dependencies": "Tous lots concernés",
+      "acceptance": "Threat model et scans",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "B20",
+      "objective": "Performance et charge",
+      "dependencies": "B09,B13",
+      "acceptance": "Tests et limites quantifiées",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "B21",
+      "objective": "Résilience et chaos tests",
+      "dependencies": "B18–20",
+      "acceptance": "Pannes simulées et recovery",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "B22",
+      "objective": "Pilotes d'intégration",
+      "dependencies": "B10–21",
+      "acceptance": "Pilotes MCP/GRT indépendants",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "B23",
+      "objective": "Documentation et migrations",
+      "dependencies": "En continu",
+      "acceptance": "Guides et runbooks complets",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "B24",
+      "objective": "Vérification indépendante",
+      "dependencies": "B19–23",
+      "acceptance": "Conformance report externe",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "B25",
+      "objective": "Livraison, état final, exploitation",
+      "dependencies": "B24",
+      "acceptance": "Release attestée, mode RUNNING",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "F00",
+      "objective": "Bootstrap durable de l'usine d'ingénierie elle-même",
+      "dependencies": "B00 + workspace autorisé",
+      "acceptance": "Reprise après arrêt du moteur IA",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "F01",
+      "objective": "Conversation Capture & Canonicalization Pipeline",
+      "dependencies": "B02,B05",
+      "acceptance": "Capture vérifiée depuis ≥1 source réellement accessible",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "F02",
+      "objective": "Canonical Memory Verifier Adapter",
+      "dependencies": "B06,F01",
+      "acceptance": "Bundles valides/invalides testés",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "F03",
+      "objective": "Multi-Provider Agent Gateway",
+      "dependencies": "B03,B08,B10",
+      "acceptance": "Mission reprise par deux moteurs compatibles",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "F04",
+      "objective": "Production readiness / rollback controller",
+      "dependencies": "B09,B14,B18",
+      "acceptance": "Rollback vérifié en LAB",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "D00",
+      "objective": "Inventaire complet GitHub App et capacités",
+      "dependencies": "B00",
+      "acceptance": "Catalogue doc → endpoint → token → test",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "D01",
+      "objective": "Authentification App/IAT/UAT multi-comptes",
+      "dependencies": "D00,B10",
+      "acceptance": "Trois installations et token mapping prouvé",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "D02",
+      "objective": "Repositories/Git/code/branches/PR",
+      "dependencies": "D01",
+      "acceptance": "Cycle repo→PR→checks en sandbox",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "D03",
+      "objective": "Issues et GitHub Projects",
+      "dependencies": "D01,B09",
+      "acceptance": "GraphQL mutation contract test",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "D04",
+      "objective": "Actions/Checks/CI/CD",
+      "dependencies": "D02",
+      "acceptance": "Workflow dispatch et suivi",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "D05",
+      "objective": "Sécurité/attestations/scanning",
+      "dependencies": "D02,D04",
+      "acceptance": "Alertes et preuves fiables",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "D06",
+      "objective": "Administration/properties/org",
+      "dependencies": "D01,B10",
+      "acceptance": "Drift detection + correction approuvée",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "D07",
+      "objective": "Webhook Receiver/Event Bus",
+      "dependencies": "D01,B05,B11",
+      "acceptance": "HMAC, queue, replay, déduplication",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "D08",
+      "objective": "Packages/Pages/releases/discussions/etc.",
+      "dependencies": "D02,D04",
+      "acceptance": "APIs choisies testées",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "D09",
+      "objective": "Account OAuth/delegation",
+      "dependencies": "D01,B10",
+      "acceptance": "UAT dédié, accord utilisateur réel",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "D10",
+      "objective": "Enterprise adapters optionnels",
+      "dependencies": "D00,D01",
+      "acceptance": "Seulement si plan et compte Enterprise validés",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "D11",
+      "objective": "Déploiements, infra externe et servers",
+      "dependencies": "D04,B14",
+      "acceptance": "Version de prod attestée",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "D12",
+      "objective": "Multi-repo analytics et pilotage",
+      "dependencies": "D02–08,B16",
+      "acceptance": "KPIs sourcés et contrôlables",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "D13",
+      "objective": "GitHub capability drift watch",
+      "dependencies": "D00,D01",
+      "acceptance": "Détection des évolutions GitHub",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    },
+    {
+      "lot_id": "D14",
+      "objective": "Audit couverture fonctionnelle finale",
+      "dependencies": "D00–13,B24",
+      "acceptance": "Matrice 30 domaines et anomalies ouvertes",
+      "status": "PLANNED",
+      "baseline_head": null,
+      "proof_refs": []
+    }
+  ]
+}
