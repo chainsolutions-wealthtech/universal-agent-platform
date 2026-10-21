@@ -10,3 +10,9 @@
 | Dépôts MCP et GRT | Gouvernances et réalisations historiques distinctes | Leurs dépôts respectifs | Aucun statut ni permission transférés implicitement ici |
 
 **Publication initiale :** les fichiers complets sont proposés dans la PR #1, non fusionnée ; voir `docs/archive/IMPORT_MANIFEST.json` et la CI. La mémoire canonique permanente et l'ingestion automatique de conversations restent non implémentées.\n\n**Règle de migration documentaire :** importer les documents originaux complets après revue des données sensibles, avec empreinte SHA-256, contexte, date, statut de validité et lien vers l'artefact source. Ne jamais marquer un dossier comme archive intégrale des conversations lorsqu'il ne l'est pas.
+
+## Référence historique du plan V5 (correction sans réécriture d'archive)
+
+Le document historique `docs/archive/PLAN_DIRECTEUR_UNIFIE_V5_20261021.md` cite le chemin `sources/TEXTE_COMPLEMENTAIRE_ORIGINAL_20261021.txt`, alors que l'archive canonique avait été importée sous `docs/archive/TEXTE_COMPLEMENTAIRE_ORIGINAL_20261021.txt`. Les deux sont maintenant présents **sur la branche de la PR #1** et identiques octet pour octet (même Git blob SHA). Le manifeste continue à désigner uniquement le fichier `docs/archive/` comme source canonique. Le validateur vérifie l'égalité avec la copie de compatibilité à chaque PR.
+
+Ce choix maintient intactes les empreintes d'archives et ne supprime ni ne réécrit la version historique du plan V5. Une modification de source canonique exige une nouvelle version et une provenance explicite, pas l'écrasement silencieux du contenu initial.
