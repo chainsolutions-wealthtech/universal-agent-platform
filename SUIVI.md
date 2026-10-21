@@ -1,30 +1,32 @@
-# SUIVI — Bootstrap canonique V5
+# SUIVI — Universal Agent Platform / Bootstrap V5
 
-## Acquis vérifiés
-- `chainsolutions-wealthtech/universal-agent-platform` existe, est public et a été créé le 21 octobre 2026 ; vérifié sur GitHub.
-- `main` conserve son commit initial `0b8b2e01e826b915a0c593d5d6545681e9316567` ; aucune fusion de PR #1 n'a eu lieu.
-- La GitHub App `ChainSolutions Universal Gateway` (ID `5417646`) et ses trois installations ont été vérifiées par le script local dont le résultat a été communiqué par le propriétaire. Les secrets ne sont pas enregistrés ici.
-- Une unique branche de bootstrap `bootstrap/canonical-v5-foundation` et une PR #1 brouillon contiennent les propositions documentaires ; aucun changement direct sur `main`.
-- Les fichiers du plan V5 complet, du complément original de 20 sections, de la roadmap de 46 lots et de leurs manifestes d'intégrité SHA-256 ont été proposés dans la PR #1.
-- Le workflow GitHub Actions `Canonical Documentation Validation`, job `validate`, contrôle la cohérence documentaire sur les PR et les pushes vers `main`.
+> Instantané documentaire : la source de vérité pour les états GitHub est l'API live. Aucune autorité runtime d'agent n'est créée ici.
 
-## Protection de main — activation vérifiée le 22 octobre 2026
-- **Statut : `ACTIVE_VERIFIED`.** Ruleset repository `25599154`, `Universal Agent Platform - Protect main v1`.
-- Périmètre : uniquement branche par défaut du nouveau dépôt, actuellement `main`.
-- GitHub API : `enforcement: active`, `bypass_actors: []`; PR requise ; résolution obligatoire des discussions de revue ; check `validate` de l'intégration GitHub Actions (`15368`), mode strict ; force-push et suppression interdits.
-- Le ruleset prévoit **0 approbation GitHub formellement exigée** pour ce bootstrap. Cela ne vaut **pas** revue indépendante.
-- Le sous-champ de l'API de protection classique peut indiquer `enabled: false` alors que `branch.protected: true` à travers un ruleset actif. Le ruleset effectif est attesté dans `docs/MAIN_PROTECTION_POLICY.md`.
-- Aucun review GitHub enregistré sur la PR #1 lors du contrôle précédant le présent checkpoint.
+## Acquis et preuves
+- Dépôt public `chainsolutions-wealthtech/universal-agent-platform`, branche `main` initialement au SHA `0b8b2e01e826b915a0c593d5d6545681e9316567`, protection ruleset dépôt `25599154` active, sans bypass.
+- GitHub App `ChainSolutions Universal Gateway` (App ID `5417646`) et trois installations déclarées testées dans la sortie locale fournie par le propriétaire. Le fichier PEM n'est pas hébergé dans ce dépôt.
+- Une unique branche `bootstrap/canonical-v5-foundation`, PR #1 **ouverte et prête pour revue**, sans fusion. CI `validate` requise par ruleset.
+- Plan V5 complet, texte original de 20 sections, roadmap 46 lots, catalogue de 30 domaines, correspondance 20 sections et manifeste SHA-256 présents sur cette branche.
+- Issue #2 créée pour revue. Une **session Claude Code distincte** a rendu un avis documentaire favorable avec réserves au HEAD `5b624efe56a5c7f4722b5532bd6fd037d6522271` ; commentaire GitHub `6328770309`. La revue GitHub correspondante porte l'état `COMMENTED` et ne vaut pas approbation formelle.
 
-## Non encore réalisé
-- Revue indépendante des choix de gouvernance, de confidentialité, du contenu documentaire complet et du diff final de la PR #1 : **issue #2 ouverte, mandat de revue en attente**, aucune approbation indépendante attestée.
-- Validation finale de la CI `validate` au dernier HEAD après ce checkpoint et décision de fusion gouvernée. La PR #1 est **prête pour revue** (plus en brouillon), mais sa fusion demeure bloquée par notre règle de gouvernance tant que l'avis indépendant n'est pas attesté.
-- Mise en place du broker permanent d'authentification, webhook, registre d'identité et permissions, capture automatique, mémoire canonique opérationnelle, communication et orchestrateur autonome.
-- Mise en conformité ultérieure des exigences de revue formelle (>0), si la politique cible et les reviewers autorisés le permettent.
+## Revue P1/P2 du bot GitHub déjà présent
+- Un contrôle automatisé préexistant a formulé cinq remarques sur une ancienne version (1 P1 : clés privées ; 4 P2 : gouvernance, index, chemin historique de source et manifeste).
+- Les cinq corrections ont été **publiées sur cette même branche**, sans toucher les fichiers archives V5 ni leur manifeste canonique.
+- Dossier : `docs/reviews/PR_1_REMEDIATION_LOG_20261022.md`.
+- Un chemin de référence historique `sources/TEXTE_COMPLEMENTAIRE_ORIGINAL_20261021.txt` est maintenant disponible, avec le **même blob Git** que le fichier canonique de `docs/archive/`.
+- Validation renforcée des en-têtes de clés, extensions sensibles et tokens GitHub ; comparaison de tous les champs des deux index avec les annexes V5 ; liste exhaustive des 3 sources canoniques.
+- Dix tests de régression négatifs/positifs ont été ajoutés dans `tests/test_canonical_bootstrap.py`, désormais exécutés par le workflow CI avant la validation documentaire.
+
+## Contrôles restant indispensables
+- Constater le statut `SUCCESS` du dernier HEAD de la PR #1 **après** les corrections et les mises à jour de suivi.
+- Faire revérifier les cinq corrections par un intervenant admissible distinct ; répondre et résoudre les cinq discussions GitHub selon leurs résultats.
+- Recontrôler l'absence de secrets, les registres, le ruleset et la politique avant toute fusion ; une CI verte ne vaut pas avis indépendant.
+- Maintenir l'exigence de confidentialité d'un dépôt public, ajouter à terme un scanner dédié et des approbations formelles configurées.
+- La mémoire canonique runtime, la capture automatique des conversations, les identités/mandats vérifiés et l'orchestrateur **ne sont pas encore développés**.
 
 ## NEXT_ACTION
-`OBTAIN_ATTESTED_INDEPENDENT_REVIEW_PR_1` — issue #2, puis décision de fusion gouvernée uniquement si l'avis indépendant, le dernier HEAD et les contrôles requis sont conformes.
+`VERIFY_REMEDIATION_CI_AND_REQUEST_INDEPENDENT_RE_REVIEW_PR_1`
 
-Relire le HEAD live, le ruleset et le diff de la PR #1, réaliser une validation indépendante, attendre la CI du dernier commit et décider la fusion seulement lorsque les conditions de gouvernance sont satisfaites. Ne pas déduire une autorisation d'une identité documentaire ni confondre cette PR avec une mémoire runtime.
+Gates de fusion : règles GitHub actives ; `validate` sur HEAD courant ; cinq discussions résolues ; validation gouvernée admissible attestée ; aucun bypass. **Aucun merge automatique depuis ce checkpoint.**
 
-**Ce fichier est une proposition documentaire sur une PR non fusionnée ; il ne confère aucune autorité sur MCP, GRT ou les autres projets.**
+Les projets `Patricked-code/MCP` et `chainsolutions-wealthtech/Governed-Repository-Template` conservent leurs identités, gouvernances et autorisations distinctes.
