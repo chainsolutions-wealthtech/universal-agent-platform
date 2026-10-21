@@ -13,8 +13,9 @@
     "initial_main_files": [
       "README.md"
     ],
-    "branch_protected": false,
-    "rulesets_observed": 0
+    "branch_protected": true,
+    "rulesets_observed": 1,
+    "protection_observation": "Repository ruleset 25599154 active and scoped to default branch; confirmed by GitHub API on 2026-10-22"
   },
   "github_app": {
     "app_name": "ChainSolutions Universal Gateway",
@@ -48,7 +49,7 @@
     "original_complement_in_repo": true,
     "canonical_memory_service_operational": false
   },
-  "next_action": "ACTIVATE_MAIN_REPOSITORY_RULESET_V1_AND_VERIFY",
+  "next_action": "INDEPENDENT_GOVERNANCE_REVIEW_PR_1_THEN_GOVERNED_MERGE",
   "caveat": "Snapshot not runtime authority; reconcile with GitHub and independent policy engines.",
   "documentary_import": {
     "plan": "docs/archive/PLAN_DIRECTEUR_UNIFIE_V5_20261021.md",
@@ -60,12 +61,35 @@
     "operational_memory": "NOT_IMPLEMENTED"
   },
   "main_protection": {
-    "status": "PREPARED_NOT_APPLIED",
+    "status": "ACTIVE_VERIFIED",
+    "ruleset_id": 25599154,
+    "name": "Universal Agent Platform - Protect main v1",
+    "scope": "repository_default_branch_only",
+    "enforcement": "active",
+    "bypass_actors": [],
+    "required_check": {
+      "context": "validate",
+      "integration_id": 15368,
+      "strict": true
+    },
+    "force_push_prohibited": true,
+    "deletion_prohibited": true,
+    "pull_request_required": true,
+    "required_approving_review_count": 0,
+    "required_review_thread_resolution": true,
+    "github_observed_at": "2026-10-22",
     "policy_file": "docs/MAIN_PROTECTION_POLICY.md",
-    "required_check": "validate",
-    "enforcement_target": "active",
-    "no_bypass": true,
-    "location": "repository_ruleset_only",
-    "activation": "local GitHub App auth required; pending"
+    "runtime_source": "https://api.github.com/repos/chainsolutions-wealthtech/universal-agent-platform/rulesets/25599154"
+  },
+  "pr1": {
+    "number": 1,
+    "state": "open",
+    "draft": true,
+    "mergeable": true,
+    "review_count_observed": 0,
+    "head_at_protection_verification": "c9c6a8d3d4e4def13cff09121281f9ae12290be3",
+    "check_context": "validate",
+    "check_result_at_verification": "success",
+    "merged": false
   }
 }
