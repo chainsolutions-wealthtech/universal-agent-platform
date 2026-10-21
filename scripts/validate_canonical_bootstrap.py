@@ -27,6 +27,14 @@ def verify() -> None:
     plan = PLAN.read_text(encoding="utf-8")
     assert "PLAN DIRECTEUR UNIFIÉ V5.0" in plan
     assert "## ANNEXE A" in plan and "## ANNEXE B" in plan
+    # Mapping and catalog must track the complete V5 source sections and domains.
+    mapping = json.loads((ROOT / "docs/roadmap/MAPPING_20_SECTIONS_V5.json").read_text(encoding="utf-8"))
+    catalog = json.loads((ROOT / "docs/roadmap/CATALOGUE_30_DOMAINES_V5.json").read_text(encoding="utf-8"))
+    assert len(mapping["items"]) == 20
+    assert [i["number"] for i in mapping["items"]] == list(range(1, 21))
+    assert len(catalog["domains"]) == 30
+    assert [i["number"] for i in catalog["domains"]] == list(range(1, 31))
+    assert all(i["verified_runtime"] is False for i in catalog["domains"]), "Do not declare untested GitHub capabilities verified"
     roadmap = json.loads(ROADMAP.read_text(encoding="utf-8"))
     lots = roadmap["lots"]
     assert len(lots) == 46, f"Expected 46 lots: {len(lots)}"
@@ -46,7 +54,7 @@ def verify() -> None:
             assert ("-----" + "BEGIN PRIVATE KEY-----") not in s, f"Key exposed: {path}"
             assert not re.search(r"github_pat_[A-Za-z0-9_]{20,}", s), f"Token exposed: {path}"
             assert not re.search(r"gh[opsu]_[A-Za-z0-9]{20,}", s), f"Token exposed: {path}"
-    print("PASS 20 original sections, provenance hashes, 46 unique lots and valid state schema")
+    print("PASS 20 original sections, 30 GitHub domains, provenance hashes, 46 unique lots and valid state schema")
     print("PASS elementary key/token pattern checks (not a full security audit)")
 
 if __name__ == "__main__":
