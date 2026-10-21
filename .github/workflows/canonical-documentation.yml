@@ -1,7 +1,7 @@
 name: Canonical Documentation Validation
 on:
   pull_request:
-    types: [opened, reopened, synchronize, ready_for_review]
+    types: [opened, reopened, synchronize, ready_for_review, edited]
   push:
     branches:
       - main
