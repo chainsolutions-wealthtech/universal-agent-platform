@@ -1,0 +1,53 @@
+{
+  "schema_version": "0.1.0",
+  "type": "documentary_bootstrap_snapshot",
+  "status": "PROPOSED_IN_PR",
+  "snapshot_date": "2026-10-22",
+  "project": "chainsolutions-wealthtech/universal-agent-platform",
+  "visibility": "public",
+  "github_observed": {
+    "exists": true,
+    "owner": "chainsolutions-wealthtech",
+    "default_branch": "main",
+    "initial_main_head": "0b8b2e01e826b915a0c593d5d6545681e9316567",
+    "initial_main_files": [
+      "README.md"
+    ],
+    "branch_protected": false,
+    "rulesets_observed": 0
+  },
+  "github_app": {
+    "app_name": "ChainSolutions Universal Gateway",
+    "app_id": 5417646,
+    "verification_source": "user supplied local tool output",
+    "installation_summary": [
+      {
+        "account": "chainsolutions-wealthtech",
+        "installation_id": 173915815,
+        "repos_at_validation": 12
+      },
+      {
+        "account": "Wealthtechinnovations",
+        "installation_id": 173916302,
+        "repos_at_validation": 13
+      },
+      {
+        "account": "Patricked-code",
+        "installation_id": 173916438,
+        "repos_at_validation": 15
+      }
+    ],
+    "private_key_in_repository": false
+  },
+  "plans": {
+    "A": "preserved",
+    "B": "preserved",
+    "C": "bootstrap in progress",
+    "D": "added",
+    "v5_complete_document_in_repo": false,
+    "original_complement_in_repo": false,
+    "canonical_memory_service_operational": false
+  },
+  "next_action": "REVIEW_CANONICAL_FOUNDATION_PR_THEN_IMPORT_FULL_V5",
+  "caveat": "Snapshot not runtime authority; reconcile with GitHub and independent policy engines."
+}
