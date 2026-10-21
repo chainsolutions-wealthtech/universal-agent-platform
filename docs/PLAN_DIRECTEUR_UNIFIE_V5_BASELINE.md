@@ -13,7 +13,7 @@ Un agent déjà constitué doit pouvoir être **résolu, identifié, vérifié, 
 - **C — GitHub App & Bootstrap :** GitHub App `ChainSolutions Universal Gateway`, installations par compte, auth broker sécurisé, registre des permissions réellement vérifiées, dépôt public, fondation documentaire et intégration MCP.
 - **D — GitHub Full-Capability Automation :** inventaire de toutes les grandes fonctionnalités GitHub et intégration progressive des endpoints REST/GraphQL/Git, GitHub Projects, Issues, PR, Actions, packages, Pages, sécurité, déploiements, Account/Organization/Enterprise et webhooks.
 
-La version consolidée prévoit **46 lots planifiés** (26 historiques, 5 extensions de fondation et 15 extensions GitHub) : ce chiffre est une cible de planification, non des travaux exécutés. Le détail exhaustif reste dans l'artefact V5 à importer et auditer.
+La version consolidée prévoit **46 lots planifiés** (26 historiques, 5 extensions de fondation et 15 extensions GitHub) : ce chiffre est une cible de planification, non des travaux exécutés. Le détail exhaustif du plan V5 a été proposé dans `docs/archive/PLAN_DIRECTEUR_UNIFIE_V5_20261021.md` et la source originale dans `docs/archive/TEXTE_COMPLEMENTAIRE_ORIGINAL_20261021.txt` ; les deux doivent encore être revus avant fusion.
 
 ## Architecture logique
 1. **AI Provider Gateway** : ChatGPT, Claude et autres moteurs indépendants ; aucun moteur n'est source unique de vérité.
