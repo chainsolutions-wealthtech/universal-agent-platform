@@ -19,8 +19,14 @@
 - Conservation des versions et supersession sans écraser silencieusement l'historique.
 - Éviter une fausse promesse de capture exhaustive des conversations non connectées.
 
+## Contrôles désormais actifs — constat GitHub du 22 octobre 2026
+- Ruleset de dépôt `25599154` **actif** sur `main` : PR obligatoire, check `validate`, aucune exception de contournement, force-push et suppression interdits.
+- CI documentaire `Canonical Documentation Validation` présente dans la PR #1 : tests de contenu des annexes, de la provenance et de la structure V5, avec nouveaux tests anti-régression.
+- Détection locale renforcée des formats de clés et jetons GitHub usuels dans les fichiers versionnés. **Ce scan reste heuristique** et ne vaut pas un scanner professionnel de secrets ni un audit exhaustif ; `.gitignore` seul ne protège pas contre `git add -f`.
+
 ## Étapes restant à sécuriser
-- Règles de protection/rulesets sur `main` ; aucune règle observée au bootstrap initial.
-- CI de validation documentaire et détection de secrets.
-- Hébergement du broker, coffre à secrets, réception de webhooks vérifiés.
-- Sauvegardes, restauration, audit indépendant, contrôle des coûts et revues des permissions.
+- Après fusion gouvernée de la PR #1, vérifier les checks en contexte `main` et maintenir les règles de protection.
+- Intégrer un scanner spécialisé de secrets et des contrôles d'historique Git pour limiter les fausses assurances.
+- Renforcer l'indépendance des reviewers et, lorsque la configuration le permet, imposer une approbation GitHub formelle (actuellement `required_approving_review_count: 0`).
+- Héberger le broker d'authentification et le coffre à secrets, recevoir et authentifier les webhooks.
+- Sauvegardes, restauration, audit indépendant, contrôle des coûts et revue périodique des permissions.
