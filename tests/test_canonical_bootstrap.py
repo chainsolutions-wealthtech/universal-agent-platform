@@ -42,6 +42,16 @@ class SecurityGateTests(unittest.TestCase):
         fixture = "ghp_" + "A" * 25
         self.assert_rejected("notes.txt", fixture)
 
+    def test_all_app_and_refresh_token_formats_rejected(self) -> None:
+        for prefix in ("ghp_", "gho_", "ghu_", "ghs_", "ghr_", "github_pat_"):
+            with self.subTest(prefix=prefix):
+                self.assert_rejected("neutral.txt", prefix + ("ABC_DEF01234567890" * 2))
+
+    def test_tracked_like_pycache_paths_are_not_exempted(self) -> None:
+        fixture = "-----" + "BEGIN RSA PRIVATE KEY-----"
+        self.assert_rejected("pkg/__pycache__/id.key", fixture)
+        self.assert_rejected("pkg/__pycache__/leak.txt", "ghr_" + "A" * 25)
+
     def test_benign_file_accepted(self) -> None:
         with tempfile.TemporaryDirectory() as folder:
             (Path(folder) / "notes.md").write_text("benign documentation", encoding="utf-8")
