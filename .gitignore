@@ -1,0 +1,18 @@
+# Secrets and local runtime output must never be committed
+*.pem
+*.key
+*.p12
+*.pfx
+.env
+.env.*
+!.env.example
+reports/
+rapports/
+tokens/
+credentials/
+secrets/
+*.token
+*.jwt
+*.log
+node_modules/
+.DS_Store

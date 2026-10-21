@@ -1,0 +1,111 @@
+{
+  "schema_version": "0.1.0",
+  "type": "documentary_bootstrap_snapshot",
+  "status": "PROPOSED_IN_PR",
+  "snapshot_date": "2026-10-22",
+  "project": "chainsolutions-wealthtech/universal-agent-platform",
+  "visibility": "public",
+  "github_observed": {
+    "exists": true,
+    "owner": "chainsolutions-wealthtech",
+    "default_branch": "main",
+    "initial_main_head": "0b8b2e01e826b915a0c593d5d6545681e9316567",
+    "initial_main_files": [
+      "README.md"
+    ],
+    "branch_protected": true,
+    "rulesets_observed": 1,
+    "protection_observation": "Repository ruleset 25599154 active and scoped to default branch; confirmed by GitHub API on 2026-10-22"
+  },
+  "github_app": {
+    "app_name": "ChainSolutions Universal Gateway",
+    "app_id": 5417646,
+    "verification_source": "user supplied local tool output",
+    "installation_summary": [
+      {
+        "account": "chainsolutions-wealthtech",
+        "installation_id": 173915815,
+        "repos_at_validation": 12
+      },
+      {
+        "account": "Wealthtechinnovations",
+        "installation_id": 173916302,
+        "repos_at_validation": 13
+      },
+      {
+        "account": "Patricked-code",
+        "installation_id": 173916438,
+        "repos_at_validation": 15
+      }
+    ],
+    "private_key_in_repository": false
+  },
+  "plans": {
+    "A": "preserved",
+    "B": "preserved",
+    "C": "bootstrap in progress",
+    "D": "added",
+    "v5_complete_document_in_repo": true,
+    "original_complement_in_repo": true,
+    "canonical_memory_service_operational": false
+  },
+  "next_action": "OBTAIN_ATTESTED_INDEPENDENT_REVIEW_PR_1",
+  "caveat": "Snapshot not runtime authority; reconcile with GitHub and independent policy engines.",
+  "documentary_import": {
+    "plan": "docs/archive/PLAN_DIRECTEUR_UNIFIE_V5_20261021.md",
+    "original_source": "docs/archive/TEXTE_COMPLEMENTAIRE_ORIGINAL_20261021.txt",
+    "roadmap": "docs/roadmap/ROADMAP_V5.json",
+    "manifest": "docs/archive/IMPORT_MANIFEST.json",
+    "workflow": ".github/workflows/canonical-documentation.yml",
+    "ci": "observed success 2026-10-22; reconfirm at final head",
+    "operational_memory": "NOT_IMPLEMENTED"
+  },
+  "main_protection": {
+    "status": "ACTIVE_VERIFIED",
+    "ruleset_id": 25599154,
+    "name": "Universal Agent Platform - Protect main v1",
+    "scope": "repository_default_branch_only",
+    "enforcement": "active",
+    "bypass_actors": [],
+    "required_check": {
+      "context": "validate",
+      "integration_id": 15368,
+      "strict": true
+    },
+    "force_push_prohibited": true,
+    "deletion_prohibited": true,
+    "pull_request_required": true,
+    "required_approving_review_count": 0,
+    "required_review_thread_resolution": true,
+    "github_observed_at": "2026-10-22",
+    "policy_file": "docs/MAIN_PROTECTION_POLICY.md",
+    "runtime_source": "https://api.github.com/repos/chainsolutions-wealthtech/universal-agent-platform/rulesets/25599154"
+  },
+  "pr1": {
+    "number": 1,
+    "state": "open",
+    "draft": false,
+    "mergeable": true,
+    "review_count_observed": 0,
+    "head_at_protection_verification": "c9c6a8d3d4e4def13cff09121281f9ae12290be3",
+    "check_context": "validate",
+    "check_result_at_verification": "success",
+    "merged": false,
+    "review_issue": "https://github.com/chainsolutions-wealthtech/universal-agent-platform/issues/2",
+    "review_gate": {
+      "status": "REVIEW_PENDING",
+      "independent_review_attested": false,
+      "gate_for_governed_merge": "BLOCKED_UNTIL_INDEPENDENT_REVIEW"
+    },
+    "current_branch_name": "bootstrap/canonical-v5-foundation"
+  },
+  "review_preparation": {
+    "date": "2026-10-22",
+    "issue_number": 2,
+    "evidence_file": "docs/reviews/PR_1_GOVERNANCE_PRE_REVIEW_20261022.md",
+    "issue_kind": "review_mandate_only_no_agent_created",
+    "catalogue": "docs/roadmap/CATALOGUE_30_DOMAINES_V5.json",
+    "mapping": "docs/roadmap/MAPPING_20_SECTIONS_V5.json",
+    "ci_context": "validate"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": "0.1.0",
+  "type": "documentary_import_manifest",
+  "timestamp": "2026-10-22",
+  "source_boundary": "V5 package sources, not full ChatGPT conversation archive",
+  "sources": [
+    {
+      "path": "docs/archive/TEXTE_COMPLEMENTAIRE_ORIGINAL_20261021.txt",
+      "sha256": "d471da70fceb901a8d12204d7088153249b16e097577d308d98b0e8abba40b69",
+      "bytes": 46431,
+      "provenance": "user-provided original complement 20 sections"
+    },
+    {
+      "path": "docs/archive/PLAN_DIRECTEUR_UNIFIE_V5_20261021.md",
+      "sha256": "62c1fd8fd8f5de15a56571d4b344ea20d9f84cba0ee9d6905de51e23012e7d3f",
+      "bytes": 67084,
+      "provenance": "V5 master plan produced in prior conversation"
+    },
+    {
+      "path": "docs/roadmap/ROADMAP_V5.json",
+      "sha256": "a1e2af51e9f55741dda72926b33c4535d4e3eb2e8cb26a73fc81d9b710c57c9a",
+      "bytes": 12020,
+      "provenance": "structured V5 roadmap 46 planned lots"
+    }
+  ]
+}
