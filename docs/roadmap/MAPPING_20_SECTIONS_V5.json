@@ -1,0 +1,127 @@
+{
+  "schema_version": "0.1.0",
+  "source": "docs/archive/PLAN_DIRECTEUR_UNIFIE_V5_20261021.md#annexe-a",
+  "status": "documentary-not-runtime",
+  "items": [
+    {
+      "number": 1,
+      "source_title": "Ce qu'est réellement une GitHub App et jusqu'où elle peut aller",
+      "v5_sections": "0.1, 1, 4, 5",
+      "treatment": "Conservé et étendu"
+    },
+    {
+      "number": 2,
+      "source_title": "Les grands domaines que vous pouvez exploiter",
+      "v5_sections": "6, 6.D01–D13",
+      "treatment": "Conservé et étendu"
+    },
+    {
+      "number": 3,
+      "source_title": "Développer et modifier automatiquement des logiciels entiers",
+      "v5_sections": "6.D02, 7, 12",
+      "treatment": "Conservé et étendu"
+    },
+    {
+      "number": 4,
+      "source_title": "Utiliser ChatGPT et Claude simultanément sur un même projet",
+      "v5_sections": "2.2, 4, 7",
+      "treatment": "Conservé et étendu"
+    },
+    {
+      "number": 5,
+      "source_title": "Construire une usine logicielle automatisée",
+      "v5_sections": "7, 8, 11",
+      "treatment": "Conservé et étendu"
+    },
+    {
+      "number": 6,
+      "source_title": "Piloter tout GitHub Actions et les automatisations CI/CD",
+      "v5_sections": "6.D04, 7, 12",
+      "treatment": "Conservé et étendu"
+    },
+    {
+      "number": 7,
+      "source_title": "Administrer et gouverner les dépôts GitHub",
+      "v5_sections": "5, 6.D06, 9",
+      "treatment": "Conservé et étendu"
+    },
+    {
+      "number": 8,
+      "source_title": "Créer une mémoire canonique et une continuité entre ChatGPT et Claude",
+      "v5_sections": "2, 3, 12",
+      "treatment": "Conservé et étendu"
+    },
+    {
+      "number": 9,
+      "source_title": "Transformer GitHub en système de gestion de projet multi-agents",
+      "v5_sections": "6.D03, 7, 11",
+      "treatment": "Conservé et étendu"
+    },
+    {
+      "number": 10,
+      "source_title": "Gérer la sécurité de l'ensemble des projets",
+      "v5_sections": "6.D05, 9, 12",
+      "treatment": "Conservé et étendu"
+    },
+    {
+      "number": 11,
+      "source_title": "Déployer automatiquement des applications et administrer des serveurs",
+      "v5_sections": "6.D07, 10, 13",
+      "treatment": "Conservé et étendu"
+    },
+    {
+      "number": 12,
+      "source_title": "Créer automatiquement de nouveaux projets",
+      "v5_sections": "6.D01, 11, 13",
+      "treatment": "Conservé et étendu"
+    },
+    {
+      "number": 13,
+      "source_title": "Superviser l'activité et produire des rapports",
+      "v5_sections": "6.D10, 14",
+      "treatment": "Conservé et étendu"
+    },
+    {
+      "number": 14,
+      "source_title": "Aller encore plus loin avec une architecture événementielle",
+      "v5_sections": "6.D08, 8",
+      "treatment": "Conservé et étendu"
+    },
+    {
+      "number": 15,
+      "source_title": "Ce qu'une GitHub App ne peut pas faire seule",
+      "v5_sections": "0.3, 5, 13",
+      "treatment": "Conservé et étendu"
+    },
+    {
+      "number": 16,
+      "source_title": "Faut-il une seule GitHub App ou plusieurs ?",
+      "v5_sections": "5.4, 9",
+      "treatment": "Conservé et étendu"
+    },
+    {
+      "number": 17,
+      "source_title": "Ce que je construirais en priorité pour votre plateforme ChatGPT + Claude",
+      "v5_sections": "11, 13, 17",
+      "treatment": "Conservé et étendu"
+    },
+    {
+      "number": 18,
+      "source_title": "Les possibilités les plus avancées",
+      "v5_sections": "6.D11–D13, 8, 14",
+      "treatment": "Conservé et étendu"
+    },
+    {
+      "number": 19,
+      "source_title": "Les documents officiels utiles",
+      "v5_sections": "16",
+      "treatment": "Conservé et étendu"
+    },
+    {
+      "number": 20,
+      "source_title": "Le véritable potentiel pour votre objectif",
+      "v5_sections": "0, 18",
+      "treatment": "Conservé et étendu"
+    }
+  ]
+}
