@@ -17,13 +17,13 @@
 - Aucun review GitHub enregistré sur la PR #1 lors du contrôle précédant le présent checkpoint.
 
 ## Non encore réalisé
-- Revue indépendante des choix de gouvernance, de confidentialité, du contenu documentaire complet et du diff final de la PR #1.
-- Validation finale de la CI `validate` au dernier HEAD après ce checkpoint et décision de fusion gouvernée.
+- Revue indépendante des choix de gouvernance, de confidentialité, du contenu documentaire complet et du diff final de la PR #1 : **issue #2 ouverte, mandat de revue en attente**, aucune approbation indépendante attestée.
+- Validation finale de la CI `validate` au dernier HEAD après ce checkpoint et décision de fusion gouvernée. La PR #1 est **prête pour revue** (plus en brouillon), mais sa fusion demeure bloquée par notre règle de gouvernance tant que l'avis indépendant n'est pas attesté.
 - Mise en place du broker permanent d'authentification, webhook, registre d'identité et permissions, capture automatique, mémoire canonique opérationnelle, communication et orchestrateur autonome.
 - Mise en conformité ultérieure des exigences de revue formelle (>0), si la politique cible et les reviewers autorisés le permettent.
 
 ## NEXT_ACTION
-`INDEPENDENT_GOVERNANCE_REVIEW_PR_1_THEN_GOVERNED_MERGE`
+`OBTAIN_ATTESTED_INDEPENDENT_REVIEW_PR_1` — issue #2, puis décision de fusion gouvernée uniquement si l'avis indépendant, le dernier HEAD et les contrôles requis sont conformes.
 
 Relire le HEAD live, le ruleset et le diff de la PR #1, réaliser une validation indépendante, attendre la CI du dernier commit et décider la fusion seulement lorsque les conditions de gouvernance sont satisfaites. Ne pas déduire une autorisation d'une identité documentaire ni confondre cette PR avec une mémoire runtime.
 
