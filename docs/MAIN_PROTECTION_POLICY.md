@@ -1,6 +1,6 @@
 # Protection de `main` — procédure d'activation gouvernée
 
-**Statut :** `PREPARED_LOCAL_APPLY_REQUIRED` — document de proposition, **aucune protection effective ne doit être présumée avant vérification GitHub live**.
+**Statut actuel vérifié :** `ACTIVE_VERIFIED` — ruleset dépôt ID `25599154`, contrôlé en lecture seule sur l'API GitHub le 22 octobre 2026. Les données historiques ci-dessous restent conservées comme description du bootstrap.
 
 ## Audit de départ
 - Dépôt : `chainsolutions-wealthtech/universal-agent-platform` (public).
@@ -30,6 +30,15 @@ Après exécution, contrôler via `GET /repos/chainsolutions-wealthtech/universa
 3. Le contrôle `validate` depuis GitHub Actions.
 4. L'absence de bypass et la présence des règles PR, non-fast-forward et deletion.
 5. `main` toujours inchangé ; PR #1 toujours ouverte.
+
+## Attestation d'activation — 22 octobre 2026
+- Le journal local transmis par le propriétaire indique l'application réussie du ruleset `25599154` avec la GitHub App `5417646`, installation `173915815`.
+- Vérification GitHub directe : `GET /repos/chainsolutions-wealthtech/universal-agent-platform/rulesets/25599154` retourne `enforcement: active`, `target: branch`, `conditions.ref_name.include: ["~DEFAULT_BRANCH"]`, `bypass_actors: []`.
+- Règles observées : `deletion`, `non_fast_forward`, `pull_request` avec `required_approving_review_count: 0` et résolution obligatoire des fils de revue, `required_status_checks` avec `context: validate` et `integration_id: 15368`, mode strict.
+- `main` a désormais `protected: true` ; son HEAD reste `0b8b2e01e826b915a0c593d5d6545681e9316567`.
+- PR #1 : ouverte, brouillon, non fusionnée ; le check `validate` sur son HEAD initial au contrôle `c9c6a8d3d4e4def13cff09121281f9ae12290be3` était `success`.
+- **Nuance API :** le sous-objet legacy `branch.protection.enabled` peut rester `false` même lorsque `branch.protected: true` via un ruleset actif. La source de vérité est le ruleset effectif.
+- **Aucun avis de revue GitHub enregistré** au moment de cette vérification. Zéro approbation obligatoire par GitHub ne constitue pas une revue indépendante ; l'intégration demeure conditionnée à cette étape de gouvernance.
 
 ## Conditions de sortie
 `PROTECTION_ACTIVE` ne peut être attribué **qu'après** un retour GitHub live positif. Si l'API refuse la création, constater le blocage, ne pas remplacer silencieusement la politique par une autre, et ne pas fusionner la PR.
