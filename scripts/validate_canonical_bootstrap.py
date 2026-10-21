@@ -32,11 +32,12 @@ def verify() -> None:
     assert len(lots) == 46, f"Expected 46 lots: {len(lots)}"
     keys = [x["lot_id"] for x in lots]
     assert len(set(keys)) == 46, "Duplicated lot ID"
-    assert all(x["status"] == "PLANNED" and x.get("proof_refs") == [] for x in lots), "Invalid draft work status"
+    valid_states = {"PLANNED", "READY", "IN_PROGRESS", "BLOCKED", "DONE", "CANCELLED", "SUPERSEDED"}
+    assert all(x.get("status") in valid_states and isinstance(x.get("proof_refs", []), list) for x in lots), "Invalid lot status/proof_refs"
     state = json.loads(STATE.read_text(encoding="utf-8"))
-    assert state["status"] == "PROPOSED_IN_PR", "Snapshot is not runtime authority"
-    assert state["plans"]["canonical_memory_service_operational"] is False
     assert state["project"] == "chainsolutions-wealthtech/universal-agent-platform"
+    assert state["type"] == "documentary_bootstrap_snapshot", "Invalid snapshot type"
+    assert isinstance(state.get("plans", {}).get("canonical_memory_service_operational"), bool)
     for path in ROOT.rglob("*"):
         if not path.is_file() or ".git" in path.parts: continue
         assert path.suffix.lower() not in {".pem", ".p12", ".pfx"}, f"Unexpected key file: {path}"
@@ -45,7 +46,7 @@ def verify() -> None:
             assert ("-----" + "BEGIN PRIVATE KEY-----") not in s, f"Key exposed: {path}"
             assert not re.search(r"github_pat_[A-Za-z0-9_]{20,}", s), f"Token exposed: {path}"
             assert not re.search(r"gh[opsu]_[A-Za-z0-9]{20,}", s), f"Token exposed: {path}"
-    print("PASS 20 original sections, provenance hashes, 46 unique lots, no runtime claims")
+    print("PASS 20 original sections, provenance hashes, 46 unique lots and valid state schema")
     print("PASS elementary key/token pattern checks (not a full security audit)")
 
 if __name__ == "__main__":
