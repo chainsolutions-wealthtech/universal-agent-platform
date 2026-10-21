@@ -44,10 +44,19 @@
     "B": "preserved",
     "C": "bootstrap in progress",
     "D": "added",
-    "v5_complete_document_in_repo": false,
-    "original_complement_in_repo": false,
+    "v5_complete_document_in_repo": true,
+    "original_complement_in_repo": true,
     "canonical_memory_service_operational": false
   },
-  "next_action": "REVIEW_CANONICAL_FOUNDATION_PR_THEN_IMPORT_FULL_V5",
-  "caveat": "Snapshot not runtime authority; reconcile with GitHub and independent policy engines."
+  "next_action": "REVIEW_AND_VALIDATE_CANONICAL_FOUNDATION_PR_1",
+  "caveat": "Snapshot not runtime authority; reconcile with GitHub and independent policy engines.",
+  "documentary_import": {
+    "plan": "docs/archive/PLAN_DIRECTEUR_UNIFIE_V5_20261021.md",
+    "original_source": "docs/archive/TEXTE_COMPLEMENTAIRE_ORIGINAL_20261021.txt",
+    "roadmap": "docs/roadmap/ROADMAP_V5.json",
+    "manifest": "docs/archive/IMPORT_MANIFEST.json",
+    "workflow": ".github/workflows/canonical-documentation.yml",
+    "ci": "observed success 2026-10-22; reconfirm at final head",
+    "operational_memory": "NOT_IMPLEMENTED"
+  }
 }
