@@ -49,7 +49,7 @@
     "original_complement_in_repo": true,
     "canonical_memory_service_operational": false
   },
-  "next_action": "OBTAIN_ATTESTED_INDEPENDENT_REVIEW_PR_1",
+  "next_action": "VERIFY_REMEDIATION_CI_AND_REQUEST_INDEPENDENT_RE_REVIEW_PR_1",
   "caveat": "Snapshot not runtime authority; reconcile with GitHub and independent policy engines.",
   "documentary_import": {
     "plan": "docs/archive/PLAN_DIRECTEUR_UNIFIE_V5_20261021.md",
@@ -93,11 +93,17 @@
     "merged": false,
     "review_issue": "https://github.com/chainsolutions-wealthtech/universal-agent-platform/issues/2",
     "review_gate": {
-      "status": "REVIEW_PENDING",
-      "independent_review_attested": false,
-      "gate_for_governed_merge": "BLOCKED_UNTIL_INDEPENDENT_REVIEW"
+      "status": "RE_REVIEW_REQUIRED_AFTER_REMEDIATION",
+      "independent_technical_review_published": true,
+      "formal_github_approval_attested": false,
+      "gate_for_governed_merge": "BLOCKED_PENDING_REVIEW_AND_THREAD_RESOLUTION"
     },
-    "current_branch_name": "bootstrap/canonical-v5-foundation"
+    "current_branch_name": "bootstrap/canonical-v5-foundation",
+    "last_independent_technical_review_head": "5b624efe56a5c7f4722b5532bd6fd037d6522271",
+    "technical_review_issue_comment": 6328770309,
+    "technical_review_github_state": "COMMENTED",
+    "review_threads_unresolved_at_intake": 5,
+    "newer_remediation_commits": true
   },
   "review_preparation": {
     "date": "2026-10-22",
@@ -107,5 +113,21 @@
     "catalogue": "docs/roadmap/CATALOGUE_30_DOMAINES_V5.json",
     "mapping": "docs/roadmap/MAPPING_20_SECTIONS_V5.json",
     "ci_context": "validate"
+  },
+  "review_remediation": {
+    "date": "2026-10-22",
+    "reviewed_old_head": "3644df6fa7ced17a4ed446bb2c0220d8e1bf13d4",
+    "log_file": "docs/reviews/PR_1_REMEDIATION_LOG_20261022.md",
+    "findings": [
+      4342955523,
+      4342955530,
+      4342955538,
+      4342955542,
+      4342955545
+    ],
+    "status": "CHANGES_COMMITTED_AWAITING_LAST_HEAD_VALIDATION_AND_REVIEW",
+    "original_master_and_complement_unchanged": true,
+    "source_path_alias": "sources/TEXTE_COMPLEMENTAIRE_ORIGINAL_20261021.txt",
+    "ci_tests": "tests/test_canonical_bootstrap.py"
   }
 }
