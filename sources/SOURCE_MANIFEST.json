@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0.0",
+  "type": "historical_source_manifest_alias",
+  "date": "2026-10-22",
+  "source_path": "sources/TEXTE_COMPLEMENTAIRE_ORIGINAL_20261021.txt",
+  "canonical_repository_path": "docs/archive/TEXTE_COMPLEMENTAIRE_ORIGINAL_20261021.txt",
+  "sha256": "d471da70fceb901a8d12204d7088153249b16e097577d308d98b0e8abba40b69",
+  "bytes": 46431,
+  "original_provenance": "user-provided complementary GitHub App reference document with 20 sections",
+  "scope": "documentary_not_runtime",
+  "reference_manifest": "docs/archive/IMPORT_MANIFEST.json",
+  "note": "Historical compatibility manifest. Same bytes as canonical archived source; not a new identity, source, or authority."
+}
