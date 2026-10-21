@@ -1,0 +1,22 @@
+name: Canonical Documentation Validation
+on:
+  pull_request:
+    paths:
+      - '00_START_HERE.md'
+      - 'docs/**'
+      - 'state/**'
+      - 'SUIVI.md'
+      - 'scripts/validate_canonical_bootstrap.py'
+      - '.github/workflows/canonical-documentation.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out proposed branch
+        uses: actions/checkout@v4
+      - name: Validate canonical documents
+        run: python3 scripts/validate_canonical_bootstrap.py
