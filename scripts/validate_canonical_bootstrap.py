@@ -21,7 +21,7 @@ KEY_HEADER = re.compile(
     re.IGNORECASE,
 )
 PGP_PRIVATE_HEADER = re.compile(r"-----" + r"BEGIN[ \t]+PGP[ \t]+PRIVATE[ \t]+KEY[ \t]+BLOCK-----", re.IGNORECASE)
-TOKEN = re.compile(r"(?:github_pat_[A-Za-z0-9_]{20,}|gh[opsu]_[A-Za-z0-9]{20,})")
+TOKEN = re.compile(r"(?:github_pat_[A-Za-z0-9_]{20,}|gh[opsur]_[A-Za-z0-9_]{20,})")
 
 
 def verify_manifest(root: Path) -> None:
@@ -41,6 +41,12 @@ def verify_manifest(root: Path) -> None:
     alias = root / LEGACY_ALIAS
     assert alias.is_file(), "Historical V5 source reference does not resolve"
     assert alias.read_bytes() == canonical, "Legacy source reference drifted from canonical original"
+    legacy = json.loads((root / "sources/SOURCE_MANIFEST.json").read_text(encoding="utf-8"))
+    canonical_entry = next(x for x in sources if x["path"] == ORIGINAL)
+    assert legacy["source_path"] == LEGACY_ALIAS, "Wrong legacy manifest source"
+    assert legacy["canonical_repository_path"] == ORIGINAL, "Wrong canonical mapping"
+    assert legacy["sha256"] == canonical_entry["sha256"], "Legacy hash differs from canonical"
+    assert legacy["bytes"] == canonical_entry["bytes"], "Legacy byte count differs from canonical"
 
 
 def annex_rows(plan: str, annex: str) -> list[list[str]]:
@@ -77,7 +83,7 @@ def verify_indexes(plan: str, mapping: dict, catalog: dict) -> None:
 def check_tree_security(root: Path) -> None:
     blocked_suffixes = {".key", ".pem", ".p12", ".pfx", ".p8", ".jks", ".keystore"}
     for path in root.rglob("*"):
-        if not path.is_file() or ".git" in path.parts or "__pycache__" in path.parts:
+        if not path.is_file() or ".git" in path.relative_to(root).parts:
             continue
         rel = path.relative_to(root)
         assert path.suffix.lower() not in blocked_suffixes, f"Forbidden key file: {rel}"
@@ -110,6 +116,7 @@ def verify(root: Path = ROOT) -> None:
     assert isinstance(state.get("plans", {}).get("canonical_memory_service_operational"), bool)
     check_tree_security(root)
     print("PASS canonical manifest complete, source SHA256 intact and original reference matches")
+    print("PASS legacy source manifest, source SHA256 and preserved compatibility reference")
     print("PASS 20 sections and 30 GitHub domains content-equal to V5 Annexes A/B")
     print("PASS 46 lot IDs, documentary snapshot, and hardened secret-pattern scan")
     print("NOTE heuristic secret scan only; independent/dedicated security review still required")
