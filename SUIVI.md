@@ -13,7 +13,13 @@
 - Installer un broker d'authentification sécurisé, webhooks, pipeline de capture, mémoire, agent registry et orchestrateur.
 - Vérifier indépendamment permissions et capacités GitHub sur la nouvelle App ; le connecteur utilisé ici est une intégration distincte.\n- **CI documentaire :** workflow de validation ajouté sur la branche ; réussite observée, à reconfirmer au dernier commit avant fusion.
 
+## Protection de main — opération préparée
+- Audit live : main non protégée, aucun ruleset ; PR #1 brouillon.
+- Workflow `validate` modifié pour couvrir toutes les PR et push sur main ; correctifs du validateur pour les futures évolutions d'état.
+- Politique d'activation proposée : `docs/MAIN_PROTECTION_POLICY.md`. Un script Node.js d'activation locale avec GitHub App a été généré en artefact de conversation. **Le ruleset n'est pas encore appliqué.**
+- Contrôle post-application obligatoire et absence de fusion jusqu'à attestation.
+
 ## NEXT_ACTION
-`REVIEW_AND_VALIDATE_CANONICAL_FOUNDATION_PR_1` ; vérifier la CI au HEAD, les contrôles de confidentialité et les permissions ; ensuite définir les protections de main, réconcilier l'état courant après intégration autorisée, puis `IMPLEMENT_CANONICAL_MEMORY_MVP`. Aucun merge sans contrôle de gouvernance.
+`ACTIVATE_MAIN_REPOSITORY_RULESET_V1_AND_VERIFY` ; vérifier la CI au HEAD, les contrôles de confidentialité et les permissions ; ensuite définir les protections de main, réconcilier l'état courant après intégration autorisée, puis `IMPLEMENT_CANONICAL_MEMORY_MVP`. Aucun merge sans contrôle de gouvernance.
 
 **Ce document est une proposition sur branche, pas l'autorité runtime du projet.**
