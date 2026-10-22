@@ -20,6 +20,10 @@ jobs:
         uses: actions/checkout@v4
       - name: Validate pristine checkout before executing PR test code
         run: python3 scripts/validate_canonical_bootstrap.py
+      - name: Validate GH-MAX machine DAG (read-only)
+        run: python3 scripts/check_gateway_execution_plan.py
+      - name: Reconcile historical GitHub App permissions offline
+        run: python3 scripts/reconcile_gateway_permissions.py
       - name: Execute regression tests
         run: python3 -m unittest discover -s tests -p 'test_*.py' -v
       - name: Revalidate after regression tests
