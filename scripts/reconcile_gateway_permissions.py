@@ -86,7 +86,7 @@ def parse_spec(spec: str) -> tuple[list[dict], list[dict], list[dict], list[dict
     assert sep2, "Missing installation-token permissions parameter schema snapshot"
     token_section, sep3, specialized_section = token_section.partition("## 12. Sources spécialisées GitHub")
     assert sep3, "Missing specialized GitHub permission evidence sources"
-    specialized_section, sep4, alias_section = specialized_section.partition("## 13. Alias officiels GitHub App")
+    specialized_section, sep4, alias_section = specialized_section.partition("## 13. Alias fonctionnels GitHub App")
     assert sep4, "Missing official GitHub App functional aliases"
     historical = [
         {"scope": m.group(1), "parameter": m.group(2), "requested_level": m.group(3)}
