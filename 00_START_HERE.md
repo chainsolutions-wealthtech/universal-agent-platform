@@ -9,10 +9,13 @@ Construire une plateforme universelle multi-agents, multi-projets, multi-comptes
 1. `00_START_HERE.md` — périmètre et point d'entrée proposé.
 2. `state/CURRENT_STATE.json` — instantané documentaire daté, à réconcilier avec GitHub live.
 3. `docs/PLAN_DIRECTEUR_UNIFIE_V5_BASELINE.md` — plans A/B/C/D et invariants.
-4. `docs/DECISIONS_LOG.md` — décisions et statut de leur preuve.
-5. `docs/SECURITY_GOVERNANCE.md` — règles de confidentialité, de séparation et d'autorisation.
-6. `SUIVI.md` — travail réalisé / non réalisé et NEXT_ACTION.
-7. `docs/SOURCE_PROVENANCE.md` — origines, limites et conservation documentaire.
+4. `docs/roadmap/ROADMAP_V5.json` — **propriétaire canonique** de la définition des 46 lots et de leurs critères.
+5. `docs/roadmap/PROGRAMME_CHRONOLOGIQUE_V5.md` — **ordre de construction proposé**, 10 vagues, gates et histoire.
+6. `docs/roadmap/REGISTRE_TACHES_V5.md` — 138 propositions de sous-tâches, non admises ni ouvertes en issues.
+7. `docs/DECISIONS_LOG.md` — décisions et statut de leur preuve.
+8. `docs/SECURITY_GOVERNANCE.md` — règles de confidentialité, de séparation et d'autorisation.
+9. `SUIVI.md` — travail réalisé / non réalisé et NEXT_ACTION.
+10. `docs/SOURCE_PROVENANCE.md` — origines, limites et conservation documentaire.
 
 ## Invariants
 - **Identité d'agent ≠ blueprint ≠ affectation ≠ mandat ≠ session ≠ conversation ≠ permission.**
@@ -23,6 +26,10 @@ Construire une plateforme universelle multi-agents, multi-projets, multi-comptes
 - Lire HEAD, branches, règles, docs et état actuel **avant** une opération ; privilégier une branche/PR et les contrôles anti-régression.
 - Les sources observées, confirmations de l'utilisateur, hypothèses, propositions et opérations effectivement exécutées doivent être marquées différemment.
 - Le futur registre canonique et l'orchestrateur **restent à développer** ; GitHub seul ne les implémente pas.
+
+## Règle de continuité et propriété des fichiers
+
+La chronologie proposée et les fiches de tâches n'ouvrent **aucune** issue ou session runtime et ne modifient pas les autorités existantes. `ROADMAP_V5.json` est le propriétaire de la définition des lots ; `PROGRAMME_CHRONOLOGIQUE_V5.md` de leur ordre ; `REGISTRE_TACHES_V5.md` de leur décomposition de travail ; `SUIVI.md` du suivi courant. La mémoire conversationnelle exhaustive reste non construite. Un nouvel agent doit toujours comparer l'état documentaire avec GitHub live avant de poursuivre.
 
 ## Autorité
 Ces documents sont un **bootstrap proposé**, pas une modification des autorités des systèmes déjà existants. La mémoire canonique runtime devra s'appuyer sur une base externe protégée et sur des preuves indépendantes. Toute adoption du plan doit être traçable et révisable.
