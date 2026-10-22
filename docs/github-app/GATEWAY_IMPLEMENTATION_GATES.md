@@ -213,3 +213,35 @@ python3 -m unittest discover -s tests -p 'test_gateway_*py' -v
 - Vérification structurelle depuis les fichiers GitHub effectuée dans cette conversation ; **aucune exécution CI au dernier HEAD ni audit privé de l'App** encore attestés.
 - **GH-MAX-01 reste `DOCUMENTARY_PARTIAL`**, jusqu'à la réconciliation GraphQL/autres API et la validation indépendante des 30 cas.
 
+
+### 7.7 Deuxième source officielle — amélioration de la réconciliation à 84 / 100
+
+Le § 11 du cahier des charges conserve **57 champs techniques de permissions** listés dans la documentation GitHub sous **`POST /app/installations/{installation_id}/access_tokens`**, champ `permissions` (API version `2026-03-10`, consultation du 22 octobre 2026). C'est un **inventaire de champs documentés**, **pas** un registre d'octroi effectif ni le catalogue complet des permissions GitHub.
+
+L'outil `scripts/reconcile_gateway_permissions.py` croise à présent **deux références différentes** avec les 100 candidats : 80 rubriques REST par endpoint + 57 champs de demande de jeton d'installation. Le résultat de rapprochement par nom exact/normalisé est :
+
+| Ensemble documentaire | Nombre de candidats |
+| --- | ---: |
+| Correspondance dans REST **et** schéma de jeton | **34** |
+| Correspondance REST uniquement | **36** |
+| Correspondance dans le schéma de jeton uniquement | **14** |
+| Absence de correspondance directe dans ces deux références | **16** |
+| **Total candidats historiques conservés** | **100** |
+
+**14 cas supplémentaires** sont documentés en termes de nom de champ grâce au schéma des jetons. Les 16 restants doivent être recherchés dans les permissions de l'interface, GraphQL, produits GitHub spécialisés ou plans/aperçus, sans conclure à leur inexistence.
+
+**16 paramètres encore sans correspondance littérale dans les deux sources :**
+
+- Repository (5) : `agent_tasks`, `license_compliance_alerts`, `repository_license_policy`, `secret_scanning_alert_dismissal_requests`, `secret_scanning_push_protection_bypass_requests`.
+- Organization (3) : `organization_models`, `organization_credentials`, `organization_actions_variables`.
+- Account/User (8) : `blocking`, `copilot_chat`, `copilot_editor_context`, `user_events`, `user_issue_fields`, `user_issue_types`, `models`, `plugin_gateway_connections`.
+- Enterprise (0). **Attention :** `enterprise_copilot_metrics` correspond à une rubrique REST ; ce fait ne prouve aucune installation Enterprise.
+
+**Précision sur les niveaux :** certains champs documentés admettent `read`, `write` ou `admin`; d'autres n'admettent que `read` ou `write`. Les niveaux historiques de l'archive sont des **candidats**, et la couverture maximale demandée n'implique pas que `write` existe ou soit admissible sur chaque famille.
+
+**Contrôle de régression :** `tests/test_gateway_permission_reconciliation.py` contient maintenant **11 tests déclarés** couvrant les comptes des trois ensembles, les échecs de suppression de paramètres, les statuts non octroyés et la séparation des scopes. Le workflow GitHub est configuré pour l'exécuter mais **n'a pas encore de `validate: success` sur le dernier HEAD**.
+
+**Source officielle :** https://docs.github.com/en/rest/apps/apps ; `POST /app/installations/{installation_id}/access_tokens` documente aussi la limitation de durée des jetons d'installation et l'impossibilité d'accorder via un jeton des droits supérieurs à ceux de l'App. Les requêtes de jeton ne doivent pas être employées pour « tester » une élévation des droits.
+
+**Statut d'exécution :** `GH-MAX-01 DOCUMENTARY_PARTIAL`. Les correspondances documentaires sont **84/100**, mais aucune des 100 permissions n'est passée au statut `GRANTED` ou `RUNTIME_PROBED` en l'absence d'un audit privé de l'App.
+
