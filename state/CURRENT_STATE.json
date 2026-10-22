@@ -295,20 +295,25 @@
         "documentation_only": true
       },
       "official_app_endpoint_alias_matches": 2,
-      "remaining_after_all_four_sources": 9
+      "remaining_after_all_four_sources": 9,
+      "nine_unresolved_qualification": "PAT_AND_APP_SEPARATION_DOCUMENTED_NO_APP_GRANTS_INFERRED"
     },
     "offline_audit_comparison": {
-      "status": "DOCUMENTARY_COMPARATOR_READY_NOT_RUN_WITH_REAL_REPORT",
+      "status": "DOCUMENTARY_COMPARATOR_HARDENED_NOT_RUN_WITH_REAL_REPORT",
       "script": "scripts/compare_gateway_audit.py",
       "tests": "tests/test_gateway_audit_comparison.py",
-      "unit_tests_declared": 8,
+      "unit_tests_declared": 11,
       "expected_report_schema": "UNIVERSAL_GATEWAY_AUDIT_V1_1",
       "app_id": 5417646,
       "three_installations_required": true,
       "raw_secret_fields_rejected": true,
       "oauth_user_grants_attested": false,
       "installation_grants_attested": false,
-      "read_only": true
+      "read_only": true,
+      "camel_case_secret_keys_rejected": true,
+      "unexpected_audit_mode_rejected": true,
+      "historical_candidates_integrity_checked": true,
+      "actual_live_report_imported": false
     }
   },
   "execution_priority": "GITHUB_APP_COMPLETION_FIRST",
