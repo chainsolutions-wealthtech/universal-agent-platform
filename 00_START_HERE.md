@@ -14,10 +14,11 @@ Construire une plateforme universelle multi-agents, multi-projets, multi-comptes
 6. `docs/roadmap/REGISTRE_TACHES_V5.md` — 138 propositions de sous-tâches, non admises ni ouvertes en issues.
 7. `docs/github-app/CAHIER_DES_CHARGES_COMPLET.md` — **propriétaire de la cible fonctionnelle** de la GitHub App : couverture maximale, 53 exigences, 30 domaines, pipeline de 20 étapes, sources et limites.
 8. `docs/github-app/GATEWAY_IMPLEMENTATION_GATES.md` — **propriétaire de l'audit réel de l'App**, des preuves/écarts, permissions à auditer et gates GA-00 à GA-08.
-9. `docs/DECISIONS_LOG.md` — décisions et statut de leur preuve.
-10. `docs/SECURITY_GOVERNANCE.md` — règles de confidentialité, de séparation et d'autorisation.
-11. `SUIVI.md` — travail réalisé / non réalisé et NEXT_ACTION.
-12. `docs/SOURCE_PROVENANCE.md` — origines, limites et conservation documentaire.
+9. `docs/github-app/GH_MAX_EXECUTION_PLAN.json` — **projection machine non exécutable** des dix tâches GH-MAX ; valider avec `scripts/check_gateway_execution_plan.py`, sans créer de droits runtime.
+10. `docs/DECISIONS_LOG.md` — décisions et statut de leur preuve.
+11. `docs/SECURITY_GOVERNANCE.md` — règles de confidentialité, de séparation et d'autorisation.
+12. `SUIVI.md` — travail réalisé / non réalisé et NEXT_ACTION.
+13. `docs/SOURCE_PROVENANCE.md` — origines, limites et conservation documentaire.
 
 ## Invariants
 - **Identité d'agent ≠ blueprint ≠ affectation ≠ mandat ≠ session ≠ conversation ≠ permission.**
