@@ -116,9 +116,9 @@ Le chapitre 11.2 recommande très tôt une **première tranche de `F00 + B05 + B
 
 **Hiérarchie unique** : `PROGRAMME → VAGUE → LOT (ID stable) → TÂCHE (ID stable) → OPÉRATION (idempotency_key) → PREUVE → CHECKPOINT/NEXT_ACTION`.
 
-Pour chaque lot `XXX`, créer des tâches **dans l'ordre** : `XXX-01 DISCOVERY` (lectures, autorités et baseline) → `XXX-02 CONTRACT` (exigences/architecture/ADR/schema, interfaces et critères) → `XXX-03 IMPLEMENT` (branche/PR, code et tests dans le mandat permis) → `XXX-04 VERIFY` (tests, sécurité, CI et revue distincte) → `XXX-05 ACCEPT` (preuve, réception, état et handoff). Les travaux purement documentaires peuvent marquer `IMPLEMENT: N/A` avec une justification, pas supprimer la preuve.
+Pour chaque lot `XXX`, préparer **trois tranches documentaires** synchronisées avec `REGISTRE_TACHES_V5.md` : `XXX-01 DISCOVER + CONTRACT` (lecture des autorités, baseline, exigences et interfaces) → `XXX-02 IMPLEMENT` (conception approuvée, réalisation admissible, branche/PR et tests) → `XXX-03 VERIFY + ACCEPT` (CI au dernier HEAD, sécurité, revue distincte, preuves et handoff). Selon le lot, subdiviser ensuite une tranche en tâches plus petites **uniquement après admission gouvernée**. Pour un lot purement documentaire, la réalisation prend la forme de documents vérifiables, jamais d'une implémentation fictive.
 
-**Aucune génération automatique de 230 issues** à partir des 5 sous-tâches types : d'abord qualifier chaque lot, vérifier les issues existantes, résoudre l'identité et les mandats, établir un registre anti-doublon, puis ne créer que les tâches immédiatement admissibles sous autorisation.
+**Aucune génération automatique de 138 issues** à partir des 3 sous-tâches proposées : d'abord qualifier chaque lot, vérifier les issues existantes, résoudre l'identité et les mandats, établir un registre anti-doublon, puis ne créer que les tâches immédiatement admissibles sous autorisation.
 
 Une fiche de lot ne doit pas revendiquer de résultat sans `proof_refs` vérifiés et un HEAD/horodatage. Chaque transition documente `requested_by`, `operator`, `project_scope`, `authorization_source`, `checkpoint`, `next_action` ; ces champs documentaires **ne valent pas permission runtime**.
 
