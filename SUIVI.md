@@ -75,6 +75,15 @@
 - Les deux interrupteurs `execution_enabled` et `mutations_enabled` sont **désactivés** ; les dix tâches restent `PLANNED` non admises. Le futur moteur ne pourra exécuter qu'après autorisation et vérification d'état live.
 - La CI du dernier HEAD PR #1 demeure non attestée ; les tests ajoutés et la vérification structurelle ponctuelle **ne sont pas** une preuve de GitHub Actions vert ou de production opérationnelle.
 
+## GH-MAX-01 — rapprochement documentaire exécutable
+
+- Script ajouté : `scripts/reconcile_gateway_permissions.py` — analyse en lecture seule les **100 permissions candidates historiques** et les **80 intitulés REST** présents dans le propriétaire documentaire `docs/github-app/CAHIER_DES_CHARGES_COMPLET.md`. Aucun jeton, aucun endpoint privé, aucune écriture ni approbation simulée.
+- Résultat du rapprochement strict des intitulés par famille : **70 libellés normalisés correspondants**, **30 cas à rechercher dans GraphQL, Git, autres API ou alias** (10 Repository, 12 Organization, 8 Account ; 0 Enterprise). Les 30 cas **ne sont pas des droits supprimés** et les 70 correspondances ne sont **pas des droits accordés**.
+- Contrôles ajoutés : `tests/test_gateway_permission_reconciliation.py` (**9 tests déclarés**) et étapes documentaires dans `.github/workflows/canonical-documentation.yml` avant la suite de régression. Avec les huit tests précédents `test_gateway_execution_plan.py`, cela fait **17 tests spécifiques Gateway déclarés** sur la branche.
+- Le détail et le statut exacts restent dans `docs/github-app/GATEWAY_IMPLEMENTATION_GATES.md` § 7.6, propriétaire de l'audit. **`GH-MAX-01 = DOCUMENTARY_PARTIAL`** et **`GA-00 = PARTIAL_EVIDENCE`**.
+- **Les scripts ne sont pas encore attestés comme exécutés par GitHub Actions sur le HEAD de PR #1** ; les tests déclarés ne sont pas des tests réussis. Le blocage des contrôles au HEAD et la revue indépendante persistent.
+- **Prochaine action App :** observation de `GET /app` et des trois installations sous l'identité réelle de l'App, sans export de PEM, puis poursuite du rapprochement des 30 cas restants.
+
 ## NEXT_ACTION
 `RESTORE_REQUIRED_GITHUB_ACTIONS_VALIDATE_ON_PR_1_HEAD`
 
