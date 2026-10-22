@@ -85,7 +85,7 @@ def verify_chronological_plan(root: Path, lots: list[dict]) -> None:
     tasks = (root / "docs/roadmap/REGISTRE_TACHES_V5.md").read_text(encoding="utf-8")
     canonical_ids = [row["lot_id"] for row in lots]
     table_rows = re.findall(
-        r"^\\|\\s*(\\d+)\\s*\\|\\s*(P\\d{2})\\s*\\|\\s*\\*\\*`([BFD]\\d{2})`\\*\\*\\s*\\|",
+        r"^\|\s*(\d+)\s*\|\s*(P\d{2})\s*\|\s*\*\*`([BFD]\d{2})`\*\*\s*\|",
         plan, re.MULTILINE
     )
     assert len(table_rows) == 46, "Chronological programme must list exactly 46 lots"
@@ -93,9 +93,9 @@ def verify_chronological_plan(root: Path, lots: list[dict]) -> None:
     ordered_ids = [lot_id for _, _, lot_id in table_rows]
     assert set(ordered_ids) == set(canonical_ids) and len(set(ordered_ids)) == 46, "Chronology drift or duplicated lot"
     assert sorted(set(phase for _, phase, _ in table_rows)) == [f"P{i:02d}" for i in range(10)], "Chronology phases changed"
-    headings = re.findall(r"^#### ([BFD]\\d{2}) — ", tasks, re.MULTILINE)
+    headings = re.findall(r"^#### ([BFD]\d{2}) — ", tasks, re.MULTILINE)
     assert headings == ordered_ids, "Task register does not follow the programme order"
-    task_ids = re.findall(r"^- \\*\\*`([BFD]\\d{2}-0[1-3])`\\*\\*", tasks, re.MULTILINE)
+    task_ids = re.findall(r"^- \*\*`([BFD]\d{2}-0[1-3])`\*\*", tasks, re.MULTILINE)
     expected = [f"{lot}-{i:02d}" for lot in ordered_ids for i in (1, 2, 3)]
     assert task_ids == expected, "Each lot must have three uniquely numbered draft tasks"
     # The plan preserves source requirements; never infer the lot's runtime status.
