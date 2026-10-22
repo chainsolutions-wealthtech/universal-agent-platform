@@ -15,7 +15,7 @@ class PermissionReconciliationTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.doc = mod.SPEC_PATH.read_text(encoding="utf-8")
-        cls.hist, cls.official, cls.tokens, cls.specialized = mod.parse_spec(cls.doc)
+        cls.hist, cls.official, cls.tokens, cls.specialized, cls.aliases = mod.parse_spec(cls.doc)
 
     def test_original_totals(self) -> None:
         self.assertEqual(len(self.hist), 100)
@@ -23,13 +23,13 @@ class PermissionReconciliationTests(unittest.TestCase):
         self.assertEqual(len(self.tokens), 57)
 
     def test_candidates_preserved(self) -> None:
-        result = mod.match(self.hist, self.official, self.tokens, self.specialized)
+        result = mod.match(self.hist, self.official, self.tokens, self.specialized, self.aliases)
         self.assertEqual(len(result["items"]), 100)
         self.assertEqual({z["scope"] for z in result["items"]},
                          {"repository", "organization", "account", "enterprise"})
 
     def test_exact_labels_are_not_permissions(self) -> None:
-        result = mod.match(self.hist, self.official, self.tokens, self.specialized)
+        result = mod.match(self.hist, self.official, self.tokens, self.specialized, self.aliases)
         self.assertEqual(result["statistics"]["exact_normalized_label_matches"], 70)
         self.assertEqual(result["statistics"]["review_other_api_or_alias"], 30)
         self.assertTrue(all(item["live_app_grant"] == "NOT_VERIFIED" for item in result["items"]))
@@ -38,7 +38,7 @@ class PermissionReconciliationTests(unittest.TestCase):
                             for item in result["items"]))
 
     def test_second_official_source_catches_more_parameters(self) -> None:
-        result = mod.match(self.hist, self.official, self.tokens, self.specialized)
+        result = mod.match(self.hist, self.official, self.tokens, self.specialized, self.aliases)
         self.assertEqual(result["statistics"]["official_token_schema_fields"], 57)
         self.assertEqual(result["statistics"]["token_schema_exact_parameter_matches"], 48)
         self.assertEqual(result["statistics"]["combined_documented_matches"], 89)
@@ -53,23 +53,43 @@ class PermissionReconciliationTests(unittest.TestCase):
             mod.parse_spec(self.doc.replace(target + "\n", "", 1))
 
     def test_specialized_sources_resolve_five_more_documentary_names(self) -> None:
-        report = mod.match(self.hist, self.official, self.tokens, self.specialized)
+        report = mod.match(self.hist, self.official, self.tokens, self.specialized, self.aliases)
         self.assertEqual(len(self.specialized), 5)
         self.assertEqual(report["statistics"]["official_specialized_references"], 5)
         self.assertEqual(report["statistics"]["specialized_matches"], 5)
-        self.assertEqual(report["statistics"]["combined_documented_matches"], 89)
-        self.assertEqual(report["statistics"]["remaining_without_either_reference"], 11)
+        self.assertEqual(report["statistics"]["combined_documented_matches"], 91)
+        self.assertEqual(report["statistics"]["remaining_without_either_reference"], 9)
         self.assertTrue(all(x["live_app_grant"] == "NOT_VERIFIED" for x in report["items"]))
 
+    def test_two_official_app_aliases_resolved_without_grants(self) -> None:
+        report = mod.match(self.hist, self.official, self.tokens, self.specialized, self.aliases)
+        self.assertEqual(len(self.aliases), 2)
+        self.assertEqual(report["statistics"]["official_app_endpoint_alias_matches"], 2)
+        self.assertEqual(report["statistics"]["combined_documented_matches"], 91)
+        self.assertEqual(report["statistics"]["remaining_without_either_reference"], 9)
+        for param in ("blocking", "organization_actions_variables"):
+            row = next(x for x in report["items"] if x["historical_parameter"] == param)
+            self.assertTrue(row["official_app_endpoint_aliases"])
+            self.assertEqual(row["live_app_grant"], "NOT_VERIFIED")
+            self.assertEqual(row["agent_policy_status"], "NOT_AUTHORIZED_BY_THIS_REPORT")
+
+    def test_missing_official_app_alias_rejected(self) -> None:
+        tick = chr(96)
+        marker = f"| {tick}account{tick} | {tick}blocking{tick} | Block another user |"
+        source = self.doc
+        line = next(x for x in source.splitlines() if x.startswith(marker))
+        with self.assertRaises(AssertionError):
+            mod.parse_spec(source.replace(line + "\n", "", 1))
+
     def test_agent_tasks_is_user_token_only_with_copilot_optional(self) -> None:
-        report = mod.match(self.hist, self.official, self.tokens, self.specialized)
+        report = mod.match(self.hist, self.official, self.tokens, self.specialized, self.aliases)
         item = next(x for x in report["items"] if x["historical_parameter"] == "agent_tasks")
         self.assertEqual(item["specialized_official_sources"][0]["restriction"],
                          "UAT_ONLY_COPILOT_BUSINESS_OR_ENTERPRISE_SUBSCRIPTION")
         self.assertEqual(item["agent_policy_status"], "NOT_AUTHORIZED_BY_THIS_REPORT")
 
     def test_missing_rest_label_not_assumed_invalid(self) -> None:
-        item = next(z for z in mod.match(self.hist, self.official, self.tokens, self.specialized)["items"]
+        item = next(z for z in mod.match(self.hist, self.official, self.tokens, self.specialized, self.aliases)["items"]
                     if z["historical_parameter"] == "agent_tasks" and z["scope"] == "repository")
         self.assertEqual(item["rest_index_match_status"],
                          "NOT_FOUND_IN_REST_INDEX_REVIEW_OTHER_APIS_OR_ALIASES")
@@ -100,12 +120,12 @@ class PermissionReconciliationTests(unittest.TestCase):
             if item["parameter"] == "actions":
                 item["scope"] = "account"
                 break
-        result = mod.match(altered, self.official, self.tokens, self.specialized)
+        result = mod.match(altered, self.official, self.tokens, self.specialized, self.aliases)
         item = next(z for z in result["items"] if z["historical_parameter"] == "actions")
         self.assertEqual(item["rest_label_matches"], [])
 
     def test_no_secrets_or_mutations(self) -> None:
-        report = mod.match(self.hist, self.official, self.tokens, self.specialized)
+        report = mod.match(self.hist, self.official, self.tokens, self.specialized, self.aliases)
         self.assertIs(report["permissions_modified"], False)
         self.assertNotIn("private_key", report)
         self.assertNotIn("access_token", report)
