@@ -150,5 +150,17 @@
     "workflow_on_default_branch": false,
     "workflow_dispatch_prerequisite": "GitHub docs say manual dispatch requires workflow on default branch",
     "direct_connector_dispatch_exposed": false
+  },
+  "execution_planning": {
+    "status": "PROPOSED_IN_OPEN_PR_NOT_RUNTIME",
+    "source_lot_registry": "docs/roadmap/ROADMAP_V5.json",
+    "chronological_owner": "docs/roadmap/PROGRAMME_CHRONOLOGIQUE_V5.md",
+    "task_decomposition_owner": "docs/roadmap/REGISTRE_TACHES_V5.md",
+    "v5_lot_count": 46,
+    "phases": 10,
+    "proposed_work_items": 138,
+    "github_issues_created_for_this_plan": 0,
+    "warning": "No task admission or operation permission is established by these documents; PR1 gate unchanged",
+    "architecture_B_vs_E": "DECISION_OPEN"
   }
 }
