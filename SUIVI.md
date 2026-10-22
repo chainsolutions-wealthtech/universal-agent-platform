@@ -92,6 +92,15 @@
 - `tests/test_gateway_permission_reconciliation.py` déclare désormais **11 tests** (soit 19 tests Gateway nouveaux avec les 8 du DAG), mais aucun résultat Actions du dernier HEAD n'est encore disponible.
 - GH-MAX-02 et GH-MAX-03 nécessitent toujours l'audit privé en lecture seule de l'App #5417646 et de ses trois installations depuis l'environnement où la clé est stockée. Ne transmettre que les résultats expurgés ; ne pas publier les secrets.
 
+## GH-MAX-01 — cinq cas spécialisés documentés, onze restant à étudier
+
+- Sources GitHub spécialisées trouvées pour cinq candidats historiques supplémentaires : `agent_tasks`, `license_compliance_alerts`, `repository_license_policy`, `secret_scanning_alert_dismissal_requests`, `secret_scanning_push_protection_bypass_requests`.
+- La comparaison dans `scripts/reconcile_gateway_permissions.py` couvre à présent **trois familles de documentation** : 80 intitulés REST, 57 champs d'émission de jeton, cinq sources spécialisées. **89/100 candidats possèdent au moins une correspondance documentaire** ; **11 restent ouverts** (3 Organization, 8 Account).
+- `agent_tasks` peut impliquer Copilot Business/Enterprise et un UAT, **pas un IAT** : facultatif, aucune dépendance imposée à Codex/Copilot.
+- `docs/github-app/GATEWAY_IMPLEMENTATION_GATES.md` § 7.8 est propriétaire du résultat, toujours `GH-MAX-01 DOCUMENTARY_PARTIAL`. Les 89 cas ne constituent **pas** 89 permissions activées.
+- `tests/test_gateway_permission_reconciliation.py` possède désormais **13 tests déclarés** (21 tests Gateway ajoutés avec les huit du DAG) ; pas encore de réussite GitHub Actions attestée au HEAD de PR #1.
+- Les permissions privées de l'App et des trois installations restent `NOT_VERIFIED`, `GH-MAX-02/03` et `GA-00` incomplets.
+
 ## NEXT_ACTION
 `RESTORE_REQUIRED_GITHUB_ACTIONS_VALIDATE_ON_PR_1_HEAD`
 
