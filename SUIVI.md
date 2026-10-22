@@ -54,6 +54,7 @@
 ## Exigences « tous les droits » et audit GA-00 — checkpoint documentaire du 22 octobre 2026
 
 - `docs/github-app/CAHIER_DES_CHARGES_COMPLET.md` conserve **53 exigences cibles**, les **30 domaines V5** et les **20 passages du pipeline autonome**. Les droits maximaux sont un **objectif de couverture**, jamais une preuve de droits accordés à l'App ou aux agents.
+- Le paquet d'inscription initial fournit **100 permissions candidates** (41 Repository, 38 Organization, 20 Account, 1 Enterprise) et **72 paramètres préremplis**. Noms/niveaux recopiés dans le cahier des charges avec empreinte de provenance ; **aucun octroi actuel n'est déduit de la liste**.
 - `docs/github-app/GATEWAY_IMPLEMENTATION_GATES.md` reste le propriétaire du **statut vérifié** ; son § 6 publie l'**audit partiel GA-00**, qui sépare sources historiques, preuves GitHub live sur notre dépôt et configuration App privée non attestée.
 - `DEC-013` formalise l'instruction de consigner toute l'intention avant l'audit ; aucun token/PEM, permission, installation ou dépôt tiers n'a été modifié pour cette consignation.
 - À contrôler en lecture seule depuis l'App réelle : `GET /app`, ses permissions, événements, trois installations et périmètres, config webhook expurgée et paramètres Actions ; sans preuve, le statut reste `NOT_VERIFIED`.
