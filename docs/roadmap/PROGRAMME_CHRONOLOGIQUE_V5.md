@@ -26,13 +26,13 @@ Les plans **A (plateforme)**, **B (usine)**, **C (GitHub App/Bootstrap)** et **D
 | 21 octobre 2026 | Création du dépôt public `chainsolutions-wealthtech/universal-agent-platform` | Dépôt GitHub et journal local | Premier bootstrap réel du dépôt |
 | 22 octobre 2026 | PR #1 sur `bootstrap/canonical-v5-foundation`, archives V5, roadmap et règles ; `main` protégée par ruleset `25599154` | GitHub live, commits, PR, ruleset | Proposition documentaire non fusionnée |
 | 22 octobre 2026 | Revue et remédiations de sécurité/documentation ; issue de revue #2 | Commentaires GitHub, tests et fichiers de suivi | Corrections committées ; revue finale encore attendue |
-| 22 octobre 2026 — dernier contrôle de préparation | `main` HEAD `0b8b2e01e826b915a0c593d5d6545681e9316567`, PR #1 HEAD initial de cette rédaction `88e2a13928d95acc3bbec13dd235c2c2e3e48a9c` ; check `validate` sur cette révision non attesté, 9 discussions non résolues à la dernière vérification | GitHub live | **Blocage d'intégration**, pas blocage de la rédaction du plan |
+| 22 octobre 2026 — dernier contrôle de préparation | `main` HEAD `0b8b2e01e826b915a0c593d5d6545681e9316567`, PR #1 HEAD initial de cette rédaction `88e2a13928d95acc3bbec13dd235c2c2e3e48a9c` ; check `validate` sur cette révision non attesté, 9 discussions non résolues lors de ce contrôle historique ; **13 observées au contrôle ultérieur** | GitHub live | **Blocage d'intégration**, pas blocage de la rédaction du plan |
 
 Les valeurs de HEAD sont des **points de contrôle historiques**. Les vérifier de nouveau lors de chaque reprise ; ne jamais les traiter comme des références immuables vers le dernier état.
 
 ## 2. Gate de bootstrap avant exécution autonome
 
-**G0 — `RESTORE_REQUIRED_GITHUB_ACTIONS_VALIDATE_ON_PR_1_HEAD` :** diagnostiquer l'absence de `validate` sur le dernier HEAD, faire tourner les tests, recevoir la contre-revue sur les 9 fils et les résoudre conformément à la gouvernance, puis demander la décision d'intégration de PR #1. Aucun contournement du ruleset, aucun force-push, aucune fusion en l'absence des preuves requises. La documentation et les audits en lecture seule peuvent progresser en parallèle.
+**G0 — `RESTORE_REQUIRED_GITHUB_ACTIONS_VALIDATE_ON_PR_1_HEAD` :** diagnostiquer l'absence de `validate` sur le dernier HEAD, faire tourner les tests, recevoir la contre-revue sur **tous les fils ouverts** (13 observés au contrôle ultérieur) et les résoudre conformément à la gouvernance, puis demander la décision d'intégration de PR #1. Aucun contournement du ruleset, aucun force-push, aucune fusion en l'absence des preuves requises. La documentation et les audits en lecture seule peuvent progresser en parallèle.
 
 **G1 — `BASELINE_V5_ADOPTED` :** seulement après fusion gouvernée, reconcilier `CURRENT_STATE` avec GitHub live, figer la référence de base et vérifier protections/CI sur `main`.
 
