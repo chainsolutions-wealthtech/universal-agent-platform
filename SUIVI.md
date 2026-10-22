@@ -51,6 +51,14 @@
 - Le validateur a reçu des durcissements supplémentaires : vérification des six colonnes des 46 lots chronologiques, refus d'IDs de sous-tâches supplémentaires, preuve requise pour `DONE`, états mémoire cohérents et environnement CI sans génération de bytecode. Les 16 tests sur branche **ne constituent pas** une CI verte au HEAD.
 - **17 fils de revue étaient ouverts lors du dernier audit avant ce checkpoint**, dont un P1 sur l'absence de validation de sécurité depuis une source de confiance. Le contrôle CI de la PR au HEAD courant reste non attesté ; ne pas confondre tests ajoutés et tests exécutés.
 
+## Exigences « tous les droits » et audit GA-00 — checkpoint documentaire du 22 octobre 2026
+
+- `docs/github-app/CAHIER_DES_CHARGES_COMPLET.md` conserve **53 exigences cibles**, les **30 domaines V5** et les **20 passages du pipeline autonome**. Les droits maximaux sont un **objectif de couverture**, jamais une preuve de droits accordés à l'App ou aux agents.
+- `docs/github-app/GATEWAY_IMPLEMENTATION_GATES.md` reste le propriétaire du **statut vérifié** ; son § 6 publie l'**audit partiel GA-00**, qui sépare sources historiques, preuves GitHub live sur notre dépôt et configuration App privée non attestée.
+- `DEC-013` formalise l'instruction de consigner toute l'intention avant l'audit ; aucun token/PEM, permission, installation ou dépôt tiers n'a été modifié pour cette consignation.
+- À contrôler en lecture seule depuis l'App réelle : `GET /app`, ses permissions, événements, trois installations et périmètres, config webhook expurgée et paramètres Actions ; sans preuve, le statut reste `NOT_VERIFIED`.
+- La PR #1 reste **ouverte et non fusionnée**, ruleset actif, échec de preuve CI sur le dernier HEAD, revue indépendante et **tous** les fils ouverts à traiter. Ne pas confondre publication documentaire et réalisation GA-00–GA-08.
+
 ## NEXT_ACTION
 `RESTORE_REQUIRED_GITHUB_ACTIONS_VALIDATE_ON_PR_1_HEAD`
 
