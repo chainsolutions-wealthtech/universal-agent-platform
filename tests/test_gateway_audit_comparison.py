@@ -71,6 +71,25 @@ class GatewayAuditComparisonTests(unittest.TestCase):
         with self.assertRaises(diff.UnsafeAudit):
             diff.comparison(obj, self.candidates)
 
+    def test_camel_case_private_credentials_rejected(self) -> None:
+        for field in ("privateKey", "clientSecret", "webhookSecret", "accessToken",
+                      "refreshToken", "githubToken", "password", "nestedJwtToken"):
+            data = fixture()
+            data["checks"] = {"anomaly": {field: "synthetic-not-a-real-secret"}}
+            with self.subTest(field=field), self.assertRaises(diff.UnsafeAudit):
+                diff.comparison(data, self.candidates)
+
+    def test_non_readonly_report_mode_rejected(self) -> None:
+        data = fixture()
+        data["mode"] = "WRITE_AND_MODIFY"
+        with self.assertRaises(ValueError):
+            diff.comparison(data, self.candidates)
+
+    def test_candidate_registry_duplicate_rejected(self) -> None:
+        candidates = self.candidates[:99] + [copy.deepcopy(self.candidates[0])]
+        with self.assertRaises(ValueError):
+            diff.comparison(fixture(), candidates)
+
     def test_bad_permission_level_rejected(self) -> None:
         obj = fixture()
         obj["app"]["permissions"]["contents"] = "superadmin"
