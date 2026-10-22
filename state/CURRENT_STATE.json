@@ -49,7 +49,7 @@
     "original_complement_in_repo": true,
     "canonical_memory_service_operational": false
   },
-  "next_action": "RESTORE_REQUIRED_GITHUB_ACTIONS_VALIDATE_ON_PR_1_HEAD",
+  "next_action": "AUDIT_EFFECTIVE_GITHUB_APP_CAPABILITIES_GA_00",
   "caveat": "Snapshot not runtime authority; reconcile with GitHub and independent policy engines.",
   "documentary_import": {
     "plan": "docs/archive/PLAN_DIRECTEUR_UNIFIE_V5_20261021.md",
@@ -213,6 +213,25 @@
       "current_grants_verification": "NOT_VERIFIED"
     },
     "local_audit_package_sha256": "ec639b182801c5fff6fd5e4d1aca62344b4705f1e68b8af8f3a0d53455e27599",
-    "local_audit_v1_superseded": true
-  }
+    "local_audit_v1_superseded": true,
+    "current_execution_priority": "GITHUB_APP_MAX_PERMISSIONS_FOCUSED",
+    "active_documentary_workstream": "GH-MAX-01_OFFICIAL_REST_PERMISSIONS_BASELINE",
+    "official_rest_index": {
+      "checked_on": "2026-10-22",
+      "source": "https://docs.github.com/en/rest/authentication/permissions-required-for-github-apps",
+      "scope": "REST endpoints permission headings, NOT exhaustive GitHub App UI permissions",
+      "total_headings": 80,
+      "by_family": {
+        "enterprise": 1,
+        "organization": 32,
+        "repository": 33,
+        "account": 14
+      },
+      "owner": "docs/github-app/CAHIER_DES_CHARGES_COMPLET.md"
+    },
+    "full_permission_grant_status": "NOT_ATTESTED",
+    "current_target": "MAXIMUM_GITHUB_APP_PERMISSIONS_SUPPORTED_AND_APPROVED_PER_INSTALLATION_AND_USER"
+  },
+  "execution_priority": "GITHUB_APP_COMPLETION_FIRST",
+  "pr_gate_next_action": "RESTORE_REQUIRED_GITHUB_ACTIONS_VALIDATE_ON_PR_1_HEAD"
 }
