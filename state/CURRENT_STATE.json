@@ -215,7 +215,7 @@
     "local_audit_package_sha256": "ec639b182801c5fff6fd5e4d1aca62344b4705f1e68b8af8f3a0d53455e27599",
     "local_audit_v1_superseded": true,
     "current_execution_priority": "GITHUB_APP_MAX_PERMISSIONS_FOCUSED",
-    "active_documentary_workstream": "GH-MAX-01_OFFICIAL_REST_PERMISSIONS_BASELINE",
+    "active_documentary_workstream": "GH-MAX-01_PARTIAL_REST_MATCHING_WITH_OPEN_OTHER_API_REVIEW",
     "official_rest_index": {
       "checked_on": "2026-10-22",
       "source": "https://docs.github.com/en/rest/authentication/permissions-required-for-github-apps",
@@ -243,6 +243,27 @@
       "tests": "tests/test_gateway_execution_plan.py",
       "current_head_ci_attested": false,
       "next_real_action": "AUDIT_EFFECTIVE_GITHUB_APP_CAPABILITIES_GA_00"
+    },
+    "permission_reconciliation": {
+      "status": "DOCUMENTARY_PARTIAL",
+      "script": "scripts/reconcile_gateway_permissions.py",
+      "tests": "tests/test_gateway_permission_reconciliation.py",
+      "source": "docs/github-app/CAHIER_DES_CHARGES_COMPLET.md",
+      "audit_detail_owner": "docs/github-app/GATEWAY_IMPLEMENTATION_GATES.md",
+      "historical_candidate_count": 100,
+      "official_rest_heading_count": 80,
+      "normalized_label_matches": 70,
+      "cases_requiring_other_api_or_alias_review": 30,
+      "unmatched_by_scope": {
+        "repository": 10,
+        "organization": 12,
+        "account": 8,
+        "enterprise": 0
+      },
+      "github_app_current_permissions": "NOT_VERIFIED",
+      "live_mutations_performed": false,
+      "ci_at_latest_head": "NOT_ATTESTED",
+      "finalized": false
     }
   },
   "execution_priority": "GITHUB_APP_COMPLETION_FIRST",
