@@ -104,7 +104,7 @@
     "technical_review_github_state": "COMMENTED",
     "review_threads_unresolved_at_intake": 5,
     "newer_remediation_commits": true,
-    "review_threads_unresolved_at_last_check": 9
+    "review_threads_unresolved_at_last_check": 13
   },
   "review_preparation": {
     "date": "2026-10-22",
@@ -126,20 +126,21 @@
       4342955542,
       4342955545
     ],
-    "status": "CHANGES_COMMITTED_AWAITING_LAST_HEAD_VALIDATION_AND_REVIEW",
+    "status": "NINE_PREVIOUSLY_REMEDIATED_FOUR_NEW_FINDINGS_PENDING",
     "original_master_and_complement_unchanged": true,
     "source_path_alias": "sources/TEXTE_COMPLEMENTAIRE_ORIGINAL_20261021.txt",
     "ci_tests": "tests/test_canonical_bootstrap.py",
     "initial_findings": 5,
     "new_findings": 4,
-    "total_findings": 9,
-    "all_remediations_committed": true,
-    "all_review_threads_replied_to": true,
+    "total_findings": 13,
+    "all_remediations_committed": false,
+    "all_review_threads_replied_to": false,
     "review_threads_resolved": false,
     "ci_last_head": "NO_SUCCESS_RECORDED",
     "ci_diagnostic_file": "docs/reviews/CI_TRIGGER_DIAGNOSTIC_20261022.md",
     "independent_rereview": "PENDING",
-    "legacy_manifest_file": "sources/SOURCE_MANIFEST.json"
+    "legacy_manifest_file": "sources/SOURCE_MANIFEST.json",
+    "findings_pending_additional_review": 4
   },
   "ci_trigger_diagnostic": {
     "status": "ROOT_CAUSE_NOT_PROVEN",
