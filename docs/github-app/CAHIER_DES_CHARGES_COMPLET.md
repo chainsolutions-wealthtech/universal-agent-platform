@@ -472,3 +472,72 @@ Cette page officielle indexe les **familles de permissions pour lesquelles elle 
 - Une installation Enterprise n'est possible que si les conditions de visibilité, de propriétaire et de produit sont réunies ; certaines permissions Enterprise d'installation sont soumises à des restrictions supplémentaires.
 
 **Conclusion de réconciliation :** couverture exhaustive = `historique 100 candidats + référence REST actuelle + formulaire réel et paramètres App + permissions réellement accordées sur 3 installations + événements + probes API + contrôle de mandat`. Aucune de ces listes, prise isolément, n'établit que notre App possède tous les droits.
+
+
+## 11. Deuxième référence officielle 2026 — schéma de paramètres des jetons d'installation
+
+**Référence officielle :** https://docs.github.com/en/rest/apps/apps, section **Create an installation access token for an app**, paramètres `permissions` du corps de requête (rubrique consultée le 22 octobre 2026, version API `2026-03-10`, environs des lignes 315–372). GitHub expose des noms techniques de champs qui n'apparaissent pas nécessairement dans l'index des rubriques REST du §10 ; la présence d'un champ dans ce schéma apporte une **deuxième preuve documentaire de son vocabulaire GitHub**, pas une preuve qu'il est octroyé, utilisable avec chaque jeton, ni proposé dans toutes les éditions/organisations.
+
+**Ce schéma de requête n'est pas une liste exhaustive de tous les droits GitHub**, et ne couvre pas à lui seul toutes les permissions Account/OAuth/Enterprise. La **classe de rapprochement** ci-dessous est une classification de comparaison avec notre historique ; la documentation présente les champs dans un objet JSON commun sans garantir qu'ils seront admissibles pour chaque type de jeton ou installation.
+
+| Classe de rapprochement (indicative) | Champ technique documenté GitHub | Octroi effectif ChainSolutions Universal Gateway |
+| --- | --- | --- |
+| repository | `actions` | `NOT_VERIFIED` |
+| repository | `administration` | `NOT_VERIFIED` |
+| repository | `artifact_metadata` | `NOT_VERIFIED` |
+| repository | `attestations` | `NOT_VERIFIED` |
+| repository | `checks` | `NOT_VERIFIED` |
+| repository | `code_quality` | `NOT_VERIFIED` |
+| repository | `codespaces` | `NOT_VERIFIED` |
+| repository | `contents` | `NOT_VERIFIED` |
+| repository | `dependabot_secrets` | `NOT_VERIFIED` |
+| repository | `deployments` | `NOT_VERIFIED` |
+| repository | `discussions` | `NOT_VERIFIED` |
+| repository | `environments` | `NOT_VERIFIED` |
+| repository | `issues` | `NOT_VERIFIED` |
+| repository | `merge_queues` | `NOT_VERIFIED` |
+| repository | `metadata` | `NOT_VERIFIED` |
+| repository | `packages` | `NOT_VERIFIED` |
+| repository | `pages` | `NOT_VERIFIED` |
+| repository | `pull_requests` | `NOT_VERIFIED` |
+| repository | `repository_custom_properties` | `NOT_VERIFIED` |
+| repository | `repository_hooks` | `NOT_VERIFIED` |
+| repository | `repository_projects` | `NOT_VERIFIED` |
+| repository | `secret_scanning_alerts` | `NOT_VERIFIED` |
+| repository | `secrets` | `NOT_VERIFIED` |
+| repository | `security_events` | `NOT_VERIFIED` |
+| repository | `single_file` | `NOT_VERIFIED` |
+| repository | `statuses` | `NOT_VERIFIED` |
+| repository | `vulnerability_alerts` | `NOT_VERIFIED` |
+| repository | `workflows` | `NOT_VERIFIED` |
+| organization | `custom_properties_for_organizations` | `NOT_VERIFIED` |
+| organization | `members` | `NOT_VERIFIED` |
+| organization | `organization_administration` | `NOT_VERIFIED` |
+| organization | `organization_custom_roles` | `NOT_VERIFIED` |
+| organization | `organization_custom_org_roles` | `NOT_VERIFIED` |
+| organization | `organization_custom_properties` | `NOT_VERIFIED` |
+| organization | `organization_copilot_seat_management` | `NOT_VERIFIED` |
+| organization | `organization_copilot_agent_settings` | `NOT_VERIFIED` |
+| organization | `organization_copilot_requests` | `NOT_VERIFIED` |
+| organization | `organization_external_properties_for_repos` | `NOT_VERIFIED` |
+| organization | `organization_announcement_banners` | `NOT_VERIFIED` |
+| organization | `organization_events` | `NOT_VERIFIED` |
+| organization | `organization_hooks` | `NOT_VERIFIED` |
+| organization | `organization_personal_access_tokens` | `NOT_VERIFIED` |
+| organization | `organization_personal_access_token_requests` | `NOT_VERIFIED` |
+| organization | `organization_plan` | `NOT_VERIFIED` |
+| organization | `organization_projects` | `NOT_VERIFIED` |
+| organization | `organization_packages` | `NOT_VERIFIED` |
+| organization | `organization_secrets` | `NOT_VERIFIED` |
+| organization | `organization_self_hosted_runners` | `NOT_VERIFIED` |
+| organization | `organization_user_blocking` | `NOT_VERIFIED` |
+| account | `email_addresses` | `NOT_VERIFIED` |
+| account | `followers` | `NOT_VERIFIED` |
+| account | `git_ssh_keys` | `NOT_VERIFIED` |
+| account | `gpg_keys` | `NOT_VERIFIED` |
+| account | `interaction_limits` | `NOT_VERIFIED` |
+| account | `profile` | `NOT_VERIFIED` |
+| account | `starring` | `NOT_VERIFIED` |
+| enterprise | `enterprise_custom_properties_for_organizations` | `NOT_VERIFIED` |
+
+**Contrôle du double catalogue :** conserver `100 candidats historiques` + `80 rubriques REST` + `57 champs de schéma d'émission de jetons` séparément ; une correspondance d'intitulé ou de champ technique est **documentation**, pas `GRANTED`. Le nombre des références distinctes ne représente pas le nombre officiel total de permissions qu'il serait possible d'activer.
