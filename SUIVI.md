@@ -84,6 +84,14 @@
 - **Les scripts ne sont pas encore attestés comme exécutés par GitHub Actions sur le HEAD de PR #1** ; les tests déclarés ne sont pas des tests réussis. Le blocage des contrôles au HEAD et la revue indépendante persistent.
 - **Prochaine action App :** observation de `GET /app` et des trois installations sous l'identité réelle de l'App, sans export de PEM, puis poursuite du rapprochement des 30 cas restants.
 
+## GH-MAX-01 — deuxième source officielle et périmètre restant
+
+- Le cahier des charges `docs/github-app/CAHIER_DES_CHARGES_COMPLET.md` (§ 11) conserve **57 champs d'API officiels** du schéma d'émission des jetons GitHub App, catégorie documentaire distincte des 80 rubriques REST et des 100 candidats historiques.
+- Le script `scripts/reconcile_gateway_permissions.py` compare ces deux références : **34 candidats dans les deux**, **36 REST uniquement**, **14 schéma de jeton uniquement**, **16 sans correspondance littérale** dans ces deux documents, toujours à investiguer.
+- Détail/provenance des 16 cas et limite du rapprochement : `docs/github-app/GATEWAY_IMPLEMENTATION_GATES.md` § 7.7. **84/100 = présence dans les références documentaires**, **pas** permissions accordées ou fonctionnelles. GH-MAX-01 reste `DOCUMENTARY_PARTIAL`.
+- `tests/test_gateway_permission_reconciliation.py` déclare désormais **11 tests** (soit 19 tests Gateway nouveaux avec les 8 du DAG), mais aucun résultat Actions du dernier HEAD n'est encore disponible.
+- GH-MAX-02 et GH-MAX-03 nécessitent toujours l'audit privé en lecture seule de l'App #5417646 et de ses trois installations depuis l'environnement où la clé est stockée. Ne transmettre que les résultats expurgés ; ne pas publier les secrets.
+
 ## NEXT_ACTION
 `RESTORE_REQUIRED_GITHUB_ACTIONS_VALIDATE_ON_PR_1_HEAD`
 
