@@ -39,9 +39,14 @@
 - Diagnostic détaillé : `docs/reviews/CI_TRIGGER_DIAGNOSTIC_20261022.md`. Cause racine non attestée ; contrôle des paramètres GitHub Actions et des éventuelles demandes d'approbation requis. Le fichier workflow n'est pas encore sur `main`.
 - La revue distincte précédente est antérieure à ces correctifs ; pas de nouvelle approbation formelle, pas de permission runtime nouvelle, pas de fusion.
 
+## Actualisation après revue automatique supplémentaire — 22 octobre 2026
+- Le contrôle live de PR #1 a révélé **13 fils ouverts**, contre 9 lors du checkpoint précédent. Quatre remarques nouvelles concernent : bytecode Python généré et faux positifs au second scan CI ; exigence de preuves pour un lot `DONE` ; décompte périmé des fils de revue ; ancrage indépendant des empreintes d'archives.
+- Les corrections précédemment consignées couvrent les neuf premières remarques ; les **quatre nouvelles ne sont pas encore remédiées ni contre-vérifiées**. Les précédentes réussites CI sont historiques et ne valident pas la révision actuelle.
+- Le programme de construction proposé et le registre de tâches restent documentaires, prêts pour revue, **sans ouverture d'issues ni démarrage des lots**.
+
 ## NEXT_ACTION
 `RESTORE_REQUIRED_GITHUB_ACTIONS_VALIDATE_ON_PR_1_HEAD`
 
-Gates de fusion : règles GitHub actives ; `validate` sur HEAD courant ; neuf discussions résolues ; validation gouvernée admissible attestée ; aucun bypass. **Aucun merge automatique depuis ce checkpoint.**
+Gates de fusion : règles GitHub actives ; `validate` sur HEAD courant ; **tous les fils de revue ouverts résolus** ; validation gouvernée admissible attestée ; aucun bypass. **Aucun merge automatique depuis ce checkpoint.**
 
 Les projets `Patricked-code/MCP` et `chainsolutions-wealthtech/Governed-Repository-Template` conservent leurs identités, gouvernances et autorisations distinctes.
