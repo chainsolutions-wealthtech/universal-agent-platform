@@ -541,3 +541,26 @@ Cette page officielle indexe les **familles de permissions pour lesquelles elle 
 | enterprise | `enterprise_custom_properties_for_organizations` | `NOT_VERIFIED` |
 
 **Contrôle du double catalogue :** conserver `100 candidats historiques` + `80 rubriques REST` + `57 champs de schéma d'émission de jetons` séparément ; une correspondance d'intitulé ou de champ technique est **documentation**, pas `GRANTED`. Le nombre des références distinctes ne représente pas le nombre officiel total de permissions qu'il serait possible d'activer.
+
+
+## 12. Sources spécialisées GitHub — permissions absentes des deux index généraux
+
+**État documentaire :** `OFFICIAL_SPECIALIZED_REFERENCE_NOT_GRANT` (22 octobre 2026). Ces cinq candidats historiques n'avaient de correspondance littérale ni au § 10 (80 rubriques REST générales) ni au § 11 (57 paramètres de jeton). Une recherche dans **la documentation des fonctionnalités spécialisées** permet toutefois d'identifier leur intitulé officiel, avec les restrictions propres à leur API ou abonnement.
+
+| Portée | Candidat historique | Source GitHub officielle | Condition d'exploitation constatée |
+| --- | --- | --- | --- |
+| `repository` | `agent_tasks` | https://docs.github.com/en/rest/agent-tasks/agent-tasks | `UAT_ONLY_COPILOT_BUSINESS_OR_ENTERPRISE_SUBSCRIPTION` |
+| `repository` | `license_compliance_alerts` | https://docs.github.com/en/webhooks/webhook-events-and-payloads | `WEBHOOK_SUBSCRIPTION_REQUIRES_PERMISSION` |
+| `repository` | `repository_license_policy` | https://docs.github.com/en/enterprise-cloud@latest/rest/authentication/permissions-required-for-github-apps | `ENTERPRISE_CLOUD_API_AVAILABILITY_REQUIRES_CHECK` |
+| `repository` | `secret_scanning_alert_dismissal_requests` | https://docs.github.com/en/enterprise-cloud@latest/rest/secret-scanning/alert-dismissal-requests | `SEPARATE_CONTENTS_ALERT_AND_REVIEW_AUTHORITY_REQUIREMENTS` |
+| `repository` | `secret_scanning_push_protection_bypass_requests` | https://docs.github.com/en/enterprise-cloud@latest/rest/secret-scanning/delegated-bypass | `DELEGATED_BYPASS_PERMISSION_AND_REVIEW_ROLE_REQUIRED` |
+
+**Points techniques à ne pas confondre :**
+
+- `agent_tasks` concerne la **tâche de l'agent cloud Copilot**, en aperçu public selon la documentation ; `UAT` est admissible mais **`IAT` n'est pas pris en charge** pour les endpoints indiqués, et certaines opérations exigent un abonnement Copilot Business/Enterprise. Cette permission est **optionnelle** et ne rend **pas** Codex/Copilot obligatoire pour ChainSolutions Universal Gateway.
+- `license_compliance_alerts` apparaît notamment dans les conditions d'abonnement au webhook `dismissal_request_license_compliance` ; cela ne prouve pas que notre installation est abonnée ou éligible.
+- `repository_license_policy` figure dans les références GitHub Enterprise Cloud pour les contrôles de licences ; vérifier produit, plan et ressource.
+- Les demandes de rejet d'alertes ou de contournement de protection de secrets exigent des combinaisons de permissions/roles et des paramètres de délégation ; **aucune demande n'est approuvée par le seul fait d'avoir le droit de la consulter**.
+
+**Statut des cinq candidats :** présence dans une documentation GitHub spécialisée, **pas** preuve de permission configurée, accordée, disponible sur nos trois espaces, exercée via notre App ou politiquement autorisée. Le niveau historique `write` n'est pas nécessairement applicable aux API en lecture seule.
+
