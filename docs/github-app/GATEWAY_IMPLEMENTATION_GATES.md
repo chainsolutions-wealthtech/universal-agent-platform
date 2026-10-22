@@ -270,3 +270,26 @@ Le script `scripts/reconcile_gateway_permissions.py` consomme désormais les **t
 
 **Verdict :** `GH-MAX-01 DOCUMENTARY_PARTIAL` tant que les 11 derniers paramètres, la configuration effective de l'App et les preuves des installations ne sont pas vérifiés. Le nombre 89 n'est **pas** un niveau d'activation des permissions.
 
+
+
+### 7.9 Deux alias d'API GitHub App prouvés — 91 candidats documentés et neuf ouverts
+
+**Contrôle documentaire complémentaire du 22 octobre 2026** : dans les neuf familles d'évidence, conserver explicitement la différence entre **nom technique historique** et **libellé de capacité GitHub App réellement documentée**.
+
+| Candidat historique | Capacité officielle, endpoint et jeton | Conclusion |
+| --- | --- | --- |
+| `account/blocking` | **Block another user** ; `GET /user/blocks` (UAT/read) et `PUT /user/blocks/{username}` (UAT/write) ; https://docs.github.com/en/rest/authentication/permissions-required-for-github-apps et https://docs.github.com/en/apps/sharing-github-apps/registering-a-github-app-using-url-parameters | `OFFICIAL_GITHUB_APP_CAPABILITY_DOCUMENTED`, pas autorisation de bloquer un utilisateur |
+| `organization/organization_actions_variables` | **Variables** organisation ; `GET /orgs/{org}/actions/variables/{name}` (IAT/UAT/read) et mises à jour autorisées en write ; https://docs.github.com/en/rest/actions/variables | `OFFICIAL_GITHUB_APP_CAPABILITY_DOCUMENTED`, le nom exact de permission doit encore être validé sur l'App |
+
+**Bilan cumulé :** **34** correspondances REST+schema, **36** REST seules, **14** schéma de jeton seul, **5** sources spécialisées, **2** alias d'endpoints GitHub App, **9** sans correspondance directe probante dans ces sources = **100 candidats historiques intacts** ; **91 disposent d'au moins une correspondance documentaire**. **Zéro autorisation effective** constatée lors de cette opération.
+
+**Neuf cas conservés pour l'audit approfondi :**
+- Organization (2) : `organization_models`, `organization_credentials`.
+- Account (7) : `copilot_chat`, `copilot_editor_context`, `user_events`, `user_issue_fields`, `user_issue_types`, `models`, `plugin_gateway_connections`.
+
+**Réserve essentielle :** la documentation GitHub de gestion des **Personal Access Tokens (PAT)** mentionne certains paramètres portant des noms comparables (notamment `organization_models`, `copilot_editor_context`, `user_events`, `user_models` et `copilot_messages`). Elle ne prouve **pas** leur disponibilité pour **notre GitHub App**. Ne pas importer les permissions de PAT comme permissions d'installation ! Le nom historique `copilot_chat` pourrait être un alias de `copilot_messages` mais **ce rapprochement n'est pas encore attesté**.
+
+**Validation automatisable :** `scripts/reconcile_gateway_permissions.py` lit désormais le §13 du cahier des charges en plus des trois sources précédentes. `tests/test_gateway_permission_reconciliation.py` contient **15 méthodes de test déclarées**, dont le refus de considérer une correspondance comme une permission accordée. Les tests ne sont **pas attestés exécutés dans GitHub Actions au HEAD de PR #1**.
+
+**Verdict GH-MAX-01 :** `DOCUMENTARY_PARTIAL`. **NEXT_ACTION technique incontournable :** `GET /app` puis `GET /app/installations` avec l'identité réelle de l'App #5417646 en lecture seule, sur le poste où sa clé privée est conservée. Toute élévation effective reste interdite en l'absence de la preuve et des approbations nécessaires.
+
