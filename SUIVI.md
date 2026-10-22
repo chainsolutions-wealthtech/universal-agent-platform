@@ -118,6 +118,14 @@
 - `docs/github-app/GATEWAY_IMPLEMENTATION_GATES.md` § 7.10 est propriétaire de cette méthode. **Aucun rapport authentique des paramètres privés de notre App n'a encore été importé** ; `GH-MAX-02/03` restent ouverts, `GA-00` partiel.
 - Permissions historiques : **91/100 rattachées à une documentation**, **9** à étudier ; ce n'est toujours **pas** un bilan des droits accordés.
 
+## GH-MAX — qualification résiduelle et comparaison renforcée (22 octobre 2026)
+
+- L'audit GA-00 a désormais **neuf candidats résiduels classés individuellement** dans `docs/github-app/GATEWAY_IMPLEMENTATION_GATES.md` § 7.11. Une occurrence dans les permissions de **fine-grained PAT** (notamment `copilot_messages`, `user_models`, `user_events` et `organization_models`) ne démontre **pas** que notre GitHub App possède ou propose cette permission.
+- `scripts/compare_gateway_audit.py` refuse maintenant davantage de noms de secrets (`accessToken`, `privateKey`, `clientSecret`, etc.), les modes de rapport inattendus et les lots de candidats incohérents ; `tests/test_gateway_audit_comparison.py` définit **11 tests**. Total nouveau de **34 tests Gateway documentaires** : 8 DAG + 15 rapprochement + 11 comparateur.
+- Le programme ne s'est **pas authentifié** avec le PEM de ChainSolutions Universal Gateway ; l'audit des permissions effectives et les trois installations restent `NOT_VERIFIED`.
+- L'outil Node V1.1 a été vérifié localement à nouveau sans identifiant GitHub : **3 tests hors ligne réussis** ; archive SHA-256 `ec639b182801c5fff6fd5e4d1aca62344b4705f1e68b8af8f3a0d53455e27599`. Les tests Python sur la branche ne sont **pas** attestés réussis en CI au dernier HEAD.
+- Le prochain état réconciliable est **`GH-MAX-02/03` avec un rapport d'audit expurgé généré localement**. Le blocage `validate` de PR #1 reste un gate parallèle, sans contournement.
+
 ## NEXT_ACTION
 `AUDIT_EFFECTIVE_GITHUB_APP_CAPABILITIES_GA_00` — priorité de la Gateway.
 
