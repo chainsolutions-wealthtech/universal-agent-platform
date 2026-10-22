@@ -245,3 +245,28 @@ L'outil `scripts/reconcile_gateway_permissions.py` croise à présent **deux ré
 
 **Statut d'exécution :** `GH-MAX-01 DOCUMENTARY_PARTIAL`. Les correspondances documentaires sont **84/100**, mais aucune des 100 permissions n'est passée au statut `GRANTED` ou `RUNTIME_PROBED` en l'absence d'un audit privé de l'App.
 
+
+### 7.8 Sources spécialisées — 89 candidats rattachés à au moins une référence officielle
+
+Le cahier des charges § 12 possède **cinq références spécialisées GitHub** concernant `agent_tasks`, `license_compliance_alerts`, `repository_license_policy`, `secret_scanning_alert_dismissal_requests` et `secret_scanning_push_protection_bypass_requests`. Ce sont des **preuves de documentation et d'éligibilité conditionnelle**, non des preuves de droits réellement accordés à notre App.
+
+| Réconciliation des 100 candidats | Nombre |
+| --- | ---: |
+| Trouvés dans les deux index généraux | 34 |
+| REST uniquement | 36 |
+| Paramètres de jeton uniquement | 14 |
+| Documents GitHub spécialisés uniquement | **5** |
+| **Au moins une source GitHub officielle** | **89** |
+| **Encore sans correspondance dans ces trois familles de sources** | **11** |
+
+**Les 11 cas à étudier :**
+
+- Organization (3) : `organization_models`, `organization_credentials`, `organization_actions_variables`.
+- Account (8) : `blocking`, `copilot_chat`, `copilot_editor_context`, `user_events`, `user_issue_fields`, `user_issue_types`, `models`, `plugin_gateway_connections`.
+
+**Exigence particulière** : `agent_tasks` concerne le service Copilot cloud et ses endpoints exigeant un **UAT** et, pour certaines actions, un abonnement Copilot Business/Enterprise. **Ne jamais substituer un IAT, ni rendre Copilot/Codex obligatoires pour la plateforme.** Les autres références spécialisées impliquent aussi des exigences de produit, permission ou mandat.
+
+Le script `scripts/reconcile_gateway_permissions.py` consomme désormais les **trois sections canoniques** (§ 9/10/11/12) et conserve `live_app_grant=NOT_VERIFIED` et `agent_policy_status=NOT_AUTHORIZED_BY_THIS_REPORT` sur tous les candidats. `tests/test_gateway_permission_reconciliation.py` déclare **13 tests** dédiés (aucune réussite Actions au HEAD n'est attestée).
+
+**Verdict :** `GH-MAX-01 DOCUMENTARY_PARTIAL` tant que les 11 derniers paramètres, la configuration effective de l'App et les preuves des installations ne sont pas vérifiés. Le nombre 89 n'est **pas** un niveau d'activation des permissions.
+
