@@ -104,7 +104,7 @@
     "technical_review_github_state": "COMMENTED",
     "review_threads_unresolved_at_intake": 5,
     "newer_remediation_commits": true,
-    "review_threads_unresolved_at_last_check": 13
+    "review_threads_unresolved_at_last_check": 17
   },
   "review_preparation": {
     "date": "2026-10-22",
@@ -126,13 +126,13 @@
       4342955542,
       4342955545
     ],
-    "status": "NINE_PREVIOUSLY_REMEDIATED_FOUR_NEW_FINDINGS_PENDING",
+    "status": "CODE_FIXES_PROPOSED_PENDING_TRUSTED_CI_AND_RE_REVIEW",
     "original_master_and_complement_unchanged": true,
     "source_path_alias": "sources/TEXTE_COMPLEMENTAIRE_ORIGINAL_20261021.txt",
     "ci_tests": "tests/test_canonical_bootstrap.py",
     "initial_findings": 5,
     "new_findings": 4,
-    "total_findings": 13,
+    "total_findings": 17,
     "all_remediations_committed": false,
     "all_review_threads_replied_to": false,
     "review_threads_resolved": false,
@@ -163,5 +163,28 @@
     "github_issues_created_for_this_plan": 0,
     "warning": "No task admission or operation permission is established by these documents; PR1 gate unchanged",
     "architecture_B_vs_E": "DECISION_OPEN"
+  },
+  "github_app_completion": {
+    "status": "BOOTSTRAP_PARTIALLY_VERIFIED_NOT_RUNTIME_FINISHED",
+    "app_id": 5417646,
+    "documentary_owner": "docs/github-app/GATEWAY_IMPLEMENTATION_GATES.md",
+    "gates": [
+      "GA-00",
+      "GA-01",
+      "GA-02",
+      "GA-03",
+      "GA-04",
+      "GA-05",
+      "GA-06",
+      "GA-07",
+      "GA-08"
+    ],
+    "local_audit": "UNIVERSAL_GATEWAY_AUDIT_V1.zip",
+    "local_audit_offline_tests_passed": 3,
+    "live_private_configuration_attestation": "PENDING_LOCAL_AUDIT",
+    "gateway_broker_operational": false,
+    "webhook_end_to_end_operational": false,
+    "oauth_user_flow_validated": false,
+    "full_d00_d14_coverage_verified": false
   }
 }
