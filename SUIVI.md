@@ -60,6 +60,14 @@
 - À contrôler en lecture seule depuis l'App réelle : `GET /app`, ses permissions, événements, trois installations et périmètres, config webhook expurgée et paramètres Actions ; sans preuve, le statut reste `NOT_VERIFIED`.
 - La PR #1 reste **ouverte et non fusionnée**, ruleset actif, échec de preuve CI sur le dernier HEAD, revue indépendante et **tous** les fils ouverts à traiter. Ne pas confondre publication documentaire et réalisation GA-00–GA-08.
 
+## Focus prioritaire GH-MAX — GitHub App seule, toutes permissions admissibles
+
+- Instruction utilisateur `DEC-014` : **priorité à la finalisation complète** de `ChainSolutions Universal Gateway`, avec toutes les permissions GitHub éligibles, pas au lancement d'autres lots.
+- Le cahier des charges conserve **100 permissions candidates historiques** (41 Repository, 38 Organization, 20 Account, 1 Enterprise). La référence REST GitHub consultée le 22 octobre 2026 indexe **80 rubriques de permissions** (33 Repository, 32 Organization, 14 User/Account, 1 Enterprise), répertoriées au § 10 du même cahier. Ces deux référentiels **ne sont pas directement comparables** et **80 n'est pas** un total de droits GitHub disponibles.
+- Le contrat d'audit `docs/github-app/GATEWAY_IMPLEMENTATION_GATES.md` § 7 détaille `GH-MAX-01 → GH-MAX-10`, de la confrontation officielle à la livraison auditable ; l'état courant de `GH-MAX-02/03` reste `NOT_VERIFIED`.
+- Prochaine opération App : lecture seule de l'App ID `5417646` via `GET /app`, puis des **trois installations** et de leurs permissions réellement accordées. **Ne pas confondre le connecteur GitHub de ChatGPT avec notre propre App.**
+- Aucune permission, installation, identité ou dépôt tiers modifié ; `main` ne doit pas être contournée. La CI manquante sur PR #1 reste bloquante pour fusionner, même si l'audit App peut progresser en parallèle.
+
 ## NEXT_ACTION
 `RESTORE_REQUIRED_GITHUB_ACTIONS_VALIDATE_ON_PR_1_HEAD`
 
