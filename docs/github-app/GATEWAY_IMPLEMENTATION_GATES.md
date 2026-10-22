@@ -122,3 +122,46 @@ Ne pas substituer `workflow_dispatch` comme garantie d'un check requis : GitHub 
 - **Audit App :** `AUDIT_EFFECTIVE_GITHUB_APP_CAPABILITIES_GA_00` via une collecte locale en lecture seule, avec le PEM conservé localement.
 - **Intégration PR :** `RESTORE_REQUIRED_GITHUB_ACTIONS_VALIDATE_ON_PR_1_HEAD`, puis revue indépendante et résolution de tous les fils ouverts avant merge.
 - **Construction runtime :** seulement après les prérequis réels et les décisions d'architecture admissibles, commencer GA-01 et les lots B/F/D dépendants.
+
+
+## 7. Priorité exclusive de finalisation — couverture maximale de permissions
+
+**Décision utilisateur :** concentrer le chantier courant sur **la GitHub App complète, puissante, avec toutes les permissions admissibles**, plutôt que commencer prématurément le runtime général de la plateforme. L'ambition couvre les permissions historiques, les nouvelles permissions GitHub et les événements, mais aucun droit inconnu, dangereux ou indisponible ne sera déclaré octroyé par hypothèse.
+
+### 7.1 Inventaire documentaire actualisé à partir de GitHub (22/10/2026)
+
+La source utilisateur `REGISTER_UNIVERSAL_GITHUB_APP_V5.zip` fournit **100 candidats historiques** (41 Repository, 38 Organization, 20 Account, 1 Enterprise). La rubrique **Permissions required for GitHub Apps** de la référence REST GitHub consultée le 22 octobre 2026 présente **80 rubriques indexées** pour les endpoints REST (33 Repository, 32 Organization, 14 User/Account, 1 Enterprise). Ces deux nombres décrivent **des référentiels de nature différente** ; **80 n'est pas le nombre total démontré de permissions du formulaire GitHub** et les différences ne sont pas des suppressions confirmées. Les 80 intitulés sont transcrits dans `CAHIER_DES_CHARGES_COMPLET.md` § 10, avec leur nature documentaire.
+
+**Sources officielles :**
+- https://docs.github.com/en/rest/authentication/permissions-required-for-github-apps
+- https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/choosing-permissions-for-a-github-app
+- https://docs.github.com/en/apps/maintaining-github-apps/modifying-a-github-app-registration
+- https://docs.github.com/en/rest/apps/apps
+- https://docs.github.com/en/rest/apps/webhooks
+
+### 7.2 Registre d'actions focalisé — avant toute élévation
+
+| Ordre | Code | Action réelle | Vérification et preuve attendue | État |
+| --- | --- | --- | --- | --- |
+| 01 | `GH-MAX-01` | Comparer les 100 candidats historiques aux permissions officielles REST, GraphQL, Git et aux formulaires actuels | Matrice ancien nom → nom officiel/type de jeton/version/entitlement, anomalies et inconnues | `DOCUMENTARY_PARTIAL` |
+| 02 | `GH-MAX-02` | Auditer **l'App #5417646** avec JWT en lecture seule : `GET /app` | ID, slug confirmé, permissions actuelles, événements et métadonnées **expurgées** | `NOT_VERIFIED_PRIVATE` |
+| 03 | `GH-MAX-03` | Auditer chaque installation : `GET /app/installations` et dépôts accessibles avec pagination | ID, compte, `repository_selection`, `permissions`, `events`, repo scope, suspension/approbation | `NOT_VERIFIED_CURRENT` |
+| 04 | `GH-MAX-04` | Produire le delta **souhaité ↔ réellement configurable ↔ demandé ↔ approuvé** par compte | Diff pour les 4 familles, risques, prérequis et plan d'approbation ; ne pas confondre App et utilisateurs | `BLOCKED_BY_GH-MAX-02/03` |
+| 05 | `GH-MAX-05` | Définir profils `NORMAL_OPERATIONS`, `SECURITY_ADMIN`, `GOVERNANCE_ADMIN`, `USER_DELEGATED`, `ENTERPRISE_OPTIONAL` | Matrice de risque, politique, coffre et isolation des droits sensibles | `PLANNED` |
+| 06 | `GH-MAX-06` | Modifier les permissions de l'**App existante** après revue/autorité, sans créer de nouvelle App | Journal des modifications, consentements/approbations de chaque installation et utilisateur requis | `NOT_STARTED` |
+| 07 | `GH-MAX-07` | Recontrôler la configuration et les événements après les approbations | `GET /app` + installations et webhooks, écarts, nouvelles preuves datées | `NOT_STARTED` |
+| 08 | `GH-MAX-08` | Développer broker JWT/IAT/UAT durable et récepteur webhook sécurisé, puis tester en LAB | Tests d'isolation du mandat, HMAC, expiration, idempotence, refus par défaut | `NOT_IMPLEMENTED` |
+| 09 | `GH-MAX-09` | Tester chaque famille/capacité admissible en LAB et construire le tableau de couverture | `requested→granted→probed→policy-allowed`, succès/échec, preuve ; 30 domaines V5 | `NOT_IMPLEMENTED` |
+| 10 | `GH-MAX-10` | Audit indépendant final et livraison selon GA-07/08 | Vérifications de sécurité, droits, révocation, restauration, fonctionnement et non-régression | `NOT_IMPLEMENTED` |
+
+### 7.3 Différences entre permissions natives et autonomie totale
+
+Le « droit maximal » concerne les **permissions configurables et approuvées GitHub**, pas un pouvoir illimité du modèle IA. Les fonctionnalités de mémoire, orchestration, agents, bus, infrastructure et contrôle métier seront développées **autour** de l'App selon les lots V5, en conservant les autorités tierces distinctes. Une permission Repository/Organization approuvée ne donne pas automatiquement les permissions Account/Enterprise ; de même les permissions App ne remplacent pas l'autorisation de l'agent.
+
+GitHub précise qu'après ajout de permissions Repository/Organization, **chaque installation doit accepter les changements**, et après ajout de permissions de compte, **chaque utilisateur autorisant l'App doit approuver**. En attendant, l'installation conserve ses anciens droits. Les événements accessibles dépendent aussi des permissions sélectionnées. Aucune opération de modification de permissions ne sera revendiquée avant ce mécanisme d'approbation.
+
+### 7.4 Premier résultat d'audit sur les preuves effectivement présentes
+
+**`GH-MAX-01` commencé en mode documentaire**, références historiques et GitHub officiel identifiées. **`GH-MAX-02` / `GH-MAX-03` non vérifiables ici** sans identité JWT de **cette App précise**, qui ne doit pas être confondue avec le connecteur GitHub de ChatGPT. Il faut utiliser le processus local read-only, puis importer uniquement le rapport expurgé. Aucune permission n'a été accordée, supprimée ou changée par cette lecture.
+
+**Prochaine opération du chantier focalisé :** `AUDIT_EFFECTIVE_GITHUB_APP_CAPABILITIES_GA_00`, sous-étapes `GH-MAX-02` et `GH-MAX-03` en lecture seule. Le gate CI de la PR #1 reste bloquant **pour la fusion**, mais n'empêche pas d'inventorier l'App sans écriture.
