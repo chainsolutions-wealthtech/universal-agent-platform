@@ -19,4 +19,7 @@ Ce journal sépare **décision utilisateur**, **proposition technique** et **ét
 
 | DEC-012 | Finaliser en priorité la GitHub App existante et conserver un programme V5 intégralement chronologique et découpé en tâches, sans recréer l'application, les 46 lots ni les identités et sans modifier MCP/GRT. | Instruction explicite utilisateur du 22 octobre 2026 ; complément d'acceptation `docs/github-app/GATEWAY_IMPLEMENTATION_GATES.md` ; livraison complète soumise à preuves GA-00–GA-08. |
 
+
+| DEC-013 | Conserver intégralement la vision souhaitée pour `ChainSolutions Universal Gateway` : couverture GitHub maximale (quatre familles de permissions et toutes fonctions pertinentes), sur les trois espaces, exploitable par les agents IA, avec droits effectivement accordés et mandats distincts ; consigner d'abord le cahier des charges puis auditer les droits et écarts existants sans recréer l'App. | Instruction explicite du 22 octobre 2026 ; cible détaillée dans `docs/github-app/CAHIER_DES_CHARGES_COMPLET.md` ; observations et gates dans `docs/github-app/GATEWAY_IMPLEMENTATION_GATES.md` ; aucune permission nouvelle activée. |
+
 **À valider :** publication intégrale du plan V5, inventaire actualisé des 46 lots, matrice des permissions *effectives* et protocole de mémorisation canonique persistant. Toute modification future doit ajouter une entrée et indiquer ce qui est superseded, pourquoi et sur quelle source.
