@@ -110,8 +110,18 @@
 - `scripts/reconcile_gateway_permissions.py` inclut la quatrième famille de preuves et `tests/test_gateway_permission_reconciliation.py` déclare **15 tests** (23 tests spécifiques Gateway avec les huit du DAG) ; l'exécution Actions au dernier HEAD reste non attestée.
 - Prochain blocage : `GH-MAX-02/03` audit de l'App #5417646 avec clé gardée localement, puis droits effectivement octroyés et approbations. **Aucun nouveau droit activé**, aucune action sur MCP ou GRT.
 
+## GH-MAX — import sécurisé du rapport expurgé de l'App #5417646
+
+- Ajout de `scripts/compare_gateway_audit.py` : compare hors ligne un rapport `UNIVERSAL_GATEWAY_AUDIT_V1_1` aux **100 candidats historiques**, sous contrôle de l'identité App et des trois Installation IDs ; aucune requête GitHub, émission de jeton ni écriture de droit.
+- `tests/test_gateway_audit_comparison.py` déclare **8 tests** de sûreté (refus de secrets, erreur de compte, doublon, niveau invalide, séparation IAT/UAT). **Les tests n'ont pas encore de réussite GitHub Actions attestée au dernier HEAD**.
+- Le comparateur refuse explicitement d'affirmer un droit Account à partir d'un rapport d'installation, et traite l'absence de nom historique comme une **absence d'observation exacte**, pas comme un droit supprimé.
+- `docs/github-app/GATEWAY_IMPLEMENTATION_GATES.md` § 7.10 est propriétaire de cette méthode. **Aucun rapport authentique des paramètres privés de notre App n'a encore été importé** ; `GH-MAX-02/03` restent ouverts, `GA-00` partiel.
+- Permissions historiques : **91/100 rattachées à une documentation**, **9** à étudier ; ce n'est toujours **pas** un bilan des droits accordés.
+
 ## NEXT_ACTION
-`RESTORE_REQUIRED_GITHUB_ACTIONS_VALIDATE_ON_PR_1_HEAD`
+`AUDIT_EFFECTIVE_GITHUB_APP_CAPABILITIES_GA_00` — priorité de la Gateway.
+
+**Gate de PR distinct :** `RESTORE_REQUIRED_GITHUB_ACTIONS_VALIDATE_ON_PR_1_HEAD`.
 
 Gates de fusion : règles GitHub actives ; `validate` sur HEAD courant ; **tous les fils de revue ouverts résolus** ; validation gouvernée admissible attestée ; aucun bypass. **Aucun merge automatique depuis ce checkpoint.**
 
