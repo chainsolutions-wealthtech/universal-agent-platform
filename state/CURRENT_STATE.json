@@ -196,6 +196,21 @@
     "private_app_permissions_current": "NOT_VERIFIED",
     "app_actual_webhook_configuration": "NOT_VERIFIED",
     "sensitive_permissions_changed_by_this_operation": false,
-    "next_read_only_action": "AUDIT_EFFECTIVE_GITHUB_APP_CAPABILITIES_GA_00"
+    "next_read_only_action": "AUDIT_EFFECTIVE_GITHUB_APP_CAPABILITIES_GA_00",
+    "historical_permission_candidates": {
+      "status": "HISTORICAL_CANDIDATES_NOT_GRANTED",
+      "source": "REGISTER_UNIVERSAL_GITHUB_APP_V5.zip/permissions-requested.json",
+      "source_sha256": "0de91cb024ba419f995897b18654ca93583b10cacb578804e598962e0ca6ec10",
+      "count": 100,
+      "preselected_url_candidates": 72,
+      "by_family": {
+        "repository": 41,
+        "organization": 38,
+        "account": 20,
+        "enterprise": 1
+      },
+      "reproduced_in": "docs/github-app/CAHIER_DES_CHARGES_COMPLET.md",
+      "current_grants_verification": "NOT_VERIFIED"
+    }
   }
 }
