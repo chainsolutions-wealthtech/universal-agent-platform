@@ -44,6 +44,13 @@
 - Les corrections précédemment consignées couvrent les neuf premières remarques ; les **quatre nouvelles ne sont pas encore remédiées ni contre-vérifiées**. Les précédentes réussites CI sont historiques et ne valident pas la révision actuelle.
 - Le programme de construction proposé et le registre de tâches restent documentaires, prêts pour revue, **sans ouverture d'issues ni démarrage des lots**.
 
+## Finalisation de la passerelle GitHub App — nouveau contrat documentaire
+- `docs/github-app/GATEWAY_IMPLEMENTATION_GATES.md` documente les faits réellement vérifiés, le périmètre de l'App #5417646, ses trois installations, les gates GA-00–GA-08 et leurs correspondances aux lots D00–D14.
+- L'authentification locale et la création du dépôt ont fonctionné ; **ni la matrice finale des permissions réellement accordées, ni le broker durable, ni les webhooks signés, ni OAuth utilisateur, ni la couverture D00–D14 ne sont attestés**.
+- Un audit local read-only `UNIVERSAL_GATEWAY_AUDIT_V1.zip` est fourni en artefact de conversation et testé hors réseau (3 tests passés). L'audit des configurations privées exige une exécution locale avec la clé PEM **sans partage de secret**.
+- Le validateur a reçu des durcissements supplémentaires : vérification des six colonnes des 46 lots chronologiques, refus d'IDs de sous-tâches supplémentaires, preuve requise pour `DONE`, états mémoire cohérents et environnement CI sans génération de bytecode. Les 16 tests sur branche **ne constituent pas** une CI verte au HEAD.
+- **17 fils de revue étaient ouverts lors du dernier audit avant ce checkpoint**, dont un P1 sur l'absence de validation de sécurité depuis une source de confiance. Le contrôle CI de la PR au HEAD courant reste non attesté ; ne pas confondre tests ajoutés et tests exécutés.
+
 ## NEXT_ACTION
 `RESTORE_REQUIRED_GITHUB_ACTIONS_VALIDATE_ON_PR_1_HEAD`
 
