@@ -24,8 +24,9 @@ EXPECTED_INSTALLATIONS = {
 }
 VALID_LEVELS = {"read", "write", "admin"}
 FORBIDDEN_FIELDS = {
-    "token", "access_token", "refresh_token", "jwt", "private_key",
-    "client_secret", "webhook_secret", "pem", "authorization",
+    "token", "accesstoken", "refreshtoken", "jwttoken", "jwt",
+    "privatekey", "privatekeypem", "clientsecret", "webhooksecret",
+    "password", "authorization", "pem", "githubtoken",
 }
 
 
@@ -37,8 +38,8 @@ def reject_credentials(value: object) -> None:
     """Fail closed for credential-bearing JSON fields anywhere in the input."""
     if isinstance(value, dict):
         for raw_key, child in value.items():
-            name = str(raw_key).casefold()
-            if name in FORBIDDEN_FIELDS:
+            name = "".join(ch for ch in str(raw_key).casefold() if ch.isalnum())
+            if name in FORBIDDEN_FIELDS or name.endswith(("accesstoken", "refreshtoken", "privatekey", "clientsecret", "webhooksecret")):
                 raise UnsafeAudit("Credential-bearing input rejected (do not share raw secrets)")
             reject_credentials(child)
     elif isinstance(value, list):
@@ -56,6 +57,8 @@ def comparison(raw: dict, candidates: list[dict]) -> dict:
     reject_credentials(raw)
     if raw.get("schema_version") != "1.0.0":
         raise ValueError("Unsupported local audit schema")
+    if raw.get("mode") not in (None, "READ_ONLY_WITH_EPHEMERAL_TOKEN_ISSUANCE"):
+        raise ValueError("Audit mode differs from expected read-only collection")
     app = raw.get("app")
     if not isinstance(app, dict) or app.get("id") != EXPECTED_APP or app.get("owner") != EXPECTED_OWNER:
         raise ValueError("Wrong GitHub App identity: abort, do not compare")
@@ -79,6 +82,8 @@ def comparison(raw: dict, candidates: list[dict]) -> dict:
         if by_account[account].get("installation_id") != expected_id:
             raise ValueError("Installation ID mismatch: refuse comparison")
 
+    if len(candidates) != 100 or len({(r.get("scope"), r.get("parameter")) for r in candidates}) != 100:
+        raise ValueError("Untrusted candidate registry or missing historical permissions")
     lines = []
     for row in candidates:
         scope, name = row["scope"], row["parameter"]
