@@ -41,8 +41,8 @@ class PermissionReconciliationTests(unittest.TestCase):
         result = mod.match(self.hist, self.official, self.tokens, self.specialized)
         self.assertEqual(result["statistics"]["official_token_schema_fields"], 57)
         self.assertEqual(result["statistics"]["token_schema_exact_parameter_matches"], 48)
-        self.assertEqual(result["statistics"]["combined_documented_matches"], 84)
-        self.assertEqual(result["statistics"]["remaining_without_either_reference"], 16)
+        self.assertEqual(result["statistics"]["combined_documented_matches"], 89)
+        self.assertEqual(result["statistics"]["remaining_without_either_reference"], 11)
         self.assertTrue(all(z["live_app_grant"] == "NOT_VERIFIED" for z in result["items"]))
 
     def test_token_schema_missing_rejected(self) -> None:
