@@ -95,7 +95,7 @@ def verify_chronological_plan(root: Path, lots: list[dict]) -> None:
     assert sorted(set(phase for _, phase, _ in table_rows)) == [f"P{i:02d}" for i in range(10)], "Chronology phases changed"
     headings = re.findall(r"^#### ([BFD]\d{2}) — ", tasks, re.MULTILINE)
     assert headings == ordered_ids, "Task register does not follow the programme order"
-    task_ids = re.findall(r"^- \*\*`([BFD]\d{2}-0[1-3])`\*\*", tasks, re.MULTILINE)
+    task_ids = re.findall(r"^- \*\*`([BFD]\d{2}-0[1-3])` — ", tasks, re.MULTILINE)
     expected = [f"{lot}-{i:02d}" for lot in ordered_ids for i in (1, 2, 3)]
     assert task_ids == expected, "Each lot must have three uniquely numbered draft tasks"
     # The plan preserves source requirements; never infer the lot's runtime status.
