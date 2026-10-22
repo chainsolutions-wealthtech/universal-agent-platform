@@ -68,6 +68,13 @@
 - Prochaine opération App : lecture seule de l'App ID `5417646` via `GET /app`, puis des **trois installations** et de leurs permissions réellement accordées. **Ne pas confondre le connecteur GitHub de ChatGPT avec notre propre App.**
 - Aucune permission, installation, identité ou dépôt tiers modifié ; `main` ne doit pas être contournée. La CI manquante sur PR #1 reste bloquante pour fusionner, même si l'audit App peut progresser en parallèle.
 
+## Projection exécutable GH-MAX — registre machine en préparation
+
+- `docs/github-app/GH_MAX_EXECUTION_PLAN.json` est une **projection technique** (pas une seconde source de vérité) des dix actions déjà décrites au § 7.2 du contrat d'audit : dépendances, vérifications, garde-fous, preuves, blocages et champs de checkpoint. **Aucun état d'exécution réel n'y est affirmé**.
+- `scripts/check_gateway_execution_plan.py` fournit validation documentaire et aperçu `--next` **sans effet sur GitHub** ; `tests/test_gateway_execution_plan.py` ajoute **8 tests** de sécurité de contrat.
+- Les deux interrupteurs `execution_enabled` et `mutations_enabled` sont **désactivés** ; les dix tâches restent `PLANNED` non admises. Le futur moteur ne pourra exécuter qu'après autorisation et vérification d'état live.
+- La CI du dernier HEAD PR #1 demeure non attestée ; les tests ajoutés et la vérification structurelle ponctuelle **ne sont pas** une preuve de GitHub Actions vert ou de production opérationnelle.
+
 ## NEXT_ACTION
 `RESTORE_REQUIRED_GITHUB_ACTIONS_VALIDATE_ON_PR_1_HEAD`
 
