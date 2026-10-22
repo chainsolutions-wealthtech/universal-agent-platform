@@ -177,3 +177,39 @@ Pour rendre les dix opérations précédentes interprétables par un futur orche
 - **Arrêt sûr :** absence de preuve, approbation, autorisation de projet, jeton local approprié ou CI fiable → état bloqué/en attente, jamais élévation implicite de droits.
 - **Reprise future :** relire `state/CURRENT_STATE.json`, la configuration GitHub et les preuves, résoudre la même identité/tâche/mandat puis traiter le prochain élément admissible. Le futur runtime possédera ses états et événements sous stockage privé plutôt que modifier ce JSON pour se déclarer terminé.
 - **Contrainte actuelle :** le validateur et les tests sont committés sur la PR #1, mais **aucun succès GitHub Actions sur son HEAD courant n'est encore attesté**. La projection ne vaut pas validation indépendante.
+
+### 7.6 Première confrontation GH-MAX-01 reproductible — état provisoire
+
+**Lecture documentaire :** le rapprochement **des noms normalisés** des 100 candidats historiques contre les **80 intitulés REST** disponibles au § 10 du cahier des charges fournit :
+
+| Sous-ensemble | Candidats historiques | Correspondances de libellé | Sans correspondance de libellé REST |
+| --- | ---: | ---: | ---: |
+| Repository | 41 | 31 | **10** |
+| Organization | 38 | 26 | **12** |
+| Account/User | 20 | 12 | **8** |
+| Enterprise | 1 | 1 | **0** |
+| **Total** | **100** | **70** | **30** |
+
+**Ces 70 correspondances ne prouvent pas l'identité sémantique des droits, leur caractère disponible ou leur octroi.** Les **30 sans correspondance REST ne sont PAS considérés comme supprimés** : recherche GraphQL, Git, documentation propre à chaque produit, alias de vocabulaire et vérification du formulaire actuel encore requises. Aucun résultat `APPROVED`, `GRANTED`, `READY` ou `DONE` n'est établi.
+
+**Candidats à examiner (30), séparés par périmètre :**
+
+- **Repository (10) :** `agent_tasks`, `statuses`, `discussions`, `license_compliance_alerts`, `merge_queues`, `packages`, `repository_projects`, `repository_license_policy`, `secret_scanning_alert_dismissal_requests`, `secret_scanning_push_protection_bypass_requests`.
+- **Organization (12) :** `organization_user_blocking`, `organization_copilot_requests`, `organization_custom_org_roles`, `organization_custom_roles`, `organization_external_properties_for_repos`, `organization_copilot_seat_management`, `organization_models`, `organization_announcement_banners`, `organization_credentials`, `organization_plan`, `organization_actions_variables`, `organization_hooks`.
+- **Account/User (8) :** `blocking`, `copilot_chat`, `copilot_editor_context`, `user_events`, `user_issue_fields`, `user_issue_types`, `models`, `plugin_gateway_connections`.
+
+**Outils de reproduction sur la branche, en lecture seule :**
+
+```bash
+python3 scripts/reconcile_gateway_permissions.py
+python3 scripts/reconcile_gateway_permissions.py --json
+python3 scripts/check_gateway_execution_plan.py --next
+python3 -m unittest discover -s tests -p 'test_gateway_*py' -v
+```
+
+- `scripts/reconcile_gateway_permissions.py` produit un rapport JSON dérivé du **propriétaire de source** `CAHIER_DES_CHARGES_COMPLET.md`, et **n'écrit aucun statut runtime** ; il ne s'agit pas d'un second inventaire canonique.
+- `tests/test_gateway_permission_reconciliation.py` ajoute neuf contrôles négatifs et structurels, notamment zéro privilège accordé par déduction.
+- Le workflow `canonical-documentation.yml` exécute désormais en principe les deux validateurs documentaires sur sa branche avant la suite de tests, **sous réserve d'une CI réelle sur le HEAD actuel**.
+- Vérification structurelle depuis les fichiers GitHub effectuée dans cette conversation ; **aucune exécution CI au dernier HEAD ni audit privé de l'App** encore attestés.
+- **GH-MAX-01 reste `DOCUMENTARY_PARTIAL`**, jusqu'à la réconciliation GraphQL/autres API et la validation indépendante des 30 cas.
+
