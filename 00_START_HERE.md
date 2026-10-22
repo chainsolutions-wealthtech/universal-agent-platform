@@ -12,10 +12,11 @@ Construire une plateforme universelle multi-agents, multi-projets, multi-comptes
 4. `docs/roadmap/ROADMAP_V5.json` — **propriétaire canonique** de la définition des 46 lots et de leurs critères.
 5. `docs/roadmap/PROGRAMME_CHRONOLOGIQUE_V5.md` — **ordre de construction proposé**, 10 vagues, gates et histoire.
 6. `docs/roadmap/REGISTRE_TACHES_V5.md` — 138 propositions de sous-tâches, non admises ni ouvertes en issues.
-7. `docs/DECISIONS_LOG.md` — décisions et statut de leur preuve.
-8. `docs/SECURITY_GOVERNANCE.md` — règles de confidentialité, de séparation et d'autorisation.
-9. `SUIVI.md` — travail réalisé / non réalisé et NEXT_ACTION.
-10. `docs/SOURCE_PROVENANCE.md` — origines, limites et conservation documentaire.
+7. `docs/github-app/GATEWAY_IMPLEMENTATION_GATES.md` — **sous-plan GitHub App** : faits vérifiés, contrats, permissions à auditer, gates GA-00 à GA-08, preuves manquantes.
+8. `docs/DECISIONS_LOG.md` — décisions et statut de leur preuve.
+9. `docs/SECURITY_GOVERNANCE.md` — règles de confidentialité, de séparation et d'autorisation.
+10. `SUIVI.md` — travail réalisé / non réalisé et NEXT_ACTION.
+11. `docs/SOURCE_PROVENANCE.md` — origines, limites et conservation documentaire.
 
 ## Invariants
 - **Identité d'agent ≠ blueprint ≠ affectation ≠ mandat ≠ session ≠ conversation ≠ permission.**
