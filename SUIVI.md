@@ -15,11 +15,17 @@
 - Dossier : `docs/reviews/PR_1_REMEDIATION_LOG_20261022.md`.
 - Un chemin de référence historique `sources/TEXTE_COMPLEMENTAIRE_ORIGINAL_20261021.txt` est maintenant disponible, avec le **même blob Git** que le fichier canonique de `docs/archive/`.
 - Validation renforcée des en-têtes de clés, extensions sensibles et tokens GitHub ; comparaison de tous les champs des deux index avec les annexes V5 ; liste exhaustive des 3 sources canoniques.
-- Dix tests de régression négatifs/positifs ont été ajoutés dans `tests/test_canonical_bootstrap.py`, désormais exécutés par le workflow CI avant la validation documentaire.
+- Douze tests de régression négatifs/positifs sont présents dans `tests/test_canonical_bootstrap.py`, désormais exécutés par le workflow CI avant la validation documentaire.
+
+## Programme directeur chronologique — proposition sur PR #1
+
+- `docs/roadmap/PROGRAMME_CHRONOLOGIQUE_V5.md` : ordre prospectif documenté de **46 lots dans 10 vagues**, construit à partir du registre historique `ROADMAP_V5.json`, avec dépendances, critères de sortie, jalons et références.
+- `docs/roadmap/REGISTRE_TACHES_V5.md` : **138 fiches de sous-tâches proposées** (3 par lot), non admises ni créées comme issues GitHub ; ne remplace pas la source canonique ni la mémoire runtime.
+- La distinction `historique attesté / roadmap prévue / travaux réellement admis` est obligatoire. Le problème CI au dernier HEAD et les fils de revue restent bloquants pour la fusion ; **aucun lot industriel n'est déclaré DONE par cette publication**.
 
 ## Contrôles restant indispensables
 - Constater le statut `SUCCESS` du dernier HEAD de la PR #1 **après** les corrections et les mises à jour de suivi.
-- Faire revérifier les cinq corrections par un intervenant admissible distinct ; répondre et résoudre les cinq discussions GitHub selon leurs résultats.
+- Faire revérifier les neuf corrections par un intervenant admissible distinct ; répondre et résoudre les neuf discussions GitHub selon leurs résultats.
 - Recontrôler l'absence de secrets, les registres, le ruleset et la politique avant toute fusion ; une CI verte ne vaut pas avis indépendant.
 - Maintenir l'exigence de confidentialité d'un dépôt public, ajouter à terme un scanner dédié et des approbations formelles configurées.
 - La mémoire canonique runtime, la capture automatique des conversations, les identités/mandats vérifiés et l'orchestrateur **ne sont pas encore développés**.
@@ -36,6 +42,6 @@
 ## NEXT_ACTION
 `RESTORE_REQUIRED_GITHUB_ACTIONS_VALIDATE_ON_PR_1_HEAD`
 
-Gates de fusion : règles GitHub actives ; `validate` sur HEAD courant ; cinq discussions résolues ; validation gouvernée admissible attestée ; aucun bypass. **Aucun merge automatique depuis ce checkpoint.**
+Gates de fusion : règles GitHub actives ; `validate` sur HEAD courant ; neuf discussions résolues ; validation gouvernée admissible attestée ; aucun bypass. **Aucun merge automatique depuis ce checkpoint.**
 
 Les projets `Patricked-code/MCP` et `chainsolutions-wealthtech/Governed-Repository-Template` conservent leurs identités, gouvernances et autorisations distinctes.
