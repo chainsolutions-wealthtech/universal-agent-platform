@@ -272,12 +272,12 @@
         "scope_classification": "INDICATIVE"
       },
       "token_schema_exact_parameter_matches": 48,
-      "combined_documented_matches": 89,
-      "remaining_without_either_reference": 11,
+      "combined_documented_matches": 91,
+      "remaining_without_either_reference": 9,
       "remaining_by_scope": {
         "repository": 0,
-        "organization": 3,
-        "account": 8,
+        "organization": 2,
+        "account": 7,
         "enterprise": 0
       },
       "third_source": {
@@ -287,7 +287,15 @@
         "documentation_only": true
       },
       "specialized_documented_candidates": 5,
-      "remaining_after_all_three_sources": 11
+      "remaining_after_all_three_sources": 11,
+      "fourth_source": {
+        "kind": "OFFICIAL_GITHUB_APP_ENDPOINT_CAPABILITY_ALIASES",
+        "source_owner": "docs/github-app/CAHIER_DES_CHARGES_COMPLET.md",
+        "reference_count": 2,
+        "documentation_only": true
+      },
+      "official_app_endpoint_alias_matches": 2,
+      "remaining_after_all_four_sources": 9
     }
   },
   "execution_priority": "GITHUB_APP_COMPLETION_FIRST",
