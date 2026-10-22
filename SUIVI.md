@@ -101,6 +101,15 @@
 - `tests/test_gateway_permission_reconciliation.py` possède désormais **13 tests déclarés** (21 tests Gateway ajoutés avec les huit du DAG) ; pas encore de réussite GitHub Actions attestée au HEAD de PR #1.
 - Les permissions privées de l'App et des trois installations restent `NOT_VERIFIED`, `GH-MAX-02/03` et `GA-00` incomplets.
 
+## GH-MAX-01 — alias officiels documentés, neuf cas restant à qualifier
+
+- Deux correspondances fonctionnelles supplémentaires ont été établies à partir des API GitHub App officielles : `account/blocking` → `Block another user` (`UAT`) et `organization/organization_actions_variables` → capacité `Variables` organisation (`UAT/IAT`).
+- **91/100** candidats historiques ont maintenant une correspondance documentaire au moins ; **9** restent à examiner (2 Organization, 7 Account). Les paramètres techniques historiques ne sont pas automatiquement les noms configurables aujourd'hui.
+- Le tableau canonique de preuves et des restrictions est dans `docs/github-app/GATEWAY_IMPLEMENTATION_GATES.md` § 7.9 ; les deux nouveaux alias sont sourcés au §13 de `docs/github-app/CAHIER_DES_CHARGES_COMPLET.md`.
+- Les permissions mentionnées dans un guide de **PAT fine-grained** ne constituent pas une preuve des permissions disponibles pour une **GitHub App**. Aucun droit App ou utilisateur n'est déduit du simple libellé.
+- `scripts/reconcile_gateway_permissions.py` inclut la quatrième famille de preuves et `tests/test_gateway_permission_reconciliation.py` déclare **15 tests** (23 tests spécifiques Gateway avec les huit du DAG) ; l'exécution Actions au dernier HEAD reste non attestée.
+- Prochain blocage : `GH-MAX-02/03` audit de l'App #5417646 avec clé gardée localement, puis droits effectivement octroyés et approbations. **Aucun nouveau droit activé**, aucune action sur MCP ou GRT.
+
 ## NEXT_ACTION
 `RESTORE_REQUIRED_GITHUB_ACTIONS_VALIDATE_ON_PR_1_HEAD`
 
