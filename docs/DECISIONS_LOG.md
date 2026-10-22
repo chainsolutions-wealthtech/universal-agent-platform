@@ -17,4 +17,6 @@ Ce journal sépare **décision utilisateur**, **proposition technique** et **ét
 
 | DEC-011 | Documenter de bout en bout et dans l'ordre chronologique le programme universel avant d'admettre et de construire les lots pas à pas ; préserver le propriétaire canonique de chaque information et éviter les lots/tickets doublons. | Décision utilisateur du 22 octobre 2026 ; exécution documentaire proposée sur PR #1 : `docs/roadmap/PROGRAMME_CHRONOLOGIQUE_V5.md` et `docs/roadmap/REGISTRE_TACHES_V5.md`. |
 
+| DEC-012 | Finaliser en priorité la GitHub App existante et conserver un programme V5 intégralement chronologique et découpé en tâches, sans recréer l'application, les 46 lots ni les identités et sans modifier MCP/GRT. | Instruction explicite utilisateur du 22 octobre 2026 ; complément d'acceptation `docs/github-app/GATEWAY_IMPLEMENTATION_GATES.md` ; livraison complète soumise à preuves GA-00–GA-08. |
+
 **À valider :** publication intégrale du plan V5, inventaire actualisé des 46 lots, matrice des permissions *effectives* et protocole de mémorisation canonique persistant. Toute modification future doit ajouter une entrée et indiquer ce qui est superseded, pourquoi et sur quelle source.
