@@ -296,6 +296,19 @@
       },
       "official_app_endpoint_alias_matches": 2,
       "remaining_after_all_four_sources": 9
+    },
+    "offline_audit_comparison": {
+      "status": "DOCUMENTARY_COMPARATOR_READY_NOT_RUN_WITH_REAL_REPORT",
+      "script": "scripts/compare_gateway_audit.py",
+      "tests": "tests/test_gateway_audit_comparison.py",
+      "unit_tests_declared": 8,
+      "expected_report_schema": "UNIVERSAL_GATEWAY_AUDIT_V1_1",
+      "app_id": 5417646,
+      "three_installations_required": true,
+      "raw_secret_fields_rejected": true,
+      "oauth_user_grants_attested": false,
+      "installation_grants_attested": false,
+      "read_only": true
     }
   },
   "execution_priority": "GITHUB_APP_COMPLETION_FIRST",
