@@ -71,3 +71,54 @@ Ne pas substituer `workflow_dispatch` comme garantie d'un check requis : GitHub 
 - **Bootstrap PR #1 :** `RESTORE_REQUIRED_GITHUB_ACTIONS_VALIDATE_ON_PR_1_HEAD` + revue de tous les fils encore ouverts et preuve d'intégration admissible.
 - **App en lecture seule :** `AUDIT_EFFECTIVE_GITHUB_APP_CAPABILITIES_GA_00` (aucune recréation, aucun partage du PEM).
 - **Runtime futur :** GA-01 puis GA-02 etc. selon les dépendances; **aucune déclaration de GitHub App « totalement finie » avant GA-08.**
+
+
+## 6. Audit GA-00 — situation observée et lacunes vérifiables
+
+**Date :** 22 octobre 2026. **Portée :** lecture seule depuis les ressources publiques GitHub et les captures/sorties locales **déjà communiquées**. **Verdict :** `PARTIAL_EVIDENCE — NOT COMPLETE`. Aucun accès privé direct à la configuration de l'App #5417646 n'a été attesté dans ce contrôle. On ne peut pas conclure que « toutes les permissions » sont accordées.
+
+**Contrat des besoins complet :** `docs/github-app/CAHIER_DES_CHARGES_COMPLET.md` (53 exigences, 30 domaines et chaîne d'exécution en 20 étapes). **Le cahier des charges possède la cible**, le présent fichier possède les **preuves/écarts/gates** : deux responsabilités sans conflit.
+
+| Sujet | Observé ou attesté | Écart / statut | Prochaine preuve requise |
+| --- | --- | --- | --- |
+| Identité de l'App | App `ChainSolutions Universal Gateway`, ID `5417646`, propriétaire `chainsolutions-wealthtech` ; captures et sortie de bootstrap utilisateur | `USER_EVIDENCE_AT_BOOTSTRAP` | `GET /app` courant depuis la clé locale, rapport expurgé |
+| Installations | Trois installations déclarées : `173915815`, `173916302`, `173916438` | `USER_EVIDENCE_AT_BOOTSTRAP` | `GET /app/installations`, vérifier comptes, statut, sélection de dépôts, permissions par installation |
+| Couverture des repositories | Inventaire historique de 12/13/15 repos au moment des tests locaux | `HISTORICAL_SNAPSHOT`, pas un inventaire courant | Liste paginée de repos effectivement accordés par installation, y compris nouveaux dépôts |
+| Permissions maximales | Document de préparation évoquant 100 candidats ; capture du formulaire affichant 12 Repository et 2 Organization sélectionnées à un instant historique | `REQUESTED_CANDIDATES_NOT_EQUAL_GRANTED` | Export `GET /app`, permissions courantes, classification officielle Repository/Organization/Account/Enterprise, niveaux read/write |
+| API et jetons | Création JWT et jeton d'installation testés en local, dépôt universel créé via la procédure bootstrap | `PARTIALLY_PROBED` | Probes anonymisées par endpoint/type IAT/UAT/installation ; aucun jeton publié |
+| Account OAuth | Fonctionnalités désirées, mais aucun cycle complet user-to-server avec consentement/révocation vérifié | `NOT_VERIFIED` | Tests sur compte consentant avec capture limitée de statut, sans exposer le jeton |
+| Enterprise | Aucun entitlement Enterprise démontré pour les espaces cibles | `ELIGIBILITY_UNKNOWN` | Vérifier offre/installations ; `N/A` si inéligible |
+| Événements/webhook | Abonnements, URL de réception, secret HMAC et deliveries récents non attestés | `NOT_VERIFIED` | `GET /app`, config webhook expurgée, test signature/livraison/replay en environnement LAB |
+| Broker permanent | Script ponctuel de bootstrap, pas de service durable doté d'un coffre approuvé | `NOT_IMPLEMENTED` | Service, tests d'expiration/réduction de droits, journaux sans secrets, procédure rotation |
+| Couverture des 30 domaines | Catalogue original avec `verified_runtime:false` pour les 30 domaines | `DOCUMENTED_NOT_RUNTIME` | Matrice `capability_id → endpoint → token → permission → account → probe → proof`, sans faux statut `READY` |
+| Repository universel | Dépôt public GitHub `universal-agent-platform` observable, `main` HEAD `0b8b2e01e826b915a0c593d5d6545681e9316567` lors du contrôle | `GITHUB_LIVE_VERIFIED` | Recontrôle du HEAD avant toute opération |
+| Protection de `main` | Ruleset `25599154` actif, PR et check `validate` requis, sans acteur bypass | `GITHUB_LIVE_VERIFIED` | Maintenir protection et revue indépendante |
+| Fondation V5 | PR #1 sur `bootstrap/canonical-v5-foundation` encore ouverte, documents + tests proposés | `NOT_MERGED` | Review/résolution de tous les fils ouverts ; preuve CI sur dernier HEAD |
+| CI de la PR #1 | Dernière exécution `validate` réussie observée sur l'ancien SHA `fbf4c81f50396f157d69c8d668b3c19262d8ad20` | `LATEST_HEAD_NOT_VERIFIED` | Diagnostiquer déclenchements GitHub Actions et checks sur la révision actuelle, sans bypass |
+| Autorité des agents et mémoire durable | Contrats prévus mais registre et engine runtime non établis | `NOT_IMPLEMENTED` | B02/B03/B05/B08/B09/B10/F00–F03 selon dépendances V5 |
+| Contrôles des demandes hostiles | Politique documentaire de refus des instructions issues du contenu GitHub | `SPECIFIED_NOT_SECURITY_CERTIFIED` | Moteur de policy, tests de prompt injection et source d'exécution des validateurs réellement protégée |
+
+### 6.1 Séquence d'audit GA-00 sans modification de configuration
+
+1. Observer `GET /app` et identité réelle (ID, slug, permissions, événements). Le slug n'est pas garanti par le simple nom de fichier PEM.
+2. Observer `GET /app/installations` et les dépôts accessibles pour chacune des trois installations, en suivant pagination et décalages temporels.
+3. Confronter les permissions aux références GitHub officielles, au catalogue V5 et à toutes les familles pertinentes ; distinguer permissions absentes, versions non disponibles et droits non applicables.
+4. Observer la configuration et la livraison des webhooks **sans révéler l'URL privée si elle contient des secrets, ni le secret HMAC**, puis démontrer ultérieurement une livraison signée en LAB.
+5. Pour chaque capacité, prévoir ensuite un probe réversible avec type de token approprié ; **ne pas exécuter une mutation pour « tester » une permission dans la phase de lecture seule**.
+6. Produire un rapport horodaté **expurgé**, ses références de preuve et la liste d'écarts. Ne proposer une modification de permissions qu'après séparation des risques, approbation de chaque installation concernée et contrôle des permissions réelles.
+7. Après audit, **réconcilier** ce chapitre sans remplacer le cahier des charges : `APP_CONFIGURATION_ATTESTED` seulement si couverture et sources suffisamment exhaustives.
+
+### 6.2 Conditions de blocage
+
+- Les vues GitHub fournies par le connecteur ChatGPT de la conversation ne constituent **pas** les identifiants/permissions de `ChainSolutions Universal Gateway`. Ne pas confondre ces Apps.
+- L'impossibilité d'interroger en direct `GET /app` avec notre App signifie **`NOT_VERIFIED`**, pas « permission absente ».
+- Aucun mot de passe, clé PEM, token, secret webhook ou archive de conversations privées ne doit être publié dans le dépôt public, les commentaires GitHub ou cette conversation.
+- Une preuve de création de dépôt, un ruleset actif et un catalogue des 30 domaines ne suffisent pas à déclarer le **broker, OAuth, les webhooks ou la plateforme autonomes opérationnels**.
+- L'audit GA-00 peut continuer **en lecture seule** malgré le blocage de la CI de PR #1 ; les déploiements/activations sensibles restent sous gates de gouvernance.
+
+### 6.3 NEXT_ACTIONs distinctes
+
+- **Cahier des charges :** vérifier et conserver les 53 exigences dans `CAHIER_DES_CHARGES_COMPLET.md` sans écraser les sources V5.
+- **Audit App :** `AUDIT_EFFECTIVE_GITHUB_APP_CAPABILITIES_GA_00` via une collecte locale en lecture seule, avec le PEM conservé localement.
+- **Intégration PR :** `RESTORE_REQUIRED_GITHUB_ACTIONS_VALIDATE_ON_PR_1_HEAD`, puis revue indépendante et résolution de tous les fils ouverts avant merge.
+- **Construction runtime :** seulement après les prérequis réels et les décisions d'architecture admissibles, commencer GA-01 et les lots B/F/D dépendants.
