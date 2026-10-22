@@ -132,7 +132,7 @@ def match(candidates: list[dict], headings: list[dict], token_fields: list[dict]
     )
     return {
         "schema_version": "1.0.0",
-        "kind": "DOCUMENTARY_REST_HEADING_RECONCILIATION_NOT_RUNTIME",
+        "kind": "DOCUMENTARY_MULTI_SOURCE_PERMISSION_RECONCILIATION_NOT_RUNTIME",
         "github_app_id": APP_ID,
         "source": str(SPEC_PATH.relative_to(ROOT)),
         "reference": "https://docs.github.com/en/rest/authentication/permissions-required-for-github-apps",
