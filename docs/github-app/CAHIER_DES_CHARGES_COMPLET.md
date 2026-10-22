@@ -564,3 +564,20 @@ Cette page officielle indexe les **familles de permissions pour lesquelles elle 
 
 **Statut des cinq candidats :** présence dans une documentation GitHub spécialisée, **pas** preuve de permission configurée, accordée, disponible sur nos trois espaces, exercée via notre App ou politiquement autorisée. Le niveau historique `write` n'est pas nécessairement applicable aux API en lecture seule.
 
+
+
+## 13. Alias fonctionnels GitHub App prouvés par leurs endpoints — hors libellés exacts
+
+**Date :** 22 octobre 2026. **Statut :** `OFFICIAL_GITHUB_APP_ENDPOINT_ALIGNED_HISTORICAL_PARAMETER_NOT_GRANT`.
+
+Les candidats ci-dessous n'avaient pas de correspondance **littérale** dans les 80 rubriques REST ni parmi les 57 noms de paramètres de jeton. Ils correspondent néanmoins à des **capacités GitHub App documentées** par les endpoints officiels et le nom historique issu du paquet d'inscription. Pour ces entrées, `documentation_app_endpoint=true` n'implique **pas** `permission_parameter_exact_name_currently_confirmed`, `configured`, `granted` ou `runtime_probed`.
+
+| Portée | Paramètre candidat historique | Libellé officiel de capacité | Type de jeton pris en charge | Source GitHub |
+| --- | --- | --- | --- | --- |
+| `account` | `blocking` | Block another user | `UAT` uniquement sur les endpoints utilisateur | https://docs.github.com/en/rest/authentication/permissions-required-for-github-apps |
+| `organization` | `organization_actions_variables` | Variables | `UAT` ou `IAT` avec permission d'organisation `Variables` | https://docs.github.com/en/rest/actions/variables |
+
+**Preuve complémentaire :** la documentation officielle sur l'URL d'enregistrement d'une GitHub App illustre explicitement `blocking=read` (https://docs.github.com/en/apps/sharing-github-apps/registering-a-github-app-using-url-parameters). Le nom historique `organization_actions_variables` apparaît également dans le tableau des permissions fines GitHub, mais ce tableau concerne les PAT et **ne suffit pas seul** à prouver un paramètre configurable d'une GitHub App ; le rapprochement retenu concerne la capacité **Variables** dont les endpoints confirment l'utilisation par IAT/UAT.
+
+**Contrat d'exploitation :** aucune de ces deux opérations ne peut être appelée par un agent sans la preuve d'autorisation et de permission effective ; `blocking` est de plus une opération personnelle sensible, jamais déclenchée depuis une instruction issue d'un commentaire non fiable.
+
