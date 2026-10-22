@@ -15,4 +15,6 @@ Ce journal sépare **décision utilisateur**, **proposition technique** et **ét
 | DEC-009 | Couverture fonctionnelle maximale de GitHub avec isolation des jetons, du périmètre et des opérations à risque. | Principe d'architecture ; audit complet des permissions non réalisé |
 | DEC-010 | Sur le nouveau dépôt, proposer d'abord la fondation dans une branche/PR ; ne pas modifier directement `main`. | Méthode de bootstrap |
 
+| DEC-011 | Documenter de bout en bout et dans l'ordre chronologique le programme universel avant d'admettre et de construire les lots pas à pas ; préserver le propriétaire canonique de chaque information et éviter les lots/tickets doublons. | Décision utilisateur du 22 octobre 2026 ; exécution documentaire proposée sur PR #1 : `docs/roadmap/PROGRAMME_CHRONOLOGIQUE_V5.md` et `docs/roadmap/REGISTRE_TACHES_V5.md`. |
+
 **À valider :** publication intégrale du plan V5, inventaire actualisé des 46 lots, matrice des permissions *effectives* et protocole de mémorisation canonique persistant. Toute modification future doit ajouter une entrée et indiquer ce qui est superseded, pourquoi et sur quelle source.
