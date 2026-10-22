@@ -293,3 +293,30 @@ Le script `scripts/reconcile_gateway_permissions.py` consomme désormais les **t
 
 **Verdict GH-MAX-01 :** `DOCUMENTARY_PARTIAL`. **NEXT_ACTION technique incontournable :** `GET /app` puis `GET /app/installations` avec l'identité réelle de l'App #5417646 en lecture seule, sur le poste où sa clé privée est conservée. Toute élévation effective reste interdite en l'absence de la preuve et des approbations nécessaires.
 
+
+
+### 7.10 Comparaison hors ligne de l'audit réel, préparée sans accès aux secrets
+
+**Statut : `AUDIT_REPORT_IMPORTER_PREPARED_NOT_EXECUTED_WITH_REAL_APP`.** Pour poursuivre `GH-MAX-02` et `GH-MAX-03` sans divulguer le PEM ni créer un service privilégié concurrent, l'outil `scripts/compare_gateway_audit.py` accepte le rapport **expurgé** produit par l'outil local `UNIVERSAL_GATEWAY_AUDIT_V1_1.zip`. La comparaison reste une **lecture seule** et n'est pas un test GitHub live.
+
+**Sur un clone local propre du dépôt contenant la branche :**
+
+```bash
+# Après audit local de l'App sur le poste gardant le PEM :
+python3 scripts/compare_gateway_audit.py --audit CHEMIN_DU_RAPPORT_EXPURGE.json
+python3 scripts/compare_gateway_audit.py --audit CHEMIN_DU_RAPPORT_EXPURGE.json --json
+```
+
+**Contrats du comparateur :**
+- Contrôler que le rapport annonce l'App ID `5417646` et le propriétaire `chainsolutions-wealthtech` ; refuser les trois installations si IDs manquants/dupliqués/différents.
+- Refuser les champs de secret bruts tels que `private_key`, `access_token`, `jwt` ou `authorization` même profondément imbriqués. Les seuls faits exploités sont des **permissions/niveaux expurgés** et métadonnées non secrètes.
+- Comparer les **100 paramètres candidats** au `permissions` du `GET /app` local et aux `granted_permissions` remontées pour chaque installation.
+- **Ne pas** déduire les autorisations `Account` d'un rapport IAT : leur preuve appartient à un **flux UAT/OAuth et au consentement utilisateur**. Les permissions Enterprise demandent de plus une installation et offre réellement éligibles.
+- Une permission manquante sous son **nom historique exact** signifie `NO_EXACT_PARAMETER_IN_REPORTED_APP` ou `NO_EXACT_PARAMETER_IN_REPORTED_INSTALLATION`, **pas** preuve que la capacité a été supprimée ; les alias restent à qualifier.
+- Un niveau `REPORTED_READ/WRITE/ADMIN` n'est que la valeur déclarée dans ce rapport : avant toute opération sensible, vérifier la fraîcheur, le contexte du jeton, les prérequis, la décision de politique et une preuve d'endpoint admissible.
+- **Aucune** création de jeton, requête GitHub, modification de permission, issue, branche, mandat, agent ou preuve de complétion par ce comparateur.
+
+Les **huit tests unitaires déclarés** `tests/test_gateway_audit_comparison.py` couvrent mauvais App ID/Installation ID, credential leakage, niveaux invalides, OAuth distinct, absence de privilège et champs non observés. Le workflow `canonical-documentation.yml` exécute les suites `tests/test_*.py` **lorsqu'il est réellement déclenché** ; il manque toujours un check attesté au HEAD actuel de PR #1.
+
+**NEXT_ACTION** : obtenir le rapport expurgé de l'audit effectué localement, puis l'analyser sans secret ; conserver la PR #1 sous review et ne fusionner qu'après CI et approbations recevables.
+
