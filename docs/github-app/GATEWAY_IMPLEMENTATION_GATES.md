@@ -165,3 +165,15 @@ GitHub précise qu'après ajout de permissions Repository/Organization, **chaque
 **`GH-MAX-01` commencé en mode documentaire**, références historiques et GitHub officiel identifiées. **`GH-MAX-02` / `GH-MAX-03` non vérifiables ici** sans identité JWT de **cette App précise**, qui ne doit pas être confondue avec le connecteur GitHub de ChatGPT. Il faut utiliser le processus local read-only, puis importer uniquement le rapport expurgé. Aucune permission n'a été accordée, supprimée ou changée par cette lecture.
 
 **Prochaine opération du chantier focalisé :** `AUDIT_EFFECTIVE_GITHUB_APP_CAPABILITIES_GA_00`, sous-étapes `GH-MAX-02` et `GH-MAX-03` en lecture seule. Le gate CI de la PR #1 reste bloquant **pour la fusion**, mais n'empêche pas d'inventorier l'App sans écriture.
+
+### 7.5 Contrat machine GH-MAX — projection du plan, non nouveau registre d'état
+
+Pour rendre les dix opérations précédentes interprétables par un futur orchestrateur, le fichier `docs/github-app/GH_MAX_EXECUTION_PLAN.json` contient **exactement** les identifiants `GH-MAX-01` à `GH-MAX-10`, dans l'ordre de leur tableau § 7.2. Il définit dépendances explicites, types d'actions, exigences, preuves, causes de blocage, garde-fous, transitions d'état proposées et champs de checkpoint. **Le présent document reste propriétaire de l'état audité et des gates ; le JSON n'en est qu'une projection technique prospective.**
+
+- **Statut de la projection :** `DRAFT_NOT_APPROVED_NOT_RUNTIME`.
+- **Exécution :** `execution_enabled=false`, `mutations_enabled=false`, tous les `admitted=false`. Aucun mandat, jeton, session, worker ni tâche runtime n'en résulte.
+- **Lecture technique :** `python3 scripts/check_gateway_execution_plan.py` valide le graphe sans réseau. `python3 scripts/check_gateway_execution_plan.py --next` simule les candidats qui n'ont pas de dépendances documentaires, **sans** les admettre ni les lancer.
+- **Tests :** `tests/test_gateway_execution_plan.py` vérifie notamment la protection contre un déverrouillage d'exécution, les cycles, la demande de privilèges sans approbation, les preuves et la correspondance au registre canonique.
+- **Arrêt sûr :** absence de preuve, approbation, autorisation de projet, jeton local approprié ou CI fiable → état bloqué/en attente, jamais élévation implicite de droits.
+- **Reprise future :** relire `state/CURRENT_STATE.json`, la configuration GitHub et les preuves, résoudre la même identité/tâche/mandat puis traiter le prochain élément admissible. Le futur runtime possédera ses états et événements sous stockage privé plutôt que modifier ce JSON pour se déclarer terminé.
+- **Contrainte actuelle :** le validateur et les tests sont committés sur la PR #1, mais **aucun succès GitHub Actions sur son HEAD courant n'est encore attesté**. La projection ne vaut pas validation indépendante.
