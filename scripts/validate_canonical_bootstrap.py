@@ -80,6 +80,29 @@ def verify_indexes(plan: str, mapping: dict, catalog: dict) -> None:
         assert item.get("verified_runtime") is False, "Untested capability represented as runtime verified"
 
 
+def verify_chronological_plan(root: Path, lots: list[dict]) -> None:
+    plan = (root / "docs/roadmap/PROGRAMME_CHRONOLOGIQUE_V5.md").read_text(encoding="utf-8")
+    tasks = (root / "docs/roadmap/REGISTRE_TACHES_V5.md").read_text(encoding="utf-8")
+    canonical_ids = [row["lot_id"] for row in lots]
+    table_rows = re.findall(
+        r"^\\|\\s*(\\d+)\\s*\\|\\s*(P\\d{2})\\s*\\|\\s*\\*\\*`([BFD]\\d{2})`\\*\\*\\s*\\|",
+        plan, re.MULTILINE
+    )
+    assert len(table_rows) == 46, "Chronological programme must list exactly 46 lots"
+    assert [int(i) for i, _, _ in table_rows] == list(range(1, 47)), "Chronology numbering changed"
+    ordered_ids = [lot_id for _, _, lot_id in table_rows]
+    assert set(ordered_ids) == set(canonical_ids) and len(set(ordered_ids)) == 46, "Chronology drift or duplicated lot"
+    assert sorted(set(phase for _, phase, _ in table_rows)) == [f"P{i:02d}" for i in range(10)], "Chronology phases changed"
+    headings = re.findall(r"^#### ([BFD]\\d{2}) — ", tasks, re.MULTILINE)
+    assert headings == ordered_ids, "Task register does not follow the programme order"
+    task_ids = re.findall(r"^- \\*\\*`([BFD]\\d{2}-0[1-3])`\\*\\*", tasks, re.MULTILINE)
+    expected = [f"{lot}-{i:02d}" for lot in ordered_ids for i in (1, 2, 3)]
+    assert task_ids == expected, "Each lot must have three uniquely numbered draft tasks"
+    # The plan preserves source requirements; never infer the lot's runtime status.
+    assert "PROPOSED_EXECUTION_ORDER" in plan
+    assert "TASK_SPECIFICATIONS_DRAFT" in tasks
+
+
 def check_tree_security(root: Path) -> None:
     blocked_suffixes = {".key", ".pem", ".p12", ".pfx", ".p8", ".jks", ".keystore"}
     for path in root.rglob("*"):
@@ -110,6 +133,7 @@ def verify(root: Path = ROOT) -> None:
     assert len(lots) == 46 and len({x["lot_id"] for x in lots}) == 46, "46 unique work packages required"
     valid_states = {"PLANNED", "READY", "IN_PROGRESS", "BLOCKED", "DONE", "CANCELLED", "SUPERSEDED"}
     assert all(x.get("status") in valid_states and isinstance(x.get("proof_refs", []), list) for x in lots)
+    verify_chronological_plan(root, lots)
     state = json.loads((root / "state/CURRENT_STATE.json").read_text(encoding="utf-8"))
     assert state["project"] == "chainsolutions-wealthtech/universal-agent-platform"
     assert state["type"] == "documentary_bootstrap_snapshot"
@@ -118,7 +142,7 @@ def verify(root: Path = ROOT) -> None:
     print("PASS canonical manifest complete, source SHA256 intact and original reference matches")
     print("PASS legacy source manifest, source SHA256 and preserved compatibility reference")
     print("PASS 20 sections and 30 GitHub domains content-equal to V5 Annexes A/B")
-    print("PASS 46 lot IDs, documentary snapshot, and hardened secret-pattern scan")
+    print("PASS 46 chronologically numbered lots, 10 phases, 138 draft tasks and hardened secret-pattern scan")
     print("NOTE heuristic secret scan only; independent/dedicated security review still required")
 
 
