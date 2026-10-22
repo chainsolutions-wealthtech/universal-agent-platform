@@ -19,6 +19,7 @@ HISTORICAL_TOTAL = 100
 REST_HEADINGS_TOTAL = 80
 TOKEN_SCHEMA_FIELD_TOTAL = 57
 SPECIALIZED_REFERENCE_TOTAL = 5
+OFFICIAL_ENDPOINT_ALIAS_TOTAL = 2
 TOKEN_SCHEMA_SCOPES = {
     "repository": 28,
     "organization": 21,
@@ -64,11 +65,19 @@ SPECIALIZED_PATTERN = re.compile(
 )
 
 
+OFFICIAL_ALIAS_PATTERN = re.compile(
+    r"^\| \x60(repository|organization|account|enterprise)\x60 \| "
+    r"\x60([a-z0-9_]+)\x60 \| ([^|\n]+?) \| "
+    r"\x60([A-Z/ ]+)\x60 [^|]*\| (https://docs\.github\.com/[^|\n ]+) \|$",
+    re.MULTILINE,
+)
+
+
 def normalize(label: str) -> str:
     return re.sub(r"[^a-z0-9]", "", label.casefold())
 
 
-def parse_spec(spec: str) -> tuple[list[dict], list[dict], list[dict], list[dict]]:
+def parse_spec(spec: str) -> tuple[list[dict], list[dict], list[dict], list[dict], list[dict]]:
     parts = spec.split("## 9. Empreinte de l'ambition", 1)
     assert len(parts) == 2, "Missing original historic permission source"
     section9, sep, section10 = parts[1].partition("## 10. Confrontation officielle 2026")
@@ -77,6 +86,8 @@ def parse_spec(spec: str) -> tuple[list[dict], list[dict], list[dict], list[dict
     assert sep2, "Missing installation-token permissions parameter schema snapshot"
     token_section, sep3, specialized_section = token_section.partition("## 12. Sources spécialisées GitHub")
     assert sep3, "Missing specialized GitHub permission evidence sources"
+    specialized_section, sep4, alias_section = specialized_section.partition("## 13. Alias officiels GitHub App")
+    assert sep4, "Missing official GitHub App functional aliases"
     historical = [
         {"scope": m.group(1), "parameter": m.group(2), "requested_level": m.group(3)}
         for m in HIST_PATTERN.finditer(section9)
@@ -94,6 +105,13 @@ def parse_spec(spec: str) -> tuple[list[dict], list[dict], list[dict], list[dict
          "source_url": m.group(3), "restriction": m.group(4)}
         for m in SPECIALIZED_PATTERN.finditer(specialized_section)
     ]
+    aliases = [
+        {"scope": m.group(1), "parameter": m.group(2), "app_capability": m.group(3).strip(),
+         "token_label": m.group(4).strip(), "source_url": m.group(5)}
+        for m in OFFICIAL_ALIAS_PATTERN.finditer(alias_section)
+    ]
+    assert len(aliases) == OFFICIAL_ENDPOINT_ALIAS_TOTAL, "Official App alias evidence changed"
+    assert len({(x["scope"], x["parameter"]) for x in aliases}) == OFFICIAL_ENDPOINT_ALIAS_TOTAL
     assert len(specialized) == SPECIALIZED_REFERENCE_TOTAL
     assert len({(x["scope"], x["parameter"]) for x in specialized}) == SPECIALIZED_REFERENCE_TOTAL
     assert len(token_fields) == TOKEN_SCHEMA_FIELD_TOTAL, "Installation-token schema snapshot drift"
@@ -108,11 +126,11 @@ def parse_spec(spec: str) -> tuple[list[dict], list[dict], list[dict], list[dict
         assert sum(x["scope"] == scope for x in official) == count, f"REST heading count drift: {scope}"
     assert len({(x["scope"], x["parameter"]) for x in historical}) == HISTORICAL_TOTAL
     assert len({(x["scope"], x["heading"]) for x in official}) == REST_HEADINGS_TOTAL
-    return historical, official, token_fields, specialized
+    return historical, official, token_fields, specialized, aliases
 
 
 def match(candidates: list[dict], headings: list[dict],
-          token_fields: list[dict], specialized: list[dict]) -> dict:
+          token_fields: list[dict], specialized: list[dict], aliases: list[dict]) -> dict:
     items: list[dict] = []
     for candidate in candidates:
         scope = candidate["scope"]
@@ -135,6 +153,10 @@ def match(candidates: list[dict], headings: list[dict],
             field for field in specialized
             if field["scope"] == scope and field["parameter"] == raw
         ]
+        app_aliases = [
+            field for field in aliases
+            if field["scope"] == scope and field["parameter"] == raw
+        ]
         items.append({
             "scope": scope,
             "historical_parameter": raw,
@@ -142,6 +164,7 @@ def match(candidates: list[dict], headings: list[dict],
             "rest_label_matches": found,
             "listed_as_token_schema_field": token_param_match,
             "specialized_official_sources": extra,
+            "official_app_endpoint_aliases": app_aliases,
             "rest_index_match_status": status,
             "live_app_grant": "NOT_VERIFIED",
             "live_installation_grant": "NOT_VERIFIED",
@@ -152,9 +175,11 @@ def match(candidates: list[dict], headings: list[dict],
     n_review = len(items) - n_match
     token_matches = sum(x["listed_as_token_schema_field"] for x in items)
     special_matches = sum(bool(x["specialized_official_sources"]) for x in items)
+    alias_matches = sum(bool(x["official_app_endpoint_aliases"]) for x in items)
     combined = sum(
         bool(x["rest_label_matches"]) or x["listed_as_token_schema_field"]
-        or bool(x["specialized_official_sources"]) for x in items
+        or bool(x["specialized_official_sources"])
+        or bool(x["official_app_endpoint_aliases"]) for x in items
     )
     return {
         "schema_version": "1.0.0",
@@ -172,6 +197,7 @@ def match(candidates: list[dict], headings: list[dict],
             "official_token_schema_fields": len(token_fields),
             "official_specialized_references": len(specialized),
             "specialized_matches": special_matches,
+            "official_app_endpoint_alias_matches": alias_matches,
             "token_schema_exact_parameter_matches": token_matches,
             "combined_documented_matches": combined,
             "remaining_without_either_reference": len(items) - combined,
@@ -188,8 +214,8 @@ def main() -> int:
     args = parser.parse_args()
     try:
         source = SPEC_PATH.read_text(encoding="utf-8")
-        candidates, headings, token_fields, specialized = parse_spec(source)
-        result = match(candidates, headings, token_fields, specialized)
+        candidates, headings, token_fields, specialized, aliases = parse_spec(source)
+        result = match(candidates, headings, token_fields, specialized, aliases)
         if args.json:
             print(json.dumps(result, indent=2, ensure_ascii=False))
         else:
