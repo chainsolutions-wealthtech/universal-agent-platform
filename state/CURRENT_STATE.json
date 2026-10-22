@@ -263,7 +263,23 @@
       "github_app_current_permissions": "NOT_VERIFIED",
       "live_mutations_performed": false,
       "ci_at_latest_head": "NOT_ATTESTED",
-      "finalized": false
+      "finalized": false,
+      "reference_token_schema": {
+        "source": "https://docs.github.com/en/rest/apps/apps",
+        "section": "Create an installation access token for an app / permissions body parameters",
+        "api_version": "2026-03-10",
+        "documented_fields": 57,
+        "scope_classification": "INDICATIVE"
+      },
+      "token_schema_exact_parameter_matches": 48,
+      "combined_documented_matches": 84,
+      "remaining_without_either_reference": 16,
+      "remaining_by_scope": {
+        "repository": 5,
+        "organization": 3,
+        "account": 8,
+        "enterprise": 0
+      }
     }
   },
   "execution_priority": "GITHUB_APP_COMPLETION_FIRST",
