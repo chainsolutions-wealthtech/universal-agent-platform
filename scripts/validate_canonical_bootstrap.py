@@ -95,7 +95,7 @@ def verify_chronological_plan(root: Path, lots: list[dict]) -> None:
     assert sorted(set(phase for _, phase, _ in table_rows)) == [f"P{i:02d}" for i in range(10)], "Chronology phases changed"
     headings = re.findall(r"^#### ([BFD]\d{2}) — ", tasks, re.MULTILINE)
     assert headings == ordered_ids, "Task register does not follow the programme order"
-    task_ids = re.findall(r"^- \*\*`([BFD]\d{2}-0[1-3])` — ", tasks, re.MULTILINE)
+    task_ids = re.findall(r"^- \*\*`([BFD]\d{2}-\d+)` — ", tasks, re.MULTILINE)
     expected = [f"{lot}-{i:02d}" for lot in ordered_ids for i in (1, 2, 3)]
     assert task_ids == expected, "Each lot must have three uniquely numbered draft tasks"
     # The plan preserves source requirements; never infer the lot's runtime status.
@@ -133,11 +133,21 @@ def verify(root: Path = ROOT) -> None:
     assert len(lots) == 46 and len({x["lot_id"] for x in lots}) == 46, "46 unique work packages required"
     valid_states = {"PLANNED", "READY", "IN_PROGRESS", "BLOCKED", "DONE", "CANCELLED", "SUPERSEDED"}
     assert all(x.get("status") in valid_states and isinstance(x.get("proof_refs", []), list) for x in lots)
+    for lot in lots:
+        if lot["status"] == "DONE":
+            assert isinstance(lot.get("baseline_head"), str) and re.fullmatch(r"[0-9a-f]{40}", lot["baseline_head"]), f"Missing verified baseline SHA for {lot['lot_id']}"
+            assert lot["proof_refs"] and all(isinstance(p, str) and p.strip() for p in lot["proof_refs"]), f"Missing evidence for completed lot {lot['lot_id']}"
     verify_chronological_plan(root, lots)
     state = json.loads((root / "state/CURRENT_STATE.json").read_text(encoding="utf-8"))
     assert state["project"] == "chainsolutions-wealthtech/universal-agent-platform"
     assert state["type"] == "documentary_bootstrap_snapshot"
-    assert isinstance(state.get("plans", {}).get("canonical_memory_service_operational"), bool)
+    memory_live = state.get("plans", {}).get("canonical_memory_service_operational")
+    memory_status = state.get("documentary_import", {}).get("operational_memory")
+    assert isinstance(memory_live, bool), "Runtime memory flag must be boolean"
+    if memory_live:
+        assert memory_status in {"RUNNING", "OPERATIONAL"} and state.get("memory_runtime_proof_refs"), "Operational memory requires implementation and proof"
+    else:
+        assert memory_status not in {"RUNNING", "OPERATIONAL"}, "Documentary and runtime memory state conflict"
     check_tree_security(root)
     print("PASS canonical manifest complete, source SHA256 intact and original reference matches")
     print("PASS legacy source manifest, source SHA256 and preserved compatibility reference")
