@@ -102,5 +102,59 @@ class SourceIntegrityTests(unittest.TestCase):
             gate.verify_indexes(plan, mapping, bad)
 
 
+class ContinuityPlanTests(unittest.TestCase):
+    def test_completed_lot_needs_sha_and_proof(self) -> None:
+        planned = [{"lot_id": "B00", "status": "DONE", "baseline_head": None, "proof_refs": []}]
+        with self.assertRaises(AssertionError):
+            gate.verify_lot_completion(planned)
+        planned[0]["baseline_head"] = "a" * 40
+        with self.assertRaises(AssertionError):
+            gate.verify_lot_completion(planned)
+        planned[0]["proof_refs"] = ["https://github.com/example/repo/pull/1"]
+        gate.verify_lot_completion(planned)
+
+    def test_memory_state_cannot_claim_runtime_without_proof(self) -> None:
+        state = {"project": "chainsolutions-wealthtech/universal-agent-platform",
+                 "type": "documentary_bootstrap_snapshot",
+                 "plans": {"canonical_memory_service_operational": True},
+                 "documentary_import": {"operational_memory": "NOT_IMPLEMENTED"}}
+        with self.assertRaises(AssertionError):
+            gate.verify_memory_state(state)
+        state["documentary_import"]["operational_memory"] = "RUNNING"
+        with self.assertRaises(AssertionError):
+            gate.verify_memory_state(state)
+        state["memory_runtime_proof_refs"] = ["https://example.com/proof"]
+        gate.verify_memory_state(state)
+
+    def test_unexpected_fourth_task_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            target = root / "docs/roadmap"
+            target.mkdir(parents=True)
+            original = (ROOT / "docs/roadmap/PROGRAMME_CHRONOLOGIQUE_V5.md").read_text(encoding="utf-8")
+            taskfile = (ROOT / "docs/roadmap/REGISTRE_TACHES_V5.md").read_text(encoding="utf-8")
+            (target / "PROGRAMME_CHRONOLOGIQUE_V5.md").write_text(original, encoding="utf-8")
+            (target / "REGISTRE_TACHES_V5.md").write_text(taskfile + "\n- **`B00-04` — EXTRA :** Do not admit.\n", encoding="utf-8")
+            lots = json.loads((ROOT / "docs/roadmap/ROADMAP_V5.json").read_text(encoding="utf-8"))["lots"]
+            with self.assertRaises(AssertionError):
+                gate.verify_chronological_plan(root, lots)
+
+    def test_drift_of_dependency_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            target = root / "docs/roadmap"
+            target.mkdir(parents=True)
+            original = (ROOT / "docs/roadmap/PROGRAMME_CHRONOLOGIQUE_V5.md").read_text(encoding="utf-8")
+            altered = original.replace("Schémas canoniques | B01 | JSON Schema/OpenAPI, validation",
+                                       "Schémas canoniques | B25 | JSON Schema/OpenAPI, validation", 1)
+            self.assertNotEqual(altered, original)
+            (target / "PROGRAMME_CHRONOLOGIQUE_V5.md").write_text(altered, encoding="utf-8")
+            (target / "REGISTRE_TACHES_V5.md").write_text(
+                (ROOT / "docs/roadmap/REGISTRE_TACHES_V5.md").read_text(encoding="utf-8"), encoding="utf-8")
+            lots = json.loads((ROOT / "docs/roadmap/ROADMAP_V5.json").read_text(encoding="utf-8"))["lots"]
+            with self.assertRaises(AssertionError):
+                gate.verify_chronological_plan(root, lots)
+
+
 if __name__ == "__main__":
     unittest.main()
