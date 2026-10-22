@@ -356,3 +356,119 @@ Un appel GitHub admissible doit enregistrer au minimum `capability_id`, `install
 3. **État réel :** la liste exacte de `GET /app` et les accords par installation sont **non attestés** à cette étape.
 4. **Droit d'usage des agents :** même si l'App possède une permission, un agent ne peut s'en servir que sous mandat, politique, périmètre et preuve d'autorisation.
 
+
+
+## 10. Confrontation officielle 2026 — index des permissions dans la référence REST GitHub
+
+**Vérification documentaire : 22 octobre 2026.** Source GitHub officielle : https://docs.github.com/en/rest/authentication/permissions-required-for-github-apps (rubrique **In this article**). Source de politique : https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/choosing-permissions-for-a-github-app .
+
+Cette page officielle indexe les **familles de permissions pour lesquelles elle décrit les endpoints REST**. **Ce n'est pas une preuve qu'il n'existe que 80 permissions possibles dans le formulaire d'une GitHub App** : certains droits concernent d'autres API/produits, certaines dénominations ont changé et la documentation évolue. Il ne faut donc ni déduire « 20 permissions historiques supprimées » ni présenter cette liste comme exhaustive de toutes les permissions d'installation. C'est un **index de correspondance externe** pour le rapprochement des 100 candidats historiques.
+
+| Famille de rubrique REST | Rubriques présentes dans la page GitHub | Signification |
+| --- | ---: | --- |
+| Enterprise | 1 | En fonction de l'offre/installation et de l'API |
+| Organization | 32 | Endpoints et permissions d'organisation |
+| Repository | 33 | Endpoints et permissions de repository |
+| User (= famille Account dans l'interface générale) | 14 | Endpoints utilisant les autorisations d'utilisateur |
+| **Total rubriques REST indexées** | **80** | **Pas** un total certifié des permissions configurables d'une GitHub App |
+
+| Famille | Intitulé officiel de rubrique REST (source au 22 octobre 2026) | Statut de l'audit de notre App |
+| --- | --- | --- |
+| enterprise | Enterprise Copilot metrics | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | API Insights | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Administration | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Agent secrets | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Agent variables | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Blocking users | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Campaigns | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Copilot Spaces | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Copilot agent settings | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Copilot content exclusion | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Custom organization roles | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Custom properties | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Events | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | External custom properties for repositories | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | GitHub Copilot Business | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Hosted runner custom images | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Issue Fields | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Issue Types | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Members | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Network configurations | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Organization Copilot metrics | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Organization codespaces secrets | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Organization codespaces settings | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Organization codespaces | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Organization dependabot secrets | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Organization private registries | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Personal access token requests | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Personal access tokens | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Projects | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Secrets | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Self-hosted runners | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Variables | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| organization | Webhooks | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Actions | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Administration | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Agent secrets | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Agent variables | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Artifact metadata | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Attestations | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Checks | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Code quality | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Code scanning alerts | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Codespaces lifecycle admin | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Codespaces metadata | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Codespaces secrets | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Codespaces | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Commit statuses | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Contents | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Copilot agent settings | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Custom properties | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Dependabot alerts | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Dependabot secrets | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Deployments | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Environments | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | GitHub App installation repository access | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Issues | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Metadata | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Pages | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Pull requests | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Repository creation | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Repository security advisories | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Secret scanning alerts | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Secrets | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Variables | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Webhooks | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| repository | Workflows | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| account | Block another user | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| account | Codespaces user secrets | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| account | Email addresses | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| account | Followers | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| account | GPG keys | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| account | Gists | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| account | Git SSH keys | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| account | Interaction limits | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| account | Plan | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| account | Private repository invitations | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| account | Profile | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| account | SSH signing keys | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| account | Starring | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+| account | Watching | `NOT_PROBED_IN_CHAIN_GATEWAY` |
+
+### 10.1 Réconciliation ligne à ligne sans régression
+
+1. Réconcilier les 100 paramètres historiques du § 9 avec les rubriques REST officielles du § 10 (noms/alias) et les permissions actuelles de l'interface GitHub App. Une correspondance absente de cette **référence REST** n'est **pas** une preuve de permission invalide.
+2. Vérifier l'état réel de l'App avec un JWT issu de sa clé privée **conservée localement**, puis celui des trois installations, sans transmettre de secrets.
+3. Classer chaque permission : `OFFICIAL_AND_GRANTED`, `OFFICIAL_BUT_NOT_GRANTED`, `RENAMED_OR_ALIAS`, `NON_REST_SCOPE`, `NOT_AVAILABLE`, `ENTERPRISE_ONLY`, `REQUIRES_USER_AUTHORIZATION`, `UNKNOWN_NEEDS_VERIFICATION`.
+4. Exiger un endpoint/GraphQL operation, type de jeton, compte, niveau `read/write/admin` **lorsque réellement applicable**, test réversible et preuve avant de la marquer `RUNTIME_PROBED`.
+5. Soumettre toute élévation de droits au processus officiel GitHub et aux approbations propres à chaque installation/utilisateur, en conservant la possibilité de capacités sensibles isolées dans des identités séparées.
+
+### 10.2 Modifications de permissions : réalité opérationnelle
+
+- GitHub signale que l'App n'obtient pas de droits par défaut. Les droits sont demandés et validés par les installations et utilisateurs.
+- L'ajout de permissions Repository ou Organization déclenche une **nouvelle approbation par chaque propriétaire d'installation** ; les permissions Account/User passent par le consentement utilisateur.
+- Jusqu'à cette approbation, l'installation garde **ses anciennes permissions** ; une suppression de permission peut s'appliquer immédiatement.
+- Les événements webhook disponibles dépendent des permissions sélectionnées ; l'authentification JWT/IAT/UAT et les politiques métier restent des couches distinctes.
+- Une installation Enterprise n'est possible que si les conditions de visibilité, de propriétaire et de produit sont réunies ; certaines permissions Enterprise d'installation sont soumises à des restrictions supplémentaires.
+
+**Conclusion de réconciliation :** couverture exhaustive = `historique 100 candidats + référence REST actuelle + formulaire réel et paramètres App + permissions réellement accordées sur 3 installations + événements + probes API + contrôle de mandat`. Aucune de ces listes, prise isolément, n'établit que notre App possède tous les droits.
