@@ -320,3 +320,33 @@ Les **huit tests unitaires déclarés** `tests/test_gateway_audit_comparison.py`
 
 **NEXT_ACTION** : obtenir le rapport expurgé de l'audit effectué localement, puis l'analyser sans secret ; conserver la PR #1 sous review et ne fusionner qu'après CI et approbations recevables.
 
+
+
+### 7.11 Registre de qualification des neuf candidats résiduels — sans assimilation PAT/GitHub App
+
+**Statut au 22 octobre 2026 : `EVIDENCE_INSUFFICIENT_FOR_GITHUB_APP_GRANT`.** Le constat `91/100 documentés` reste inchangé. GitHub publie un tableau de **permissions de fine-grained Personal Access Tokens (PAT)** comportant plusieurs de ces noms ; **un PAT n'est ni un jeton d'installation GitHub App ni une preuve du formulaire de cette App**. L'existence du nom dans la documentation PAT permet d'orienter l'enquête, pas de marquer `GRANTED` ni `COMPATIBLE_WITH_APP`.
+
+Référence de qualification **PAT seulement** : https://docs.github.com/en/enterprise-cloud@latest/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
+
+| Paramètre candidat de l'archive | Indice/documentation actuelle | Vérification manquante pour notre App #5417646 |
+| --- | --- | --- |
+| `organization_models` | `organization_models` / Models organisation présent dans le tableau de droits PAT | Confirmer dans les permissions GitHub App réelles, contraintes Models et installation |
+| `organization_credentials` | Nom historique non confirmé dans le tableau PAT consulté | Rechercher alias/remplacement, type exact de credentials, endpoints et offre |
+| `copilot_chat` | Tableau PAT moderne : `copilot_messages` / Copilot Chat ; alias **possible**, non démontré pour notre App | Vérifier rôle de ce produit, `UAT` éventuel, consentement et absence de dépendance obligatoire Copilot |
+| `copilot_editor_context` | Nom PAT `copilot_editor_context` / Copilot Editor Context | Vérifier s'il est disponible pour GitHub App user authorization, produit et abonnement |
+| `user_events` | Nom PAT `user_events` / Events | Contrôler si une App peut recevoir ou lire les événements visés via UAT |
+| `user_issue_fields` | Aucun équivalent GitHub App exact confirmé à cette étape | Contrôler champs Projects/Issues et offre, distinguer ressource utilisateur de ressource organisation |
+| `user_issue_types` | Aucun équivalent GitHub App exact confirmé à cette étape | Contrôler Issue Types selon le propriétaire et le type de token |
+| `models` | Tableau PAT : `user_models` / Models ; alias **possible**, non démontré pour notre App | Confirmer support App, permissions UAT et accès GitHub Models |
+| `plugin_gateway_connections` | Aucun équivalent GitHub App exact confirmé à cette étape | Vérifier disponibilité réelle/aperçu/produit, ne pas inventer un droit configuré |
+
+**Traitement exigeant des preuves :** le prochain audit `GET /app`, les permissions des trois installations, puis les flux `UAT` appropriés devra déterminer `EXACT_CONFIGURED`, `RENAMED_WITH_OFFICIAL_PROOF`, `NOT_SUPPORTED_BY_GITHUB_APP`, `ENTERPRISE_OR_SUBSCRIPTION_ONLY` ou `UNRESOLVED`. **Aucun des neuf ne reçoit aujourd'hui un verdict positif ou négatif définitif sans ce contrôle.**
+
+**Maintien de l'ambition maximale :** le fait de considérer Copilot comme optionnel pour les agents ChatGPT/Claude n'efface pas les droits Copilot du catalogue fonctionnel candidat. Les opérations sensibles de consentement utilisateur ne sont pas remplacées par des jetons d'installation.
+
+### 7.12 Durcissement de l'import de rapport local
+
+Le comparateur `scripts/compare_gateway_audit.py` interdit à présent des champs secrets usuels **en snake_case, kebab-case ou camelCase** (notamment `privateKey`, `clientSecret`, `accessToken`), refuse les modes d'audit inattendus et les registres de candidats incohérents. `tests/test_gateway_audit_comparison.py` contient maintenant **11 tests définis** (anciennement huit). La correction empêche d'utiliser accidentellement comme preuve un rapport contenant des valeurs sensibles ou des candidats dupliqués.
+
+**Réserve :** une vérification de nom de champ ne garantit pas à elle seule que toute valeur arbitraire est expurgée. Les rapports doivent toujours être inspectés sur la machine locale avant transmission ; le PEM et les jetons ne quittent pas cette machine.
+
