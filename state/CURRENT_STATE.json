@@ -179,7 +179,7 @@
       "GA-07",
       "GA-08"
     ],
-    "local_audit": "UNIVERSAL_GATEWAY_AUDIT_V1.zip",
+    "local_audit": "UNIVERSAL_GATEWAY_AUDIT_V1_1.zip",
     "local_audit_offline_tests_passed": 3,
     "live_private_configuration_attestation": "PENDING_LOCAL_AUDIT",
     "gateway_broker_operational": false,
@@ -211,6 +211,8 @@
       },
       "reproduced_in": "docs/github-app/CAHIER_DES_CHARGES_COMPLET.md",
       "current_grants_verification": "NOT_VERIFIED"
-    }
+    },
+    "local_audit_package_sha256": "ec639b182801c5fff6fd5e4d1aca62344b4705f1e68b8af8f3a0d53455e27599",
+    "local_audit_v1_superseded": true
   }
 }
