@@ -1,0 +1,413 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "documentary_execution_projection",
+  "name": "CHAIN_SOLUTIONS_GATEWAY_MAX_CAPABILITIES_BUILD",
+  "app": {
+    "name": "ChainSolutions Universal Gateway",
+    "app_id": 5417646,
+    "owner": "chainsolutions-wealthtech"
+  },
+  "status": "DRAFT_NOT_APPROVED_NOT_RUNTIME",
+  "execution_enabled": false,
+  "mutations_enabled": false,
+  "created_for": "future_governed_orchestrator",
+  "source_of_truth": {
+    "intent": "docs/github-app/CAHIER_DES_CHARGES_COMPLET.md",
+    "status_and_gates": "docs/github-app/GATEWAY_IMPLEMENTATION_GATES.md",
+    "inherited_46_lots": "docs/roadmap/ROADMAP_V5.json",
+    "chronology": "docs/roadmap/PROGRAMME_CHRONOLOGIQUE_V5.md",
+    "live_work_state": "state/CURRENT_STATE.json (documentary snapshot; reconcile GitHub live)"
+  },
+  "invariant_policy": {
+    "preserve_existing_github_app": true,
+    "project_scope": "chainsolutions-wealthtech/universal-agent-platform",
+    "prohibit_mcp_grt_writes": true,
+    "no_implicit_agent_authority": true,
+    "no_credentials_in_repo": true,
+    "never_disable_branch_rules_to_pass_ci": true,
+    "never_auto_approve_permission_changes": true,
+    "never_mark_done_without_verified_proof": true,
+    "never_create_duplicate_agent_mission_issue_or_branch": true,
+    "enforce_live_installation_token_mandate_and_policy": true
+  },
+  "state_machine": {
+    "allowed_states": [
+      "PLANNED",
+      "ELIGIBLE_FOR_REVIEW",
+      "AWAITING_EVIDENCE",
+      "AWAITING_APPROVAL",
+      "ADMITTED",
+      "IN_PROGRESS",
+      "VERIFIED",
+      "BLOCKED",
+      "DONE",
+      "SUPERSEDED"
+    ],
+    "initial_state": "PLANNED",
+    "admission_requires": [
+      "dependencies_done",
+      "valid_mandate",
+      "live_policies",
+      "authorization_for_task",
+      "idempotency_and_provenance"
+    ],
+    "done_requires": [
+      "all_proofs_verified",
+      "tests_and_ci_if_applicable",
+      "no_open_blocker",
+      "independent_review_if_applicable",
+      "canonical_checkpoint"
+    ],
+    "on_missing_authorization": "AWAITING_APPROVAL",
+    "on_missing_proof": "AWAITING_EVIDENCE",
+    "on_conflict": "BLOCKED",
+    "side_effect_strategy": "at_least_once_with_idempotency_and_reconciliation",
+    "checkpoint_keys": [
+      "app_id",
+      "task_id",
+      "continuity_id",
+      "mandate_id",
+      "agent_id",
+      "installation_id",
+      "baseline_head",
+      "trace_id",
+      "event_id",
+      "idempotency_key",
+      "proof_refs",
+      "next_action"
+    ],
+    "no_auto_retry_on": [
+      "approval_denied",
+      "permission_403",
+      "policy_denial",
+      "scope_mismatch",
+      "irreversible_operation"
+    ]
+  },
+  "evidence_contract": {
+    "secret_values_forbidden": true,
+    "proof_refs_required_for_done": true,
+    "git_head_must_match_validation": true,
+    "authorities_must_be_reresolved_on_resume": true,
+    "status_owner": "docs/github-app/GATEWAY_IMPLEMENTATION_GATES.md",
+    "data_source": "no runtime evidence collected by this manifest"
+  },
+  "external_prerequisite": "Protected PR #1 requires current-head validate and independent review before merge or use as production authority.",
+  "tasks": [
+    {
+      "id": "GH-MAX-01",
+      "title": "Réconciliation des permissions documentées",
+      "depends_on": [],
+      "mode": "READ_ONLY",
+      "gate": "GA-00",
+      "source_ref": "GATEWAY_IMPLEMENTATION_GATES.md#7.2",
+      "requirements": [
+        "catalogue_100_candidats",
+        "index_github_actuel",
+        "alias_graphql_github",
+        "entitlements_identifies"
+      ],
+      "proof_types": [
+        "mapping_100_to_official",
+        "source_version",
+        "unresolved_cases"
+      ],
+      "blocked_if": [
+        "official_catalog_incomplete"
+      ],
+      "scope": "repository_organization_account_enterprise",
+      "lifecycle_status": "PLANNED",
+      "admitted": false,
+      "proof_refs": [],
+      "runtime_executor": null,
+      "mutating_actions_authorized": false
+    },
+    {
+      "id": "GH-MAX-02",
+      "title": "Lecture de la configuration actuelle de l'App",
+      "depends_on": [],
+      "mode": "READ_ONLY_LOCAL_CREDENTIAL",
+      "gate": "GA-00",
+      "source_ref": "GATEWAY_IMPLEMENTATION_GATES.md#7.2",
+      "requirements": [
+        "app_id_equals_5417646",
+        "jwt_locally_available",
+        "no_secret_disclosure"
+      ],
+      "proof_types": [
+        "app_metadata_redacted",
+        "permissions_observed",
+        "events_observed",
+        "timestamp"
+      ],
+      "blocked_if": [
+        "no_private_app_credentials",
+        "app_id_mismatch"
+      ],
+      "scope": "app",
+      "lifecycle_status": "PLANNED",
+      "admitted": false,
+      "proof_refs": [],
+      "runtime_executor": null,
+      "mutating_actions_authorized": false
+    },
+    {
+      "id": "GH-MAX-03",
+      "title": "Audit des trois installations et dépôts",
+      "depends_on": [
+        "GH-MAX-02"
+      ],
+      "mode": "READ_ONLY_LOCAL_CREDENTIAL",
+      "gate": "GA-00",
+      "source_ref": "GATEWAY_IMPLEMENTATION_GATES.md#7.2",
+      "requirements": [
+        "installations_173915815_173916302_173916438",
+        "repository_pagination_complete"
+      ],
+      "proof_types": [
+        "installation_scopes_redacted",
+        "granted_permissions_by_account",
+        "installation_events",
+        "freshness"
+      ],
+      "blocked_if": [
+        "unreadable_installation",
+        "partial_pagination"
+      ],
+      "scope": "three_installations",
+      "lifecycle_status": "PLANNED",
+      "admitted": false,
+      "proof_refs": [],
+      "runtime_executor": null,
+      "mutating_actions_authorized": false
+    },
+    {
+      "id": "GH-MAX-04",
+      "title": "Comparaison demandé / possible / octroyé",
+      "depends_on": [
+        "GH-MAX-01",
+        "GH-MAX-02",
+        "GH-MAX-03"
+      ],
+      "mode": "READ_ONLY",
+      "gate": "GA-00",
+      "source_ref": "GATEWAY_IMPLEMENTATION_GATES.md#7.2",
+      "requirements": [
+        "exhaustive_delta",
+        "repository_org_account_enterprise",
+        "differential_evidence"
+      ],
+      "proof_types": [
+        "permission_diff",
+        "ineligible_scopes_and_rationale",
+        "risk_matrix"
+      ],
+      "blocked_if": [
+        "unresolved_permissions_without_disposition"
+      ],
+      "scope": "three_installations",
+      "lifecycle_status": "PLANNED",
+      "admitted": false,
+      "proof_refs": [],
+      "runtime_executor": null,
+      "mutating_actions_authorized": false
+    },
+    {
+      "id": "GH-MAX-05",
+      "title": "Profilage des privilèges et contrats d'autorisation",
+      "depends_on": [
+        "GH-MAX-04"
+      ],
+      "mode": "DESIGN_REVIEW",
+      "gate": "GA-01",
+      "source_ref": "GATEWAY_IMPLEMENTATION_GATES.md#7.2",
+      "requirements": [
+        "identity_mandate_policy",
+        "normal_operations",
+        "sensitive_admin_isolation",
+        "revoke_and_expiry"
+      ],
+      "proof_types": [
+        "policy_decision",
+        "threat_model",
+        "architecture_review"
+      ],
+      "blocked_if": [
+        "unapproved_architecture",
+        "missing_security_boundary"
+      ],
+      "scope": "gateway",
+      "lifecycle_status": "PLANNED",
+      "admitted": false,
+      "proof_refs": [],
+      "runtime_executor": null,
+      "mutating_actions_authorized": false
+    },
+    {
+      "id": "GH-MAX-06",
+      "title": "Demande d'élévation gouvernée de permissions GitHub",
+      "depends_on": [
+        "GH-MAX-05"
+      ],
+      "mode": "SENSITIVE_EXTERNAL_WRITE",
+      "gate": "GA-01",
+      "source_ref": "GATEWAY_IMPLEMENTATION_GATES.md#7.2",
+      "requirements": [
+        "specific_grants_plan",
+        "owner_approval_each_installation",
+        "user_oauth_consent_where_needed",
+        "rollback_plan",
+        "live_policy_approval"
+      ],
+      "proof_types": [
+        "change_ticket",
+        "consent_receipts_redacted",
+        "installation_approval_evidence",
+        "app_change_log"
+      ],
+      "blocked_if": [
+        "approval_absent",
+        "scope_not_supported",
+        "ruleset_bypass_requested"
+      ],
+      "scope": "app_and_installations",
+      "lifecycle_status": "PLANNED",
+      "admitted": false,
+      "proof_refs": [],
+      "runtime_executor": null,
+      "mutating_actions_authorized": false
+    },
+    {
+      "id": "GH-MAX-07",
+      "title": "Attestation des permissions après approbation",
+      "depends_on": [
+        "GH-MAX-06"
+      ],
+      "mode": "READ_ONLY_LOCAL_CREDENTIAL",
+      "gate": "GA-01",
+      "source_ref": "GATEWAY_IMPLEMENTATION_GATES.md#7.2",
+      "requirements": [
+        "post_change_app_audit",
+        "three_installations_reread",
+        "webhook_events_reread"
+      ],
+      "proof_types": [
+        "permission_diff_after",
+        "all_approvals_verified",
+        "new_capability_snapshot"
+      ],
+      "blocked_if": [
+        "grants_not_reflected",
+        "approval_pending"
+      ],
+      "scope": "app_and_installations",
+      "lifecycle_status": "PLANNED",
+      "admitted": false,
+      "proof_refs": [],
+      "runtime_executor": null,
+      "mutating_actions_authorized": false
+    },
+    {
+      "id": "GH-MAX-08",
+      "title": "Broker JWT/IAT/UAT et webhooks sécurisés",
+      "depends_on": [
+        "GH-MAX-05",
+        "GH-MAX-07"
+      ],
+      "mode": "GOVERNED_IMPLEMENTATION",
+      "gate": "GA-02_to_GA-05",
+      "source_ref": "GATEWAY_IMPLEMENTATION_GATES.md#7.2",
+      "requirements": [
+        "b05_event_contract",
+        "b10_authorization",
+        "b11_bus_contract",
+        "secret_vault",
+        "lab_only",
+        "ci_review_on_current_head"
+      ],
+      "proof_types": [
+        "broker_tests",
+        "hmac_tests",
+        "idempotency_tests",
+        "review_approved",
+        "head_ci"
+      ],
+      "blocked_if": [
+        "missing_external_foundations",
+        "secrets_in_repo",
+        "untrusted_ci"
+      ],
+      "scope": "gateway_runtime",
+      "lifecycle_status": "PLANNED",
+      "admitted": false,
+      "proof_refs": [],
+      "runtime_executor": null,
+      "mutating_actions_authorized": false
+    },
+    {
+      "id": "GH-MAX-09",
+      "title": "Tests de conformité des capacités sur LAB",
+      "depends_on": [
+        "GH-MAX-07",
+        "GH-MAX-08"
+      ],
+      "mode": "GOVERNED_LAB_PROBES",
+      "gate": "GA-04_to_GA-07",
+      "source_ref": "GATEWAY_IMPLEMENTATION_GATES.md#7.2",
+      "requirements": [
+        "lab_approved",
+        "idempotent_probe_per_capability",
+        "verified_installation_and_token",
+        "per_agent_policy"
+      ],
+      "proof_types": [
+        "capability_probe_matrix",
+        "all_30_domains_disposition",
+        "pass_fail_or_not_applicable"
+      ],
+      "blocked_if": [
+        "unapproved_mutating_probe",
+        "insufficient_entitlement"
+      ],
+      "scope": "capabilities",
+      "lifecycle_status": "PLANNED",
+      "admitted": false,
+      "proof_refs": [],
+      "runtime_executor": null,
+      "mutating_actions_authorized": false
+    },
+    {
+      "id": "GH-MAX-10",
+      "title": "Audit indépendant et release de la Gateway",
+      "depends_on": [
+        "GH-MAX-09"
+      ],
+      "mode": "REVIEW_AND_RELEASE_APPROVAL",
+      "gate": "GA-07_to_GA-08",
+      "source_ref": "GATEWAY_IMPLEMENTATION_GATES.md#7.2",
+      "requirements": [
+        "independent_review",
+        "security_scanning",
+        "recovery_and_rollback_test",
+        "production_approval"
+      ],
+      "proof_types": [
+        "independent_audit",
+        "release_approval",
+        "restoration_proof",
+        "release_sha"
+      ],
+      "blocked_if": [
+        "no_independent_review",
+        "missing_current_head_ci",
+        "recovery_unproven"
+      ],
+      "scope": "gateway_release",
+      "lifecycle_status": "PLANNED",
+      "admitted": false,
+      "proof_refs": [],
+      "runtime_executor": null,
+      "mutating_actions_authorized": false
+    }
+  ]
+}
