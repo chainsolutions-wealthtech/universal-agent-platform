@@ -230,7 +230,20 @@
       "owner": "docs/github-app/CAHIER_DES_CHARGES_COMPLET.md"
     },
     "full_permission_grant_status": "NOT_ATTESTED",
-    "current_target": "MAXIMUM_GITHUB_APP_PERMISSIONS_SUPPORTED_AND_APPROVED_PER_INSTALLATION_AND_USER"
+    "current_target": "MAXIMUM_GITHUB_APP_PERMISSIONS_SUPPORTED_AND_APPROVED_PER_INSTALLATION_AND_USER",
+    "execution_plan": {
+      "path": "docs/github-app/GH_MAX_EXECUTION_PLAN.json",
+      "status": "DOCUMENTARY_MACHINE_PROJECTION_NOT_RUNTIME",
+      "task_ids": "GH-MAX-01_to_GH-MAX-10",
+      "count": 10,
+      "execution_enabled": false,
+      "mutations_enabled": false,
+      "admitted_tasks_count": 0,
+      "validator": "scripts/check_gateway_execution_plan.py",
+      "tests": "tests/test_gateway_execution_plan.py",
+      "current_head_ci_attested": false,
+      "next_real_action": "AUDIT_EFFECTIVE_GITHUB_APP_CAPABILITIES_GA_00"
+    }
   },
   "execution_priority": "GITHUB_APP_COMPLETION_FIRST",
   "pr_gate_next_action": "RESTORE_REQUIRED_GITHUB_ACTIONS_VALIDATE_ON_PR_1_HEAD"
