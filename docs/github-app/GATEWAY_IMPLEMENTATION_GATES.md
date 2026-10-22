@@ -46,15 +46,15 @@ Les comptes personnels `Patricked-code` et `Wealthtechinnovations` restent des *
 
 ## 3. Audit local sans secrets
 
-Un outil Node.js `UNIVERSAL_GATEWAY_AUDIT_V1.zip` a été **créé dans le contexte de cette conversation**, non ajouté au dépôt GitHub (à importer après revue de confidentialité/code si souhaité). Il lit `GET /app`, la liste des installations, `GET /app/hook/config` avec JWT et les paramètres Actions, règles et checks du repo à l'aide d'un jeton d'installation temporaire. Il **ne lance aucun dispatch**, ne modifie aucune permission, et écrit uniquement un rapport expurgé quand `--report-dir` est fourni.
+Un outil Node.js `UNIVERSAL_GATEWAY_AUDIT_V1_1.zip` (version corrigée, archive SHA-256 `ec639b182801c5fff6fd5e4d1aca62344b4705f1e68b8af8f3a0d53455e27599`, **3/3 tests hors ligne réussis**, syntaxe Node vérifiée) a été **créé dans le contexte de cette conversation**, non ajouté au dépôt GitHub (à importer après revue de confidentialité/code si souhaité). Il lit `GET /app`, la liste des installations, `GET /app/hook/config` avec JWT et les paramètres Actions, règles et checks du repo à l'aide d'un jeton d'installation temporaire. Il **ne lance aucun dispatch**, ne modifie aucune permission, et écrit uniquement un rapport expurgé quand `--report-dir` est fourni.
 
 Commandes PowerShell après extraction du ZIP dans `NNN` :
 
 ```powershell
-node .\UNIVERSAL_GATEWAY_AUDIT_V1\inspect-gateway.mjs --pem '.\chainsolutions-universal-gateway.2026-10-21.private-key.pem' --report-dir '.\rapports'
+node .\UNIVERSAL_GATEWAY_AUDIT_V1_1\inspect-gateway.mjs --pem '.\chainsolutions-universal-gateway.2026-10-21.private-key.pem' --report-dir '.\rapports'
 ```
 
-Les éléments confidentiels restent locaux. Seuls la liste des permissions (nom/niveau), les abonnements aux événements et les résultats de contrôle sans secrets peuvent être utilisés comme preuves. L'absence de permission doit être constatée puis corrigée séparément avec approbation explicite, pas par activation aveugle.
+La V1 historique comportait un mauvais alignement des réponses des appels API ; la V1.1 répare l'alignement et supprime la lecture basée sur un ancien SHA codé en dur. Le ZIP V1 demeure historique et **est superseded pour l'exécution** par V1.1. Aucune validation de configuration privée n'a été exécutée dans cette conversation.\n\nLes éléments confidentiels restent locaux. Seuls la liste des permissions (nom/niveau), les abonnements aux événements et les résultats de contrôle sans secrets peuvent être utilisés comme preuves. L'absence de permission doit être constatée puis corrigée séparément avec approbation explicite, pas par activation aveugle.
 
 ## 4. Blocage particulier CI de la PR #1
 
