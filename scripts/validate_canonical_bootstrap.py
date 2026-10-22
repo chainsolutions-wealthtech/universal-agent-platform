@@ -83,22 +83,34 @@ def verify_indexes(plan: str, mapping: dict, catalog: dict) -> None:
 def verify_chronological_plan(root: Path, lots: list[dict]) -> None:
     plan = (root / "docs/roadmap/PROGRAMME_CHRONOLOGIQUE_V5.md").read_text(encoding="utf-8")
     tasks = (root / "docs/roadmap/REGISTRE_TACHES_V5.md").read_text(encoding="utf-8")
-    canonical_ids = [row["lot_id"] for row in lots]
-    table_rows = re.findall(
-        r"^\|\s*(\d+)\s*\|\s*(P\d{2})\s*\|\s*\*\*`([BFD]\d{2})`\*\*\s*\|",
-        plan, re.MULTILINE
-    )
-    assert len(table_rows) == 46, "Chronological programme must list exactly 46 lots"
-    assert [int(i) for i, _, _ in table_rows] == list(range(1, 47)), "Chronology numbering changed"
-    ordered_ids = [lot_id for _, _, lot_id in table_rows]
-    assert set(ordered_ids) == set(canonical_ids) and len(set(ordered_ids)) == 46, "Chronology drift or duplicated lot"
-    assert sorted(set(phase for _, phase, _ in table_rows)) == [f"P{i:02d}" for i in range(10)], "Chronology phases changed"
+    canonical = {lot["lot_id"]: lot for lot in lots}
+    lines = plan.splitlines()
+    rows = []
+    for line in lines:
+        if not re.match(r"^\|\s*\d+\s*\|\s*P\d{2}\s*\|\s*\*\*\x60[BFD]\d{2}\x60\*\*\s*\|", line):
+            continue
+        cells = [cell.strip() for cell in line.split("|")[1:-1]]
+        assert len(cells) == 6, "Chronology row must contain six complete columns"
+        rank, phase, wrapped_id, obj, deps, acceptance = cells
+        lot_id_match = re.fullmatch(r"\*\*\x60([BFD]\d{2})\x60\*\*", wrapped_id)
+        assert lot_id_match, "Invalid chronology lot cell"
+        lot_id = lot_id_match.group(1)
+        assert lot_id in canonical, f"Unrecognized lot {lot_id}"
+        original = canonical[lot_id]
+        assert obj == original["objective"], f"Chronology objective drift for {lot_id}"
+        assert deps == original["dependencies"], f"Chronology dependencies drift for {lot_id}"
+        assert acceptance == original["acceptance"], f"Chronology acceptance drift for {lot_id}"
+        rows.append((int(rank), phase, lot_id))
+    assert len(rows) == len(lots) == 46, "Chronology must list all 46 lots exactly once"
+    assert [rank for rank, _, _ in rows] == list(range(1, 47)), "Chronology numbering changed"
+    ordered_ids = [lot_id for _, _, lot_id in rows]
+    assert len(set(ordered_ids)) == 46 and set(ordered_ids) == set(canonical), "Missing or duplicate chronology lots"
+    assert sorted({phase for _, phase, _ in rows}) == [f"P{i:02d}" for i in range(10)], "Chronology phases changed"
     headings = re.findall(r"^#### ([BFD]\d{2}) — ", tasks, re.MULTILINE)
-    assert headings == ordered_ids, "Task register does not follow the programme order"
-    task_ids = re.findall(r"^- \*\*`([BFD]\d{2}-\d+)` — ", tasks, re.MULTILINE)
+    assert headings == ordered_ids, "Task register does not follow chronology order"
+    all_task_ids = re.findall(r"^- \*\*\x60([BFD]\d{2}-\d+)\x60 — ", tasks, re.MULTILINE)
     expected = [f"{lot}-{i:02d}" for lot in ordered_ids for i in (1, 2, 3)]
-    assert task_ids == expected, "Each lot must have three uniquely numbered draft tasks"
-    # The plan preserves source requirements; never infer the lot's runtime status.
+    assert all_task_ids == expected, "Task drafts missing, reordered, or unexpected"
     assert "PROPOSED_EXECUTION_ORDER" in plan
     assert "TASK_SPECIFICATIONS_DRAFT" in tasks
 
