@@ -228,3 +228,131 @@ Un appel GitHub admissible doit enregistrer au minimum `capability_id`, `install
 ---
 
 **Conclusion du cahier des charges :** l'App souhaitée devait viser la couverture GitHub la plus complète techniquement et contractuellement réalisable, fonctionner sur plusieurs comptes avec des identités et jetons séparés, automatiser l'ingénierie gouvernée, recevoir les événements et servir les agents et la plateforme persistante, tout en refusant les demandes qui ne sont pas autorisées. Sa livraison réelle nécessite un audit de permissions et un backend qui n'existent pas encore au niveau d'acceptation final.
+
+
+## 9. Empreinte de l'ambition « tous les droits » — 100 permissions candidates archivées
+
+**Source primaire :** archive utilisateur `REGISTER_UNIVERSAL_GITHUB_APP_V5.zip`, fichier `permissions-requested.json` (100 entrées), **SHA-256 `0de91cb024ba419f995897b18654ca93583b10cacb578804e598962e0ca6ec10`** sur les octets du fichier préparatoire. La même archive comporte `permissions-audit.csv` et `registration-settings.json` ; 72 candidats y ont été préremplis dans une URL d'inscription. **La sélection réelle GitHub ne peut pas être inférée d'une URL préremplie.**
+
+**Statut du tableau : `HISTORICAL_REQUESTED_CANDIDATES_ONLY`**. Les noms techniques et niveaux ci-dessous sont reproduits depuis le paquet historique, **sans garantir** leur compatibilité avec la version actuelle des formulaires GitHub, leur disponibilité selon l'offre, ni leur inclusion effective parmi les permissions de l'App enregistrée. Certains champs peuvent avoir été ignorés, retirés, renommés ou exiger un consentement spécifique. Le tableau ne remplace **ni** la liste officielle actuelle des permissions **ni** l'audit `GET /app`. Les permissions liées à Copilot ont été envisagées comme candidats facultatifs et **ne sont pas des dépendances** de la plateforme.
+
+| Famille d'origine | Nombre candidat | Traitement attendu |
+| --- | ---: | --- |
+| Repository | 41 | Confronter aux permissions GitHub actuelles, à l'installation et à chaque endpoint |
+| Organization | 38 | Confronter à l'organisation cible, à l'offre et à l'installation |
+| Account | 20 | Confronter à GitHub et au consentement OAuth propre à l'utilisateur |
+| Enterprise | 1 | Confronter à l'éligibilité réelle ; `NOT_APPLICABLE` si aucune installation Enterprise |
+| **TOTAL** | **100** | **Candidats historiques**, pas droits `GRANTED` ni `READY` |
+
+| Portée | Paramètre du paquet historique | Niveau demandé historiquement | Octroi actuel |
+| --- | --- | --- | --- |
+| `repository` | `actions` | `write` | `NOT_VERIFIED` |
+| `repository` | `administration` | `write` | `NOT_VERIFIED` |
+| `repository` | `agent_secrets` | `write` | `NOT_VERIFIED` |
+| `repository` | `agent_tasks` | `write` | `NOT_VERIFIED` |
+| `repository` | `agent_variables` | `write` | `NOT_VERIFIED` |
+| `repository` | `artifact_metadata` | `write` | `NOT_VERIFIED` |
+| `repository` | `attestations` | `write` | `NOT_VERIFIED` |
+| `repository` | `checks` | `write` | `NOT_VERIFIED` |
+| `repository` | `code_quality` | `read` | `NOT_VERIFIED` |
+| `repository` | `code_scanning_alerts` | `write` | `NOT_VERIFIED` |
+| `repository` | `codespaces` | `write` | `NOT_VERIFIED` |
+| `repository` | `codespaces_lifecycle_admin` | `write` | `NOT_VERIFIED` |
+| `repository` | `codespaces_metadata` | `read` | `NOT_VERIFIED` |
+| `repository` | `codespaces_secrets` | `write` | `NOT_VERIFIED` |
+| `repository` | `statuses` | `write` | `NOT_VERIFIED` |
+| `repository` | `contents` | `write` | `NOT_VERIFIED` |
+| `repository` | `copilot_agent_settings` | `read` | `NOT_VERIFIED` |
+| `repository` | `custom_properties` | `write` | `NOT_VERIFIED` |
+| `repository` | `dependabot_alerts` | `write` | `NOT_VERIFIED` |
+| `repository` | `dependabot_secrets` | `write` | `NOT_VERIFIED` |
+| `repository` | `deployments` | `write` | `NOT_VERIFIED` |
+| `repository` | `discussions` | `write` | `NOT_VERIFIED` |
+| `repository` | `environments` | `write` | `NOT_VERIFIED` |
+| `repository` | `github_app_installation_repository_access` | `write` | `NOT_VERIFIED` |
+| `repository` | `issues` | `write` | `NOT_VERIFIED` |
+| `repository` | `license_compliance_alerts` | `read` | `NOT_VERIFIED` |
+| `repository` | `merge_queues` | `write` | `NOT_VERIFIED` |
+| `repository` | `packages` | `write` | `NOT_VERIFIED` |
+| `repository` | `pages` | `write` | `NOT_VERIFIED` |
+| `repository` | `repository_projects` | `write` | `NOT_VERIFIED` |
+| `repository` | `pull_requests` | `write` | `NOT_VERIFIED` |
+| `repository` | `repository_creation` | `write` | `NOT_VERIFIED` |
+| `repository` | `repository_license_policy` | `read` | `NOT_VERIFIED` |
+| `repository` | `repository_security_advisories` | `write` | `NOT_VERIFIED` |
+| `repository` | `secret_scanning_alert_dismissal_requests` | `write` | `NOT_VERIFIED` |
+| `repository` | `secret_scanning_alerts` | `write` | `NOT_VERIFIED` |
+| `repository` | `secret_scanning_push_protection_bypass_requests` | `write` | `NOT_VERIFIED` |
+| `repository` | `secrets` | `write` | `NOT_VERIFIED` |
+| `repository` | `variables` | `write` | `NOT_VERIFIED` |
+| `repository` | `webhooks` | `write` | `NOT_VERIFIED` |
+| `repository` | `workflows` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_api_insights` | `read` | `NOT_VERIFIED` |
+| `organization` | `organization_administration` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_agent_secrets` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_agent_variables` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_user_blocking` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_campaigns` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_copilot_requests` | `read` | `NOT_VERIFIED` |
+| `organization` | `organization_copilot_spaces` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_copilot_agent_settings` | `read` | `NOT_VERIFIED` |
+| `organization` | `organization_copilot_content_exclusion` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_custom_org_roles` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_custom_properties` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_custom_roles` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_events` | `read` | `NOT_VERIFIED` |
+| `organization` | `organization_external_properties_for_repos` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_copilot_seat_management` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_hosted_runner_custom_images` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_issue_fields` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_issue_types` | `write` | `NOT_VERIFIED` |
+| `organization` | `members` | `read` | `NOT_VERIFIED` |
+| `organization` | `organization_models` | `read` | `NOT_VERIFIED` |
+| `organization` | `organization_network_configurations` | `read` | `NOT_VERIFIED` |
+| `organization` | `organization_copilot_metrics` | `read` | `NOT_VERIFIED` |
+| `organization` | `organization_announcement_banners` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_codespaces` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_codespaces_secrets` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_codespaces_settings` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_credentials` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_dependabot_secrets` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_private_registries` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_personal_access_token_requests` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_personal_access_tokens` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_plan` | `read` | `NOT_VERIFIED` |
+| `organization` | `organization_projects` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_secrets` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_self_hosted_runners` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_actions_variables` | `write` | `NOT_VERIFIED` |
+| `organization` | `organization_hooks` | `write` | `NOT_VERIFIED` |
+| `account` | `blocking` | `write` | `NOT_VERIFIED` |
+| `account` | `codespaces_user_secrets` | `write` | `NOT_VERIFIED` |
+| `account` | `copilot_chat` | `read` | `NOT_VERIFIED` |
+| `account` | `copilot_editor_context` | `read` | `NOT_VERIFIED` |
+| `account` | `email_addresses` | `read` | `NOT_VERIFIED` |
+| `account` | `user_events` | `read` | `NOT_VERIFIED` |
+| `account` | `followers` | `read` | `NOT_VERIFIED` |
+| `account` | `gpg_keys` | `write` | `NOT_VERIFIED` |
+| `account` | `gists` | `write` | `NOT_VERIFIED` |
+| `account` | `git_ssh_keys` | `write` | `NOT_VERIFIED` |
+| `account` | `interaction_limits` | `write` | `NOT_VERIFIED` |
+| `account` | `user_issue_fields` | `write` | `NOT_VERIFIED` |
+| `account` | `user_issue_types` | `write` | `NOT_VERIFIED` |
+| `account` | `models` | `read` | `NOT_VERIFIED` |
+| `account` | `plan` | `read` | `NOT_VERIFIED` |
+| `account` | `plugin_gateway_connections` | `write` | `NOT_VERIFIED` |
+| `account` | `profile` | `write` | `NOT_VERIFIED` |
+| `account` | `ssh_signing_keys` | `write` | `NOT_VERIFIED` |
+| `account` | `starring` | `write` | `NOT_VERIFIED` |
+| `account` | `watching` | `write` | `NOT_VERIFIED` |
+| `enterprise` | `enterprise_copilot_metrics` | `read` | `NOT_VERIFIED` |
+
+**Pour chaque ligne, audit GA-00 obligatoire :** `historical_parameter` → `official_current_permission` (ou `INVALID/RENAMED/NOT_APPLICABLE`) → `requested_current` → `granted_installation` → `endpoint_supported` → `runtime_probed` → `policy_allowed` → `proof_ref`. Ne pas activer automatiquement les 100 ; examiner d'abord les besoins, possibilités et risques, puis demander l'accord requis pour chaque augmentation effective des privilèges.
+
+### 9.1 Les quatre constats distincts
+
+1. **Intention :** demander une couverture fonctionnelle maximale et conserver toutes les permissions candidates du paquet préparatoire.
+2. **Enregistrement :** l'App #5417646 a été créée et testée localement ; cela ne valide pas l'import de toutes les permissions candidates.
+3. **État réel :** la liste exacte de `GET /app` et les accords par installation sont **non attestés** à cette étape.
+4. **Droit d'usage des agents :** même si l'App possède une permission, un agent ne peut s'en servir que sous mandat, politique, périmètre et preuve d'autorisation.
+
